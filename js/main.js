@@ -45,8 +45,7 @@ function movePlayer() {
       player.body.velocity.x = 0;
       player.body.velocity.y = -70;
     }
-    else {
-        player.body.velocity.y = 0;
-        player.body.gravity.y = 500;
+    else if (!cursors.right.isDown && !cursors.left.isDown) {
+      player.body.velocity.y = 50;
     }
 }
