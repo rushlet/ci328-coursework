@@ -13,11 +13,13 @@ function init() {
 
 function preload() {
   game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+  game.load.spritesheet('firstAid', 'assets/firstaid.png', 32, 48);
 }
 
 function create() {
   cursors = game.input.keyboard.createCursorKeys();
   player = new Player();
+  whale = new Whale();
 }
 
 function update() {
