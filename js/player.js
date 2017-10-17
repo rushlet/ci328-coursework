@@ -29,7 +29,6 @@ class Player {
   moveLeft() {
     this.playerSprite.body.velocity.x = -50;
     this.playerSprite.body.velocity.y = -50;
-    console.log(this.playerSprite.angle);
     if (this.playerSprite.angle > -45) {
       this.playerSprite.angle -= 1;
     }

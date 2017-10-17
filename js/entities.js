@@ -19,12 +19,11 @@ class Vogon {
 
 class Whale {
   constructor() {
-    const whale = game.add.sprite(game.world.width/2 - 16, -550, 'firstAid');
+    const whale = game.add.sprite(game.world.width/2 - 16, -350, 'firstAid');
     game.physics.arcade.enable(whale);
     whale.body.collideWorldBounds = false;
     whale.body.gravity.y = 20;
-    whale.body.collideWorldBounds = false;
-
+    whale.body.velocity.y = 10;
     this.whaleSprite = whale;
   }
 }
