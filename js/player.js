@@ -27,18 +27,31 @@ class Player {
   }
 
   moveLeft() {
-    this.playerSprite.body.velocity.x = -45;
+    this.playerSprite.body.velocity.x = -50;
     this.playerSprite.body.velocity.y = -50;
+    console.log(this.playerSprite.angle);
+    if (this.playerSprite.angle > -45) {
+      this.playerSprite.angle -= 1;
+    }
   }
 
   moveRight() {
-    this.playerSprite.body.velocity.x = 45;
+    this.playerSprite.body.velocity.x = 50;
     this.playerSprite.body.velocity.y = -50;
+    if (this.playerSprite.angle < 45) {
+      this.playerSprite.angle += 1;
+    }
   }
 
   moveUp() {
     this.playerSprite.body.velocity.x = 0;
-    this.playerSprite.body.velocity.y = -70;
+    this.playerSprite.body.velocity.y = -75;
+    if (this.playerSprite.angle > 0 ) {
+      this.playerSprite.angle -= 1;
+    }
+    else if (this.playerSprite.angle < 0) {
+      this.playerSprite.angle += 1;
+    }
   }
 
   moveDown() {
