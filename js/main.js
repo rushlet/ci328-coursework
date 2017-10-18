@@ -39,5 +39,5 @@ function handleCollision() {
 function obstacleCollision() {
   console.log('called');
   player.playerSprite.kill();
-  game.gameOver = game.add.text(game.world.width / 3, game.world.height / 2, 'GAME OVER', { fontSize: '32px', fill: '#fff' });
+  game.gameOver = game.add.text(20, game.camera.view.y + (game.height / 2), 'GAME OVER', { fontSize: '32px', fill: '#fff' });
 }
