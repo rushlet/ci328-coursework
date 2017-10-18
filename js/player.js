@@ -29,6 +29,7 @@ class Player {
   moveLeft() {
     this.playerSprite.body.velocity.x = -50;
     this.playerSprite.body.velocity.y = -50;
+    background.level1.tilePosition.y += 1;
     if (this.playerSprite.angle > -45) {
       this.playerSprite.angle -= 1;
     }
@@ -37,6 +38,7 @@ class Player {
   moveRight() {
     this.playerSprite.body.velocity.x = 50;
     this.playerSprite.body.velocity.y = -50;
+    background.level1.tilePosition.y += 1;
     if (this.playerSprite.angle < 45) {
       this.playerSprite.angle += 1;
     }
@@ -45,6 +47,7 @@ class Player {
   moveUp() {
     this.playerSprite.body.velocity.x = 0;
     this.playerSprite.body.velocity.y = -75;
+    background.level1.tilePosition.y += 1;
     if (this.playerSprite.angle > 0 ) {
       this.playerSprite.angle -= 1;
     }
@@ -55,5 +58,6 @@ class Player {
 
   moveDown() {
     this.playerSprite.body.velocity.y = 50;
+    // background.level1.tilePosition.y -= 5;
   }
 }

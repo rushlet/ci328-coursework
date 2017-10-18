@@ -12,14 +12,19 @@ function init() {
 }
 
 function preload() {
-  game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-  game.load.image('firstAid', 'assets/firstaid.png');
+    game.load.image('background1', 'assets/space_background.png');
+    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+    game.load.image('firstAid', 'assets/firstaid.png');
 }
 
 function create() {
+  game.world.setBounds(0, 0, 360, 2400);
   cursors = game.input.keyboard.createCursorKeys();
+  background = new Background();
+  background.level1;
   player = new Player();
   whale = new Whale();
+  game.camera.follow(player.playerSprite, Phaser.Camera.LOCKON);
 }
 
 function update() {
