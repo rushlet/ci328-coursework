@@ -1,11 +1,13 @@
 class Player {
   constructor() {
-    const player = game.add.sprite(game.world.width/2 - 16, game.world.height - 50, 'dude');
+    const player = game.add.sprite(game.world.width/2 - 16, game.world.height - 50, 'rocket');
+    player.scale.x = 0.5;
+    player.scale.y = 0.5;
     game.physics.arcade.enable(player);
     player.body.bounce.y = 0.2;
     player.body.gravity.y = 300;
     player.body.collideWorldBounds = true;
-    player.frame = 4;
+    player.frame = 1;
 
     this.playerSprite = player;
   }
@@ -32,6 +34,7 @@ class Player {
     if (this.playerSprite.angle > -45) {
       this.playerSprite.angle -= 1;
     }
+    this.playerSprite.frame = 2;
   }
 
   moveRight() {
@@ -40,6 +43,7 @@ class Player {
     if (this.playerSprite.angle < 45) {
       this.playerSprite.angle += 1;
     }
+    this.playerSprite.frame = 0;
   }
 
   moveUp() {
@@ -51,9 +55,11 @@ class Player {
     else if (this.playerSprite.angle < 0) {
       this.playerSprite.angle += 1;
     }
+    this.playerSprite.frame = 1;
   }
 
   moveDown() {
     this.playerSprite.body.velocity.y = 50;
+    this.playerSprite.frame = 3;
   }
 }
