@@ -21,7 +21,6 @@ function create() {
   game.world.setBounds(0, 0, 360, 2400);
   cursors = game.input.keyboard.createCursorKeys();
   background = new Background();
-  background.level1;
   player = new Player();
   whale = new Whale();
   game.camera.follow(player.playerSprite, Phaser.Camera.LOCKON);
@@ -30,6 +29,7 @@ function create() {
 function update() {
   player.handleInput();
   handleCollision();
+  game.debug.cameraInfo(game.camera, 32, 32);
 }
 
 function handleCollision() {
