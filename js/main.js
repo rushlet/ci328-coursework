@@ -13,8 +13,8 @@ function init() {
 
 function preload() {
     game.load.image('background1', 'assets/space_background.png');
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-    game.load.image('firstAid', 'assets/firstaid.png');
+    game.load.spritesheet('rocket', 'assets/rocket_spritesheet_attempt.png', 115, 175);
+    game.load.image('whale', 'assets/whale.png');
 }
 
 function create() {
