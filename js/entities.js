@@ -19,7 +19,9 @@ class Vogon {
 
 class Whale {
   constructor() {
-    const whale = game.add.sprite(game.world.width/2 - 16, -350, 'firstAid');
+    const whale = game.add.sprite(game.world.width/2 - 16, -350, 'whale');
+    whale.scale.x = 0.3;
+    whale.scale.y = 0.3;
     game.physics.arcade.enable(whale);
     whale.body.collideWorldBounds = false;
     whale.body.gravity.y = 20;
