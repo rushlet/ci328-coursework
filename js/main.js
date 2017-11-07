@@ -2,6 +2,7 @@ let game;
 let player;
 let whale;
 let vogon;
+let fuelbar;
 
 function init() {
   const gameWidth = 360;
@@ -18,6 +19,7 @@ function preload() {
     game.load.spritesheet('rocket', 'assets/rocket_spritesheet_attempt.png', 115, 175);
     game.load.image('whale', 'assets/whale.png');
     game.load.image('enemyShip', 'assets/enemy_ship_placeholder.jpg');
+    game.load.image('fuelbar', 'assets/fuelbar_placeholder.jpg');
 }
 
 function create() {
@@ -27,6 +29,7 @@ function create() {
   player = new Player();
   whale = new Whale();
   vogon = new Enemy();
+  fuelbar = new FuelBar();
   game.camera.follow(player.playerSprite, Phaser.Camera.LOCKON);
 }
 

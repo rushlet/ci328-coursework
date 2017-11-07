@@ -8,7 +8,6 @@ class Player {
     player.body.gravity.y = 300;
     player.body.collideWorldBounds = true;
     player.frame = 1;
-
     this.playerSprite = player;
   }
 
@@ -31,6 +30,7 @@ class Player {
   moveLeft() {
     this.playerSprite.body.velocity.x = -50;
     this.playerSprite.body.velocity.y = -50;
+    fuelbar.reduceFuel(0.05);
     if (this.playerSprite.angle > -45) {
       this.playerSprite.angle -= 1;
     }
@@ -40,6 +40,7 @@ class Player {
   moveRight() {
     this.playerSprite.body.velocity.x = 50;
     this.playerSprite.body.velocity.y = -50;
+    fuelbar.reduceFuel(0.05);
     if (this.playerSprite.angle < 45) {
       this.playerSprite.angle += 1;
     }
@@ -49,6 +50,7 @@ class Player {
   moveUp() {
     this.playerSprite.body.velocity.x = 0;
     this.playerSprite.body.velocity.y = -75;
+    fuelbar.reduceFuel(0.75);
     if (this.playerSprite.angle > 0 ) {
       this.playerSprite.angle -= 1;
     }

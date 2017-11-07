@@ -8,6 +8,7 @@ class Enemy {
     enemy.body.collideWorldBounds = false;
     this.enemySprite = enemy;
   }
+  
 }
 
 class Whale {
