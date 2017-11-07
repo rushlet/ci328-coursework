@@ -1,14 +1,18 @@
 class Enemy {
   constructor() {
-    const enemy = game.add.sprite(-200, game.world.height - 550, 'enemyShip');
+    const enemy = game.add.sprite(-10, 20, 'enemyShip');
     enemy.scale.x = 0.2;
     enemy.scale.y = 0.2;
+    enemy.fixedToCamera = true;
     game.physics.arcade.enable(enemy);
-    enemy.body.velocity.x = 40;
     enemy.body.collideWorldBounds = false;
     this.enemySprite = enemy;
   }
-  
+
+  moveEnemy() {
+    this.enemySprite.cameraOffset.x += 1;
+  }
+
 }
 
 class Whale {

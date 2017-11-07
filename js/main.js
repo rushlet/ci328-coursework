@@ -1,7 +1,7 @@
 let game;
 let player;
 let whale;
-let vogon;
+let enemy;
 let fuelbar;
 
 function init() {
@@ -28,7 +28,7 @@ function create() {
   background = new Background();
   player = new Player();
   whale = new Whale();
-  vogon = new Enemy();
+  enemy = new Enemy();
   fuelbar = new FuelBar();
   game.camera.follow(player.playerSprite, Phaser.Camera.LOCKON);
 }
@@ -36,6 +36,7 @@ function create() {
 function update() {
   player.handleInput();
   handleCollision();
+  enemy.moveEnemy();
   // game.debug.cameraInfo(game.camera, 32, 32);
 }
 
