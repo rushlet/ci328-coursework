@@ -50,7 +50,7 @@ class Player {
   moveUp() {
     this.playerSprite.body.velocity.x = 0;
     this.playerSprite.body.velocity.y = -75;
-    fuelbar.reduceFuel(0.75);
+    fuelbar.reduceFuel(0.075);
     if (this.playerSprite.angle > 0 ) {
       this.playerSprite.angle -= 1;
     }
