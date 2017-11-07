@@ -1,5 +1,7 @@
 let game;
 let player;
+let whale;
+let vogon;
 
 function init() {
   const gameWidth = 360;
@@ -15,6 +17,7 @@ function preload() {
     game.load.image('background1', 'assets/space_background.png');
     game.load.spritesheet('rocket', 'assets/rocket_spritesheet_attempt.png', 115, 175);
     game.load.image('whale', 'assets/whale.png');
+    game.load.image('vogonShip', 'assets/enemy_ship_placeholder.jpg');
 }
 
 function create() {
@@ -23,13 +26,14 @@ function create() {
   background = new Background();
   player = new Player();
   whale = new Whale();
+  vogon = new Enemy();
   game.camera.follow(player.playerSprite, Phaser.Camera.LOCKON);
 }
 
 function update() {
   player.handleInput();
   handleCollision();
-  game.debug.cameraInfo(game.camera, 32, 32);
+  // game.debug.cameraInfo(game.camera, 32, 32);
 }
 
 function handleCollision() {

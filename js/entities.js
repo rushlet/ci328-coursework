@@ -1,20 +1,13 @@
 class Enemy {
   constructor() {
-    let enemy;
+    const enemy = game.add.sprite(-200, game.world.height - 550, 'enemyShip');
+    enemy.scale.x = 0.2;
+    enemy.scale.y = 0.2;
     game.physics.arcade.enable(enemy);
+    enemy.body.velocity.x = 40;
     enemy.body.collideWorldBounds = false;
+    this.enemySprite = enemy;
   }
-}
-
-class Obstacle {
-  constructor() {
-    let obstacle;
-    game.physics.arcade.enable(obstacle);
-    enemy.body.collideWorldBounds = false;
-  }
-}
-
-class Vogon {
 }
 
 class Whale {
@@ -31,4 +24,8 @@ class Whale {
 }
 
 class Petunias {
+}
+
+class Earth {
+
 }
