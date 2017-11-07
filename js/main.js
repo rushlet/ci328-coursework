@@ -17,7 +17,7 @@ function preload() {
     game.load.image('background1', 'assets/space_background.png');
     game.load.spritesheet('rocket', 'assets/rocket_spritesheet_attempt.png', 115, 175);
     game.load.image('whale', 'assets/whale.png');
-    game.load.image('vogonShip', 'assets/enemy_ship_placeholder.jpg');
+    game.load.image('enemyShip', 'assets/enemy_ship_placeholder.jpg');
 }
 
 function create() {
