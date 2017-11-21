@@ -3,6 +3,7 @@ let player;
 let whale;
 let enemy;
 let fuelbar;
+let gameStarted = false;
 
 function init() {
   const gameWidth = 360;
@@ -16,6 +17,8 @@ function init() {
 
 function preload() {
     DontPanic.game.load.image('background1', 'assets/space_background.png');
+    DontPanic.game.load.image('startButton', 'assets/button_start.png'); // placeholders for now
+    DontPanic.game.load.image('settingsButton', 'assets/button_settings.png'); // placeholders for now
     DontPanic.game.load.spritesheet('rocket', 'assets/rocket_spritesheet_attempt.png', 115, 175);
     DontPanic.game.load.image('whale', 'assets/whale.png');
     DontPanic.game.load.image('enemyShip', 'assets/enemy_ship_placeholder.jpg');
@@ -23,21 +26,28 @@ function preload() {
 }
 
 function create() {
-  DontPanic.game.world.setBounds(0, 0, 360, 2400);
+  DontPanic.game.world.setBounds(0, 0, 360, 600);
   cursors = DontPanic.game.input.keyboard.createCursorKeys();
+  menu = new MainMenu();
+  // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.LO);
+}
+
+function update() {
+  if (gameStarted) {
+    player.handleInput();
+    handleCollision();
+    enemy.moveEnemy();
+  }
+  // game.debug.cameraInfo(game.camera, 32, 32);
+}
+
+function startGame() {
+  gameStarted = true;
   background = new Background();
   player = new Player();
   whale = new Whale();
   enemy = new Enemy();
   fuelbar = new FuelBar();
-  DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.LOCKON);
-}
-
-function update() {
-  player.handleInput();
-  handleCollision();
-  enemy.moveEnemy();
-  // game.debug.cameraInfo(game.camera, 32, 32);
 }
 
 function handleCollision() {

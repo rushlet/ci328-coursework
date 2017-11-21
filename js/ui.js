@@ -4,9 +4,11 @@ class Background {
     }
 
     level1() {
-        for (var i = DontPanic.game.world.height; i >= 0; i -= 1200) {
-            DontPanic.game.add.image(0, i, 'background1');
-        }
+        // for (var i = DontPanic.game.world.height; i >= 0; i -= 1200) {
+        //     DontPanic.game.add.image(0, i, 'background1');
+        // }
+        this.background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
+        this.background.autoScroll(0, 20);
     }
 }
 
