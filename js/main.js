@@ -19,6 +19,7 @@ function preload() {
     DontPanic.game.load.image('background1', 'assets/space_background.png');
     DontPanic.game.load.image('startButton', 'assets/button_start.png'); // placeholders for now
     DontPanic.game.load.image('settingsButton', 'assets/button_settings.png'); // placeholders for now
+    DontPanic.game.load.image('playAgainButton', 'assets/button_play-again.png'); // placeholders for now
     DontPanic.game.load.spritesheet('rocket', 'assets/rocket_spritesheet_attempt.png', 115, 175);
     DontPanic.game.load.image('whale', 'assets/whale.png');
     DontPanic.game.load.image('enemyShip', 'assets/enemy_ship_placeholder.jpg');
@@ -48,6 +49,7 @@ function startGame() {
   whale = new Whale();
   enemy = new Enemy();
   fuelbar = new FuelBar();
+  // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 }
 
 function handleCollision() {
@@ -57,5 +59,12 @@ function handleCollision() {
 function obstacleCollision() {
   console.log('called');
   player.playerSprite.kill();
+  gameOver();
+}
+
+function gameOver() {
+  player.playerSprite.kill();
   DontPanic.game.gameOver = DontPanic.game.add.text(20, DontPanic.game.camera.view.y + (DontPanic.game.height / 2), 'GAME OVER', { fontSize: '32px', fill: '#fff' });
+  DontPanic.game.camera.fade(0x0000000, 4000); // https://phaser.io/examples/v2/camera/camera-fade
+  DontPanic.game.camera.onFadeComplete.add(playAgainMenu, this);
 }

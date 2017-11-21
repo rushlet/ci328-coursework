@@ -13,3 +13,12 @@ function settingsMenu() {
   console.log('settings');
   //select difficulty on screen and update config
 }
+
+function playAgainMenu() {
+  console.log('called play again');
+  DontPanic.game.world.removeAll(); //this might not be a good idea as all game assets will need to be loaded back in again?
+  DontPanic.game.add.image(0, 0, 'background1');
+  DontPanic.game.camera.resetFX();
+  let restartButton = DontPanic.game.add.button(DontPanic.game.world.width*0.5, DontPanic.game.world.height*0.5, 'playAgainButton', startGame, this);
+  restartButton.anchor.set(0.5);
+}
