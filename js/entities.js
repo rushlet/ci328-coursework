@@ -17,13 +17,13 @@ class Enemy {
 
 class Whale {
   constructor() {
-    const whale = DontPanic.game.add.sprite(DontPanic.game.world.width/2 - 16, -350, 'whale');
+    let randomHeight = (Math.floor(Math.random() * 5000) + 500)
+    const whale = DontPanic.game.add.sprite(DontPanic.game.world.width/2 - 16, -(randomHeight), 'whale');
     whale.scale.x = 0.3;
     whale.scale.y = 0.3;
     DontPanic.game.physics.arcade.enable(whale);
     whale.body.collideWorldBounds = false;
-    whale.body.gravity.y = 20;
-    whale.body.velocity.y = 10;
+    whale.body.gravity.y = randomHeight / 100;
     this.whaleSprite = whale;
   }
 }
