@@ -23,7 +23,9 @@ function preload() {
     DontPanic.game.load.spritesheet('rocket', 'assets/rocket_spritesheet_attempt.png', 115, 175);
     DontPanic.game.load.image('whale', 'assets/whale.png');
     DontPanic.game.load.image('enemyShip', 'assets/enemy_ship_placeholder.jpg');
-    DontPanic.game.load.image('fuelbar', 'assets/fuelbar_placeholder.jpg');
+    DontPanic.game.load.image('heart', 'assets/heart.png'); //placeholder
+    DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png') //placeholder
+    DontPanic.game.load.image('coin', 'assets/coin_spin.gif') //placeholder
 }
 
 function create() {
@@ -48,7 +50,8 @@ function startGame() {
   player = new Player();
   whale = new Whale();
   enemy = new Enemy();
-  fuelbar = new FuelBar();
+  coins = new Coins();
+  lives = new Lives();
   // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 }
 
