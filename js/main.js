@@ -57,12 +57,16 @@ function startGame() {
 
 function handleCollision() {
   DontPanic.game.physics.arcade.overlap(player.playerSprite, whale.whaleSprite, obstacleCollision, null, this);
+  DontPanic.game.physics.arcade.overlap(player.playerSprite, coins.coins, collectCoin, null, this);
 }
 
 function obstacleCollision() {
-  console.log('called');
   player.playerSprite.kill();
   gameOver();
+}
+
+function collectCoin(player, coin) {
+  coin.kill();
 }
 
 function gameOver() {
