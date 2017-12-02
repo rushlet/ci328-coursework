@@ -6,40 +6,24 @@ class Enemy {
     enemy.fixedToCamera = true;
     DontPanic.game.physics.arcade.enable(enemy);
     enemy.body.collideWorldBounds = false;
+    enemy.abduct = false;
     this.enemySprite = enemy;
   }
 
   moveEnemy() {
     this.enemySprite.cameraOffset.x += 1;
-    // if (player.playerSprite.cameraOffset.x > this.enemySprite.cameraOffset.x && this.enemySprite.cameraOffset.x > 3) {
-    //   this.shoot();
-    // }
   }
 
-  // shoot() {
-  //   console.log('shoot called');
-  //   let enemyBullet = EnemyBullets.bullets.getFirstExists(false);
-  //   let shooter = this.enemySprite;
-  //       // And fire the bullet from this enemy
-  //   enemyBullet.reset(shooter.body.x, shooter.body.y);
-  //   DontPanic.game.physics.arcade.moveToObject(enemyBullet, player, 120);
+  // locatePlayer() {
+  //
+  // }
+  //
+  // abduct() {
+  //   if (this.enemySprite.abduct = false && locatePlayer...) {
+  //     // abduct!
+  //   }
   // }
 }
-
-// class EnemyBullets {
-//   constructor() {
-//     console.log('bullets initialised');
-//     let bullets = DontPanic.game.add.group();
-//     bullets.enableBody = true;
-//     bullets.physicsBodyType = Phaser.Physics.ARCADE;
-//     bullets.createMultiple(5, 'enemyBullet');
-//     bullets.setAll('anchor.x', 0.5);
-//     bullets.setAll('anchor.y', 1);
-//     bullets.setAll('outOfBoundsKill', true);
-//     bullets.setAll('checkWorldBounds', true);
-//     this.bullets = bullets;
-//   }
-// }
 
 class Whale {
   constructor() {
@@ -57,29 +41,34 @@ class Whale {
 class Petunias {
 }
 
-class Earth {
-
-}
-
-class Fueltanks {
-
-}
-
 class Coins {
   constructor() {
     let coins = DontPanic.game.add.group();
-    coins.scale.x = 0.1;
-    coins.scale.y = 0.1;
     coins.enableBody = true;
+    DontPanic.game.physics.arcade.enable(coins);
+    this.coins = coins;
+    this.initialCoins();
+  }
 
-    for (var i = 0; i < 50; i++)
-    {
-      coins.randomX = Math.floor(Math.random() * 2500) + 5;
-      coins.randomY = Math.floor(Math.random() * 3000) + 1;
-      console.log(coins.randomX, coins.randomY);
-      var coin = coins.create(coins.randomX, coins.randomY, 'coin');
-      coin.body.collideWorldBounds = false;
-      coin.body.gravity.y = 10;
+  initialCoins() {
+    var initialCoinPositions = [[300, 0], [20, 40], [60, 80], [250, 200], [90, 120], [180, 350], [220, 10], [120, 290]]
+    for (var i = 0; i < initialCoinPositions.length; i++) {
+      this.createCoin(initialCoinPositions[i][0], initialCoinPositions[i][1]);
     }
+  }
+
+  // randomCoinGenerator() {
+  //   var randomX = Math.floor(Math.random() * 320) + 5;
+  //   this.createCoin(randomX, randomY);
+  // }
+
+  createCoin(x, y) {
+    console.log(x, y);
+    var coin = this.coins.create(x, y, 'coin');
+    coin.scale.x = 0.1;
+    coin.scale.y = 0.1;
+    coin.enableBody = true;
+    coin.body.velocity.y = 100;
+    coin.body.collideWorldBounds = false;
   }
 }
