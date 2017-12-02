@@ -48,6 +48,10 @@ class Coins {
     DontPanic.game.physics.arcade.enable(coins);
     this.coins = coins;
     this.initialCoins();
+    // randomly generate more coins at intervals - https://developer.amazon.com/blogs/appstore/post/Tx3AT4I2ENBOI6R/intro-to-phaser-part-3-obstacles-collision-score-sound-and-publishing
+    var coinSpawnRate = 1.25
+    this.coinTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * coinSpawnRate, this.randomCoinGenerator, this);
+    this.coinTimer.timer.start();
   }
 
   initialCoins() {
@@ -57,10 +61,11 @@ class Coins {
     }
   }
 
-  // randomCoinGenerator() {
-  //   var randomX = Math.floor(Math.random() * 320) + 5;
-  //   this.createCoin(randomX, randomY);
-  // }
+  randomCoinGenerator() {
+    var randomX = Math.floor(Math.random() * 320) + 5;
+    var randomY = Math.floor(Math.random() * 10) + -10;
+    this.createCoin(randomX, randomY);
+  }
 
   createCoin(x, y) {
     console.log(x, y);
