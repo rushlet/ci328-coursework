@@ -1,6 +1,6 @@
 class Player {
   constructor() {
-    const player = DontPanic.game.add.sprite(DontPanic.game.world.width/2 - 16, DontPanic.game.world.height - 50, 'rocket');
+    const player = DontPanic.game.add.sprite(DontPanic.game.world.width/2 - 16, DontPanic.game.world.height - 100, 'rocket');
     player.scale.x = 0.5;
     player.scale.y = 0.5;
     DontPanic.game.physics.arcade.enable(player);
@@ -29,7 +29,6 @@ class Player {
 
   moveLeft() {
     this.playerSprite.body.velocity.x = -50;
-    fuelbar.reduceFuel(0.05);
     if (this.playerSprite.angle > -45) {
       this.playerSprite.angle -= 1;
     }
@@ -38,7 +37,6 @@ class Player {
 
   moveRight() {
     this.playerSprite.body.velocity.x = 50;
-    fuelbar.reduceFuel(0.05);
     if (this.playerSprite.angle < 45) {
       this.playerSprite.angle += 1;
     }
@@ -47,7 +45,6 @@ class Player {
 
   moveUp() {
     this.playerSprite.body.velocity.x = 0;
-    fuelbar.reduceFuel(0.075);
     if (this.playerSprite.angle > 0 ) {
       this.playerSprite.angle -= 1;
     }
