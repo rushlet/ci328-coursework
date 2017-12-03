@@ -32,6 +32,7 @@ function create() {
   DontPanic.game.world.setBounds(0, 0, 360, 600);
   cursors = DontPanic.game.input.keyboard.createCursorKeys();
   menu = new MainMenu();
+  console.log(config);
   // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.LO);
 }
 
