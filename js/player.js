@@ -51,9 +51,4 @@ class Player {
     }
     this.playerSprite.frame = 1;
   }
-
-  moveDown() {
-    this.playerSprite.body.velocity.y = 50;
-    this.playerSprite.frame = 3;
-  }
 }
