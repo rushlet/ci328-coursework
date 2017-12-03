@@ -8,7 +8,7 @@ class Enemy {
     enemy.body.collideWorldBounds = false;
     enemy.abduct = false;
     this.enemySprite = enemy;
-    this.abduct();
+    // this.abduct();
   }
 
   moveEnemy() {
@@ -16,13 +16,17 @@ class Enemy {
   }
 
   locatePlayer() {
+    // enemy location
+
+    // player location
 
   }
 
+  moveToPlayer(enemyLocation, playerLocation) {
+    // if player x > enemy x move down toward player
+  }
+
   abduct() {
-    // if (this.enemySprite.abduct = false && locatePlayer...) {
-    //   // abduct!
-    // }
     var abduct = this.enemySprite.animations.add('abduct');
     this.enemySprite.animations.play('abduct', 20, false);
   }
@@ -52,7 +56,7 @@ class Coins {
     this.coins = coins;
     this.initialCoins();
     // randomly generate more coins at intervals - https://developer.amazon.com/blogs/appstore/post/Tx3AT4I2ENBOI6R/intro-to-phaser-part-3-obstacles-collision-score-sound-and-publishing
-    var coinSpawnRate = 1.25
+    var coinSpawnRate = config[config.currentLevel]['coinSpawnRate'];
     this.coinTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * coinSpawnRate, this.randomCoinGenerator, this);
     this.coinTimer.timer.start();
   }
