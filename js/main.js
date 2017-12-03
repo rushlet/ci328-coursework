@@ -3,6 +3,7 @@ let player;
 let whale;
 let enemy;
 let fuelbar;
+let background;
 let gameStarted = false;
 
 function init() {
@@ -17,6 +18,7 @@ function init() {
 
 function preload() {
     DontPanic.game.load.image('background1', 'assets/space_background.png');
+    DontPanic.game.load.image('home_background', 'assets/game_screen.jpg');
     DontPanic.game.load.image('startButton', 'assets/button_start.png'); // placeholders for now
     DontPanic.game.load.image('settingsButton', 'assets/button_settings.png'); // placeholders for now
     DontPanic.game.load.image('playAgainButton', 'assets/button_play-again.png'); // placeholders for now
@@ -32,7 +34,7 @@ function create() {
   DontPanic.game.world.setBounds(0, 0, 360, 600);
   cursors = DontPanic.game.input.keyboard.createCursorKeys();
   menu = new MainMenu();
-  console.log(config);
+  console.log(config[config.currentLevel]['coinSpawnRate']);
   // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.LO);
 }
 
@@ -47,7 +49,7 @@ function update() {
 
 function startGame() {
   gameStarted = true;
-  background = new Background();
+  background = this.background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
   player = new Player();
   whale = new Whale();
   enemy = new Enemy();
