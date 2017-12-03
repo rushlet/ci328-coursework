@@ -8,21 +8,24 @@ class Enemy {
     enemy.body.collideWorldBounds = false;
     enemy.abduct = false;
     this.enemySprite = enemy;
+    this.abduct();
   }
 
   moveEnemy() {
     this.enemySprite.cameraOffset.x += 1;
   }
 
-  // locatePlayer() {
-  //
-  // }
-  //
-  // abduct() {
-  //   if (this.enemySprite.abduct = false && locatePlayer...) {
-  //     // abduct!
-  //   }
-  // }
+  locatePlayer() {
+
+  }
+
+  abduct() {
+    // if (this.enemySprite.abduct = false && locatePlayer...) {
+    //   // abduct!
+    // }
+    var abduct = this.enemySprite.animations.add('abduct');
+    this.enemySprite.animations.play('abduct', 20, false);
+  }
 }
 
 class Whale {

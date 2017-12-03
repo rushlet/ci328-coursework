@@ -22,7 +22,7 @@ function preload() {
     DontPanic.game.load.image('playAgainButton', 'assets/button_play-again.png'); // placeholders for now
     DontPanic.game.load.spritesheet('rocket', 'assets/rocket_spritesheet_attempt.png', 115, 175);
     DontPanic.game.load.image('whale', 'assets/whale.png');
-    DontPanic.game.load.image('enemyShip', 'assets/enemy_ship_placeholder.jpg');
+    DontPanic.game.load.spritesheet('enemyShip', 'assets/enemy_ship_spritesheet.png', 440, 1181);
     DontPanic.game.load.image('heart', 'assets/heart.png'); //placeholder
     DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png') //placeholder
     DontPanic.game.load.image('coin', 'assets/coin_spin.gif') //placeholder
@@ -59,6 +59,7 @@ function startGame() {
 function handleCollision() {
   DontPanic.game.physics.arcade.overlap(player.playerSprite, whale.whaleSprite, obstacleCollision, null, this);
   DontPanic.game.physics.arcade.overlap(player.playerSprite, coins.coins, collectCoin, null, this);
+  DontPanic.game.physics.arcade.overlap(player.playerSprite, enemy.enemySprite, collectCoin, null, this);
 }
 
 function obstacleCollision() {
@@ -68,6 +69,10 @@ function obstacleCollision() {
 
 function collectCoin(player, coin) {
   coin.kill();
+}
+
+function abductPlayer(player, coin) {
+  console.log('abduct!');
 }
 
 function stopGameAssetGeneration() {
