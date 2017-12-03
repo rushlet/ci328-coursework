@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'whoopass';
+  src: url('./assets/WHOOPASS.TTF') format('truetype');
+}
+
+#gameWindow {
+  font-family: 'whoopass';
+  color: #fff;
+}
