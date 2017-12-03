@@ -69,9 +69,15 @@ function collectCoin(player, coin) {
   coin.kill();
 }
 
+function stopGameAssetGeneration() {
+  coins.coinTimer.timer.stop();
+}
+
 function gameOver() {
   player.playerSprite.kill();
   DontPanic.game.gameOver = DontPanic.game.add.text(20, DontPanic.game.camera.view.y + (DontPanic.game.height / 2), 'GAME OVER', { fontSize: '32px', fill: '#fff' });
   DontPanic.game.camera.fade(0x0000000, 4000); // https://phaser.io/examples/v2/camera/camera-fade
   DontPanic.game.camera.onFadeComplete.add(playAgainMenu, this);
+  gameStarted = false;
+  stopGameAssetGeneration();
 }
