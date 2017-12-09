@@ -62,6 +62,28 @@ class CoinScore {
   }
 }
 
+class DistanceScore {
+  constructor() {
+    currentDistance = 0;
+    this.distanceTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * 0.25, this.distanceIncrease, this);
+    this.distanceTimer.timer.start();
+
+    var distcanceReachedText = DontPanic.game.add.text(DontPanic.game.width - 50, 30, `Distance: ${currentDistance}`, {
+        font: '16px whoopass',
+    });
+    distcanceReachedText.anchor.setTo(0.5);
+    distcanceReachedText.align = 'center';
+    distcanceReachedText.fill = '#fff';
+    distcanceReachedText.padding.set(16, 16);
+    this.distcanceReachedText = distcanceReachedText;
+  }
+
+  distanceIncrease() {
+    currentDistance++;
+    this.distcanceReachedText.setText(`Distance: ${currentDistance}`);
+  }
+}
+
 // class FuelBar {
 //   constructor() {
 //     let fuelbar = DontPanic.game.add.sprite(5, 10, 'fuelbar');

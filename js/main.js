@@ -6,6 +6,8 @@ let fuelbar;
 let background;
 let gameStarted = false;
 let coinTotal = localStorage['coinTotal'] || '0';
+let currentDistance;
+let bestDistance = localStorage['bestDistance'] || '0';
 
 function init() {
   const gameWidth = 360;
@@ -57,6 +59,7 @@ function startGame() {
   coins = new Coins();
   lives = new Lives();
   coinScore = new CoinScore();
+  distanceScore = new DistanceScore();
   // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 }
 
@@ -91,4 +94,7 @@ function gameOver() {
   DontPanic.game.camera.onFadeComplete.add(playAgainMenu, this);
   gameStarted = false;
   stopGameAssetGeneration();
+  if (currentDistance > parseInt(bestDistance)) {
+    localStorage['bestDistance'] = currentDistance.toString();
+  }
 }
