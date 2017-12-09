@@ -5,6 +5,7 @@ let enemy;
 let fuelbar;
 let background;
 let gameStarted = false;
+let coinTotal = localStorage['coinTotal'] || '0';
 
 function init() {
   const gameWidth = 360;
@@ -55,6 +56,7 @@ function startGame() {
   enemy = new Enemy();
   coins = new Coins();
   lives = new Lives();
+  coinScore = new CoinScore();
   // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 }
 
@@ -71,6 +73,7 @@ function obstacleCollision() {
 
 function collectCoin(player, coin) {
   coin.kill();
+  coinScore.addToCoinScore()
 }
 
 function abductPlayer(player, coin) {

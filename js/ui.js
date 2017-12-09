@@ -44,6 +44,24 @@ class Lives {
   }
 }
 
+class CoinScore {
+  constructor() {
+    var coinTotalText = DontPanic.game.add.text(DontPanic.game.world.centerX, 30, `Total Coins: ${coinTotal}`, {
+        font: '16px whoopass',
+      });
+    coinTotalText.anchor.setTo(0.5);
+    coinTotalText.align = 'center';
+    coinTotalText.fill = '#fff';
+    coinTotalText.padding.set(16, 16);
+    this.coinTotalText = coinTotalText;
+  }
+
+  addToCoinScore() {
+    coinTotal++;
+    this.coinTotalText.setText(`Total Coins: ${coinTotal}`);
+  }
+}
+
 // class FuelBar {
 //   constructor() {
 //     let fuelbar = DontPanic.game.add.sprite(5, 10, 'fuelbar');

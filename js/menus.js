@@ -81,6 +81,7 @@ function playAgainMenu() {
   DontPanic.game.world.removeAll(); //this might not be a good idea as all game assets will need to be loaded back in again?
   DontPanic.game.add.image(0, 0, 'background1');
   DontPanic.game.camera.resetFX();
+  var coinTotalText = addText(DontPanic.game.world.centerX, 220, `Total Coins: ${coinTotal}`, 30);
   let restartButton = DontPanic.game.add.button(DontPanic.game.world.width*0.5, DontPanic.game.world.height*0.5, 'playAgainButton', startGame, this);
   restartButton.anchor.set(0.5);
 }
