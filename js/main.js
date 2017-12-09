@@ -25,9 +25,9 @@ function preload() {
     DontPanic.game.load.spritesheet('rocket', 'assets/rocket_spritesheet_attempt.png', 115, 175);
     DontPanic.game.load.image('whale', 'assets/whale.png');
     DontPanic.game.load.spritesheet('enemyShip', 'assets/enemy_ship_spritesheet.png', 440, 1181);
-    DontPanic.game.load.image('heart', 'assets/heart.png'); //placeholder
+    DontPanic.game.load.image('heart', 'assets/life.png');
     DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png') //placeholder
-    DontPanic.game.load.image('coin', 'assets/coin_spin.gif') //placeholder
+    DontPanic.game.load.image('coin', 'assets/coin_2.png')
 }
 
 function create() {
