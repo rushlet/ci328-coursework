@@ -16,15 +16,21 @@ class Background {
 class Lives {
   constructor() {
     let lives = DontPanic.game.add.group();
-    lives.createMultiple(3, 'heart');
-    lives.setAll('anchor.x', 0.5);
-    lives.setAll('anchor.y', 1);
-    lives.setAll('outOfBoundsKill', true);
-    lives.setAll('checkWorldBounds', true);
-    // DontPanic.game.add.sprite(5, 10, 'heart');
     lives.fixedToCamera = true;
     lives.livesLeft = 4;
     this.lives = lives;
+    // var heart = lives.createMultiple(3, 'heart');
+    this.updateLives();
+
+  }
+  updateLives() {
+    console.log('update', this.lives.livesLeft);
+    for (var i = 0; i < this.lives.livesLeft-1; i++) {
+      console.log('lives!!');
+      var heart = this.lives.create((10+(i*20)), 10, 'heart');
+      heart.scale.x = 0.04;
+      heart.scale.y = 0.04;
+    }
   }
 
   loseLife() {
