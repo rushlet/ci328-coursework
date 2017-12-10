@@ -14,18 +14,14 @@ class Player {
 
   handleInput() {
       this.playerSprite.body.velocity.x = 0;
-      if (cursors.left.isDown && !cursors.right.isDown) {
+      if ((cursors.left.isDown && !cursors.right.isDown) || (DontPanic.game.input.pointer1.isDown && DontPanic.game.input.pointer1.x < DontPanic.game.world.centerX)) {
         this.moveLeft();
       }
-      else if (cursors.right.isDown && !cursors.left.isDown) {
+      else if ((cursors.right.isDown && !cursors.left.isDown) || (DontPanic.game.input.pointer1.isDown && DontPanic.game.input.pointer1.x > DontPanic.game.world.centerX)) {
         this.moveRight();
       }
       else {
         this.moveUp();
-      }
-
-      if (DontPanic.game.input.pointer1.isDown) {
-        console.log('pointer down!!');
       }
   }
 
