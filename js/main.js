@@ -36,7 +36,7 @@ function preload() {
 function create() {
   DontPanic.game.world.setBounds(0, 0, 360, 600);
   cursors = DontPanic.game.input.keyboard.createCursorKeys();
-  menu = new MainMenu();
+  mainMenu();
   console.log(config[config.currentLevel]['coinSpawnRate']);
   // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.LO);
 }
