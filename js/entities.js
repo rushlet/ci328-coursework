@@ -1,21 +1,24 @@
 class Enemy {
   constructor() {
     this.enemies = DontPanic.game.add.group();
-    var enemySpawnRate = config[config.currentLevel]['coinSpawnRate'];
+    var enemySpawnRate = config[config.currentLevel]['enemySpawnRate'];
     this.enemyTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * enemySpawnRate, this.createEnemy, this);
     this.enemyTimer.timer.start();
     // this.abduct();
   }
 
   createEnemy() {
-    const enemy = this.enemies.create(-10, 100, 'enemyShip');
+    let randomY = Math.floor(Math.random() * 200) + 50;
+    const enemy = this.enemies.create(-10, randomY, 'enemyShip');
     enemy.scale.x = 0.2;
     enemy.scale.y = 0.2;
     enemy.fixedToCamera = true;
     DontPanic.game.physics.arcade.enable(enemy);
     enemy.body.collideWorldBounds = false;
-    enemy.animations.add('abduct');
+    enemy.abductAnimate = enemy.animations.add('abduct');
+    enemy.beamUpAnimate = enemy.animations.add('beamUp', [2,1,0]);
     enemy.abductCheck = false;
+    enemy.abductSuccessful = false;
   }
 
   moveEnemy() {

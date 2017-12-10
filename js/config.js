@@ -4,7 +4,7 @@ const config = {
   soundOn: true,
   easy: {
     coinSpawnRate: 1.25,
-    enemySpawnRate: 0.8,
+    enemySpawnRate: 5,
     lifeSpawnRate: 0.5,
     whaleDelay: 50,
     petuniaSpeed: 60,

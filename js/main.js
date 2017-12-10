@@ -84,10 +84,14 @@ function collectCoin(player, coin) {
 function abductPlayer(player, vogon) {
   console.log('enemy overlap');
 
-  if (vogon.frame == 3) {
+  if (!vogon.abductSuccessful) {
     console.log(lives.lives.livesLeft);
-    vogon.kill(); // this needs to be something else - doesn't look good to just disappear.
+    vogon.abductSuccessful = true;
+    vogon.animations.play('beamUp', 20, false);
+    vogon.beamUpAnimate.onComplete.add(vogon.kill, this);
+    // vogon.kill(); // this needs to be something else - doesn't look good to just disappear.
     lives.loseLife();
+
     // make player animation flash
     // pause game assets for a sec?
   }
