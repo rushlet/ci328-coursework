@@ -63,8 +63,7 @@ function addText(x, y, string, size, clickevent, category, selected) {
 }
 
 function difficultyListener(input, selected) {
-  console.log(input);
-  console.log('hard:', settingsText);
+  config.currentLevel = "hard";
   // var difficultyText__hard = addText(DontPanic.game.world.centerX * 1.25, 220, "Hard", 24, true, "difficulty", true);
 }
 
