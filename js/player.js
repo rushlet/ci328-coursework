@@ -23,6 +23,10 @@ class Player {
       else {
         this.moveUp();
       }
+
+      if (DontPanic.game.input.pointer1.isDown) {
+        console.log('pointer down!!');
+      }
   }
 
   moveLeft() {
