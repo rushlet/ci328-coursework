@@ -25,8 +25,8 @@ class Lives {
   }
   updateLives() {
     console.log('update', this.lives.livesLeft);
+    console.log('lives: ', this.lives);
     for (var i = 0; i < this.lives.livesLeft-1; i++) {
-      console.log('lives!!');
       var heart = this.lives.create((10+(i*20)), 10, 'heart');
       heart.scale.x = 0.04;
       heart.scale.y = 0.04;
@@ -35,6 +35,8 @@ class Lives {
 
   loseLife() {
     this.lives.livesLeft -= 1;
+    this.lives.children[this.lives.children.length-1].kill();
+    this.updateLives();
   }
 
   gainLife() {

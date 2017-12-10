@@ -1,34 +1,41 @@
 class Enemy {
   constructor() {
-    const enemy = DontPanic.game.add.sprite(-10, 20, 'enemyShip');
+    const enemy = DontPanic.game.add.sprite(-10, 100, 'enemyShip');
     enemy.scale.x = 0.2;
     enemy.scale.y = 0.2;
     enemy.fixedToCamera = true;
     DontPanic.game.physics.arcade.enable(enemy);
     enemy.body.collideWorldBounds = false;
-    enemy.abduct = false;
+    enemy.animations.add('abduct');
+    enemy.abductCheck = false;
     this.enemySprite = enemy;
     // this.abduct();
   }
 
   moveEnemy() {
     this.enemySprite.cameraOffset.x += 1;
-  }
-
-  locatePlayer() {
-    // enemy location
-
-    // player location
-
+    this.moveToPlayer();
   }
 
   moveToPlayer(enemyLocation, playerLocation) {
+    // console.log(enemy.enemySprite.y, player.playerSprite.y);
+    if (enemy.enemySprite.y < (player.playerSprite.y - 250)) {
+      this.enemySprite.cameraOffset.y += 1;
+    }
+    else {
+      this.abduct();
+    }
+    if (enemy.enemySprite.x > player.playerSprite.x) {
+      // this.enemySprite.cameraOffset.x += 1;
+    }
     // if player x > enemy x move down toward player
   }
 
   abduct() {
-    var abduct = this.enemySprite.animations.add('abduct');
-    this.enemySprite.animations.play('abduct', 20, false);
+    if (!this.enemySprite.abductCheck) {
+      this.enemySprite.animations.play('abduct', 20, false);
+      this.enemySprite.abductCheck = true;
+    }
   }
 }
 

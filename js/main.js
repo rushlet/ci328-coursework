@@ -68,7 +68,7 @@ function startGame() {
 function handleCollision() {
   DontPanic.game.physics.arcade.overlap(player.playerSprite, whale.whaleSprite, obstacleCollision, null, this);
   DontPanic.game.physics.arcade.overlap(player.playerSprite, coins.coins, collectCoin, null, this);
-  DontPanic.game.physics.arcade.overlap(player.playerSprite, enemy.enemySprite, collectCoin, null, this);
+  DontPanic.game.physics.arcade.overlap(player.playerSprite, enemy.enemySprite, abductPlayer, null, this);
 }
 
 function obstacleCollision() {
@@ -81,8 +81,16 @@ function collectCoin(player, coin) {
   coinScore.addToCoinScore()
 }
 
-function abductPlayer(player, coin) {
-  console.log('abduct!');
+function abductPlayer(player, vogon) {
+  console.log('enemy overlap');
+
+  if (enemy.enemySprite.frame == 3) {
+    console.log(lives.lives.livesLeft);
+    vogon.kill(); // this needs to be something else - doesn't look good to just disappear.
+    lives.loseLife();
+    // make player animation flash
+    // pause game assets for a sec?
+  }
 }
 
 function stopGameAssetGeneration() {
