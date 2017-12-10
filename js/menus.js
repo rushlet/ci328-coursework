@@ -1,34 +1,34 @@
-class MainMenu {
-  constructor() {
+const settingsText = {};
+
+function mainMenu() {
     console.log('main menu');
     background = DontPanic.game.add.image(0, -20, 'home_background');
     let startButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 100, 'startButton', startGame, this);
     startButton.anchor.set(0.5);
     let settingsButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerX + 100, 'settingsButton', settingsMenu, this);
     settingsButton.anchor.set(0.5);
-  }
 }
 
-function settingsMenu(startButton, settingsButton) {
-  console.log('settings');
-  //select difficulty on screen and update config
-  DontPanic.game.world.removeAll(); //this might not be a good idea as all game assets will need to be loaded back in again?
-  DontPanic.game.add.image(0, 0, 'background1');
-  var settingsTitle = addText(DontPanic.game.world.centerX, 75, "Settings", 48, false, "", false);
+function settingsMenu() {
+    //select difficulty on screen and update config
+    DontPanic.game.world.removeAll(); //this might not be a good idea as all game assets will need to be loaded back in again?
+    DontPanic.game.add.image(0, 0, 'background1');
 
-  var difficultyText = addText(DontPanic.game.world.centerX, 175, "Difficulty", 36);
-  var difficultyText__easy = addText(DontPanic.game.world.centerX * 0.75, 220, "Easy", 24, true, "difficulty", true);
-  var difficultyText__hard = addText(DontPanic.game.world.centerX * 1.25, 220, "Hard", 24, true, "difficulty",);
+    addText(DontPanic.game.world.centerX, 75, "Settings", 48, false, "", false);
 
-  var soundText = addText(DontPanic.game.world.centerX, 290, "Sound", 36);
-  var soundText__on = addText(DontPanic.game.world.centerX * 0.75, 335, "On", 24, true, "sound", true);
-  var soundText__off = addText(DontPanic.game.world.centerX * 1.25, 335, "Off", 24, true, "sound");
+    addText(DontPanic.game.world.centerX, 175, "Difficulty", 36);
+    addText(DontPanic.game.world.centerX * 0.75, 220, "Easy", 24, true, "difficulty", true);
+    addText(DontPanic.game.world.centerX * 1.25, 220, "Hard", 24, true, "difficulty");
 
-  var customiseText = addText(DontPanic.game.world.centerX, 405, "Ship Colour", 36);
-  var customiseText__red = addText(DontPanic.game.world.centerX * 0.75, 450, "Red", 24, true, "colour", "true");
-  var customiseText__blue = addText(DontPanic.game.world.centerX * 1.25, 450, "Blue", 24, true, "colour");
+    addText(DontPanic.game.world.centerX, 290, "Sound", 36);
+    addText(DontPanic.game.world.centerX * 0.75, 335, "On", 24, true, "sound", true);
+    addText(DontPanic.game.world.centerX * 1.25, 335, "Off", 24, true, "sound");
 
-  // need to add back to menu!
+    addText(DontPanic.game.world.centerX, 405, "Ship Colour", 36);
+    addText(DontPanic.game.world.centerX * 0.75, 450, "Red", 24, true, "colour", true);
+    addText(DontPanic.game.world.centerX * 1.25, 450, "Blue", 24, true, "colour");
+
+    addText(DontPanic.game.world.centerX, 580, "Back", 24, true, "back");
 }
 
 function addText(x, y, string, size, clickevent, category, selected) {
@@ -40,8 +40,11 @@ function addText(x, y, string, size, clickevent, category, selected) {
   textOb.fill = '#fff';
   textOb.fontSize = size;
   textOb.padding.set(16, 16);
+  textOb.events.onInputDown.add(function (target) {
+        colourText(textOb);
+  });
   if (selected) {
-    colourSelectedText(textOb);
+    colourText(textOb);
   }
   if (clickevent) {
     textOb.inputEnabled = true;
@@ -50,6 +53,9 @@ function addText(x, y, string, size, clickevent, category, selected) {
         textOb.events.onInputDown.add(difficultyListener, this, selected);
         console.log('selected: ', selected);
         break;
+        case "back":
+          textOb.events.onInputDown.add(mainMenu, this, selected);
+        break;
       default: ;
     }
   }
@@ -57,14 +63,21 @@ function addText(x, y, string, size, clickevent, category, selected) {
 }
 
 function difficultyListener(input, selected) {
-  var difficultyText__easy = addText(DontPanic.game.world.centerX * 0.75, 220, "Easy", 24, true, "difficulty");
-  var difficultyText__hard = addText(DontPanic.game.world.centerX * 1.25, 220, "Hard", 24, true, "difficulty", true);
+  console.log(input);
+  console.log('hard:', settingsText);
+  // var difficultyText__hard = addText(DontPanic.game.world.centerX * 1.25, 220, "Hard", 24, true, "difficulty", true);
 }
 
-function colourSelectedText(text) {
-  text.fill = "#b8180c";
-  text.stroke = "#f5a62a";
-  text.strokeThickness = 3;
+function colourText(text) {
+  console.log(text['style']['fill']);
+  if (text['style']['fill'] == "#b8180c") {
+    text.fill = "#fff";
+    text.strokeThickness = 0;
+  } else {
+    text.fill = "#b8180c";
+    text.stroke = "#f5a62a";
+    text.strokeThickness = 3;
+  }
 }
 
 function removeSelectedColour(text) {
@@ -73,7 +86,7 @@ function removeSelectedColour(text) {
 }
 
 function selectOption() {
-
+  console.log(text['_text']);
 }
 
 function playAgainMenu() {
