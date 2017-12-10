@@ -3,14 +3,13 @@ const settingsText = {};
 function mainMenu() {
     console.log('main menu');
     background = DontPanic.game.add.image(0, -20, 'home_background');
-    let startButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 100, 'startButton', startGame, this);
+    let startButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 120, 'startButton', startGame, this);
     startButton.anchor.set(0.5);
-    let settingsButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerX + 100, 'settingsButton', settingsMenu, this);
+    let settingsButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 60, 'settingsButton', settingsMenu, this);
     settingsButton.anchor.set(0.5);
 }
 
 function settingsMenu() {
-    //select difficulty on screen and update config
     DontPanic.game.world.removeAll(); //this might not be a good idea as all game assets will need to be loaded back in again?
     DontPanic.game.add.image(0, 0, 'background1');
 
@@ -51,10 +50,15 @@ function addText(x, y, string, size, clickevent, category, selected) {
     switch (category) {
       case "difficulty":
         textOb.events.onInputDown.add(difficultyListener, this, selected);
-        console.log('selected: ', selected);
         break;
-        case "back":
-          textOb.events.onInputDown.add(mainMenu, this, selected);
+      case "sound":
+        textOb.events.onInputDown.add(soundListener, this, selected);
+        break;
+      case "colour":
+        textOb.events.onInputDown.add(colourListener, this, selected);
+        break;
+      case "back":
+        textOb.events.onInputDown.add(mainMenu, this, selected);
         break;
       default: ;
     }
@@ -63,8 +67,23 @@ function addText(x, y, string, size, clickevent, category, selected) {
 }
 
 function difficultyListener(input, selected) {
-  config.currentLevel = "hard";
-  // var difficultyText__hard = addText(DontPanic.game.world.centerX * 1.25, 220, "Hard", 24, true, "difficulty", true);
+  // change colour of unselected text
+  config.currentLevel = input["_text"].toLowerCase();
+}
+
+function soundListener(input, selected) {
+  // change colour of unselected text
+  if (input["_text"].toLowerCase() == "on") {
+    config.soundOn = true;
+  } else {
+    config.soundOn = false;
+  }
+}
+
+function colourListener(input, selected) {
+  // change colour of unselected text
+  config.playerColour = input["_text"].toLowerCase();
+  // update sprite
 }
 
 function colourText(text) {
@@ -79,22 +98,14 @@ function colourText(text) {
   }
 }
 
-function removeSelectedColour(text) {
-  text.fill = "#fff";
-  text.strokeThickness = 0;
-}
-
-function selectOption() {
-  console.log(text['_text']);
-}
-
 function playAgainMenu() {
-  console.log('called play again');
   DontPanic.game.world.removeAll(); //this might not be a good idea as all game assets will need to be loaded back in again?
   DontPanic.game.add.image(0, 0, 'background1');
   DontPanic.game.camera.resetFX();
-  let bestDistanceText = addText(DontPanic.game.world.centerX, 190, `Best Distance: ${bestDistance}`, 30);
-  let coinTotalText = addText(DontPanic.game.world.centerX, 220, `Total Coins: ${coinTotal}`, 30);
-  let restartButton = DontPanic.game.add.button(DontPanic.game.world.width*0.5, DontPanic.game.world.height*0.5, 'playAgainButton', startGame, this);
+  const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `Best Distance: ${bestDistance}`, 30);
+  const coinTotalText = addText(DontPanic.game.world.centerX, 220, `Total Coins: ${coinTotal}`, 30);
+  const restartButton = DontPanic.game.add.button(DontPanic.game.world.width*0.5, DontPanic.game.world.height*0.5, 'playAgainButton', startGame, this);
   restartButton.anchor.set(0.5);
+  const settingsButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY + 100, 'settingsButton', settingsMenu, this);
+  settingsButton.anchor.set(0.5);
 }

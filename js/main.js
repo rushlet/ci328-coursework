@@ -25,7 +25,8 @@ function preload() {
     DontPanic.game.load.image('startButton', 'assets/button_start.png'); // placeholders for now
     DontPanic.game.load.image('settingsButton', 'assets/button_settings.png'); // placeholders for now
     DontPanic.game.load.image('playAgainButton', 'assets/button_play-again.png'); // placeholders for now
-    DontPanic.game.load.spritesheet('rocket', 'assets/rocket_spritesheet_attempt.png', 115, 175);
+    DontPanic.game.load.spritesheet('rocket_red', 'assets/rocket_spritesheet_attempt.png', 115, 175);
+    DontPanic.game.load.spritesheet('rocket_blue', 'assets/rocket_spritesheet_blue.png', 115, 175);
     DontPanic.game.load.image('whale', 'assets/whale.png');
     DontPanic.game.load.spritesheet('enemyShip', 'assets/enemy_ship_spritesheet.png', 440, 1181);
     DontPanic.game.load.image('heart', 'assets/life.png');

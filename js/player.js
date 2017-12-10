@@ -1,6 +1,6 @@
 class Player {
   constructor() {
-    const player = DontPanic.game.add.sprite(DontPanic.game.world.width/2 - 16, DontPanic.game.world.height - 100, 'rocket');
+    const player = DontPanic.game.add.sprite(DontPanic.game.world.width/2 - 16, DontPanic.game.world.height - 100, `rocket_${config.playerColour}`);
     player.scale.x = 0.5;
     player.scale.y = 0.5;
     player.anchor.set(0.5, 0.2);
