@@ -99,6 +99,7 @@ function abductPlayer(player, vogon) {
 
 function stopGameAssetGeneration() {
   coins.coinTimer.timer.stop();
+  enemy.enemyTimer.timer.stop();
 }
 
 function gameOver() {
