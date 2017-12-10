@@ -17,16 +17,9 @@ class Lives {
   constructor() {
     let lives = DontPanic.game.add.group();
     lives.fixedToCamera = true;
-    lives.livesLeft = 4;
+    lives.livesLeft = 3;
     this.lives = lives;
-    // var heart = lives.createMultiple(3, 'heart');
-    this.updateLives();
-
-  }
-  updateLives() {
-    console.log('update', this.lives.livesLeft);
-    console.log('lives: ', this.lives);
-    for (var i = 0; i < this.lives.livesLeft-1; i++) {
+    for (var i = 0; i < 3; i++) {
       var heart = this.lives.create((10+(i*20)), 10, 'heart');
       heart.scale.x = 0.04;
       heart.scale.y = 0.04;
@@ -34,9 +27,13 @@ class Lives {
   }
 
   loseLife() {
-    this.lives.livesLeft -= 1;
-    this.lives.children[this.lives.children.length-1].kill();
-    this.updateLives();
+    if (this.lives.livesLeft > 0) {
+      this.lives.livesLeft -= 1;
+      this.lives.children[this.lives.livesLeft].kill();
+    }
+    else {
+      gameOver();
+    }
   }
 
   gainLife() {
