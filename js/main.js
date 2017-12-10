@@ -53,7 +53,8 @@ function update() {
 
 function startGame() {
   gameStarted = true;
-  background = this.background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
+  background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
+  background.autoScroll(0, 50);
   player = new Player();
   whale = new Whale();
   enemy = new Enemy();
