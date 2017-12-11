@@ -104,7 +104,8 @@ function stopGameAssetGeneration() {
 
 function gameOver() {
   player.playerSprite.kill();
-  DontPanic.game.gameOver = DontPanic.game.add.text(20, DontPanic.game.camera.view.y + (DontPanic.game.height / 2), 'GAME OVER', { fontSize: '32px', fill: '#fff' });
+  DontPanic.game.gameOver = DontPanic.game.add.text(DontPanic.game.world.centerX, DontPanic.game.world.centerY * 0.75, 'GAME OVER', { font: '40px whoopass', fill: '#fff' });
+  DontPanic.game.gameOver.anchor.setTo(0.5);
   DontPanic.game.camera.fade(0x0000000, 4000); // https://phaser.io/examples/v2/camera/camera-fade
   DontPanic.game.camera.onFadeComplete.add(playAgainMenu, this);
   gameStarted = false;
