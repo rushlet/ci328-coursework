@@ -51,45 +51,31 @@ function addText(x, y, string, size, clickevent, category, selected) {
   textOb.fill = '#fff';
   textOb.fontSize = size;
   textOb.padding.set(16, 16);
-  // textOb.events.onInputDown.add(function (target) {
-  //       colourText(textOb);
-  // });
-  addToGroup(textOb, category);
-  if (selected) {
-    colourText(textOb);
-  }
-  if (clickevent) {
-    textOb.inputEnabled = true;
-    switch (category) {
-      case "difficulty":
-        textOb.events.onInputDown.add(difficultyListener, this);
-        break;
-      case "sound":
-        textOb.events.onInputDown.add(soundListener, this);
-        break;
-      case "colour":
-        textOb.events.onInputDown.add(colourListener, this);
-        break;
-      case "back":
-        textOb.events.onInputDown.add(mainMenu, this);
-        break;
-      default: ;
-    }
-  }
-}
-
-function addToGroup(textOb, category) {
+  textOb.inputEnabled = true;
   switch (category) {
     case "difficulty":
       settingsText__difficulty.add(textOb);
+      textOb.events.onInputDown.add(difficultyListener, this);
+      textOb.input.useHandCursor = true;
       break;
     case "sound":
       settingsText__sound.add(textOb);
+      textOb.events.onInputDown.add(soundListener, this);
+      textOb.input.useHandCursor = true;
       break;
     case "colour":
       settingsText__colour.add(textOb);
+      textOb.events.onInputDown.add(colourListener, this);
+      textOb.input.useHandCursor = true;
+      break;
+    case "back":
+      textOb.events.onInputDown.add(mainMenu, this);
+      textOb.input.useHandCursor = true;
       break;
     default: ;
+  }
+  if (selected) {
+    colourText(textOb);
   }
 }
 
