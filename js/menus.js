@@ -52,6 +52,13 @@ function addText(x, y, string, size, clickevent, category, selected) {
   textOb.fontSize = size;
   textOb.padding.set(16, 16);
   textOb.inputEnabled = true;
+  addCategorySpecifics(textOb, category);
+  if (selected) {
+    colourText(textOb);
+  }
+}
+
+function addCategorySpecifics(textOb, category) {
   switch (category) {
     case "difficulty":
       settingsText__difficulty.add(textOb);
@@ -74,9 +81,6 @@ function addText(x, y, string, size, clickevent, category, selected) {
       break;
     default: ;
   }
-  if (selected) {
-    colourText(textOb);
-  }
 }
 
 function getCurrentSettings() {
@@ -96,7 +100,6 @@ function getCurrentSettings() {
   else {
     currentSettings["red"] = false;
   }
-
   return currentSettings;
 }
 
