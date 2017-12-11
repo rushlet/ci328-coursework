@@ -4,7 +4,6 @@ var settingsText__sound;
 var settingsText__colour;
 
 function mainMenu() {
-    console.log('main menu');
     background = DontPanic.game.add.image(0, -20, 'home_background');
     let startButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 120, 'startButton', startGame, this);
     startButton.anchor.set(0.5);
@@ -41,8 +40,6 @@ function settingsMenu() {
     settingsText.add(settingsText__difficulty);
     settingsText.add(settingsText__sound);
     settingsText.add(settingsText__colour);
-
-    console.log(settingsText);
 }
 
 function addText(x, y, string, size, clickevent, category, selected) {
@@ -155,7 +152,6 @@ function colourListener(input) {
 }
 
 function colourText(text) {
-  console.log(text['style']['fill']);
   if (text['style']['fill'] == "#b8180c") {
     text.fill = "#fff";
     text.strokeThickness = 0;
