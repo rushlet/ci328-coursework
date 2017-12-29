@@ -64,8 +64,6 @@ class Enemy {
     console.log('position. currently: ', sprite.x, sprite.y);
   }
 
-
-
   abduct(sprite) {
     if (!sprite.abductCheck) {
       sprite.animations.play('abduct', 20, false);
