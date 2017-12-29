@@ -16,7 +16,7 @@ class Enemy {
     DontPanic.game.physics.arcade.enable(enemy);
     enemy.body.collideWorldBounds = false;
     enemy.abductAnimate = enemy.animations.add('abduct');
-    enemy.beamUpAnimate = enemy.animations.add('beamUp', [3,3,3,3,2,1,0]);
+    enemy.beamUpAnimate = enemy.animations.add('beamUp', [3,3,3,3,2,1]);
     enemy.abductCheck = false;
     enemy.abductSuccessful = false;
     enemy.positioned = false;
