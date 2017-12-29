@@ -12,7 +12,7 @@ class Player {
     player.body.collideWorldBounds = true;
     player.frame = 1;
     player.lifeLostAnimate = player.animations.add('lifeLost', [-1,1,-1,1,-1]);
-    DontPanic.game.physics.p2.enable(player, true);
+    // DontPanic.game.physics.p2.enable(player, true);
     //	Convex polys
     // player.body.clearShapes();
     // player.body.loadPolygon('physicsData', `rocket_${config.playerColour}`);
