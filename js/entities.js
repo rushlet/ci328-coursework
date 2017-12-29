@@ -16,11 +16,12 @@ class Enemy {
     DontPanic.game.physics.arcade.enable(enemy);
     enemy.body.collideWorldBounds = false;
     enemy.abductAnimate = enemy.animations.add('abduct');
-    enemy.beamUpAnimate = enemy.animations.add('beamUp', [3,3,3,3,2,1]);
+    enemy.beamUpAnimate = enemy.animations.add('beamUp', [3,3,3,3,2,1,0]);
+    enemy.body.setSize(275, 1140, 80, 0);
+    enemy.body.immovable = true;
     enemy.abductCheck = false;
     enemy.abductSuccessful = false;
     enemy.positioned = false;
-    DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3, this.position, this, enemy);
     DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.abduct, this, enemy);
   }
 
@@ -38,16 +39,19 @@ class Enemy {
   }
 
   moveToPlayer(sprite) {
-    if (sprite.x > player.playerSprite.x) {
-      sprite.cameraOffset.x -= 1.5;
+    if (sprite.x >= player.playerSprite.x - (player.playerSprite.width / 2)) {
+      sprite.cameraOffset.x -= config[config.currentLevel]['enemySpeedHorizontal'];
     } else {
-      sprite.cameraOffset.x += 1;
+      sprite.cameraOffset.x += config[config.currentLevel]['enemySpeedHorizontal'];
     }
   }
 
   descend(sprite) {
-    if (sprite.y < (player.playerSprite.y - 100)) {
-      sprite.cameraOffset.y += 1.5;
+    if (sprite.y < (player.playerSprite.y - 255)) {
+      sprite.cameraOffset.y += config[config.currentLevel]['enemySpeedVertical'];
+    }
+    else {
+      sprite.positioned = true;
     }
   }
 
@@ -57,11 +61,6 @@ class Enemy {
     } else {
       sprite.cameraOffset.x += 1.5;
     }
-  }
-
-  position(sprite) {
-    sprite.positioned = true;
-    console.log('position. currently: ', sprite.x, sprite.y);
   }
 
   abduct(sprite) {

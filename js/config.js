@@ -9,13 +9,17 @@ const config = {
     whaleDelay: 50,
     petuniaSpeed: 60,
     infiniteImprobabilityDelay: 5,
+    enemySpeedHorizontal: 1,
+    enemySpeedVertical: 1.5,
   },
   hard: {
     coinSpawnRate: 2,
-    enemySpawnRate: 1.75,
+    enemySpawnRate: 2,
     whaleDelay: 100,
     petuniaSpeed: 120,
     lifeSpawnRate: 0.3,
     infiniteImprobabilityDelay: 8,
+    enemySpeedHorizontal: 1.5,
+    enemySpeedVertical: 2,
   },
 }
