@@ -9,6 +9,7 @@ let coinTotal = localStorage['coinTotal'] || '0';
 let currentDistance;
 let bestDistance = localStorage['bestDistance'] || '0';
 let filter;
+let improbabilityDrive;
 
 function init() {
   const gameWidth = 360;
@@ -31,6 +32,7 @@ function preload() {
   DontPanic.game.load.spritesheet('rocket_blue', 'assets/rocket_spritesheet_blue1.png', 115, 175);
   DontPanic.game.load.image('whale', 'assets/whale.png');
   DontPanic.game.load.spritesheet('enemyShip', 'assets/enemy_ship_spritesheet1.png', 440, 1140);
+  DontPanic.game.load.spritesheet('red_button', 'assets/iid-button.png', 465, 472);
   DontPanic.game.load.image('heart', 'assets/life.png');
   DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png'); //placeholder
   DontPanic.game.load.image('coin', 'assets/coin_2.png');
@@ -66,6 +68,7 @@ function startGame() {
   lives = new Lives();
   coinScore = new CoinScore();
   distanceScore = new DistanceScore();
+  improbabilityDrive = new ImprobabilityDrive();
   // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 }
 
@@ -86,15 +89,13 @@ function collectCoin(player, coin) {
 }
 
 function abductPlayer(playerSprite, vogon) {
-  console.log('enemy overlap');
-
+  console.log('abducting');
   if (!vogon.abductSuccessful && vogon.frame == 3) {
     console.log(lives.lives.livesLeft);
     // vogon.kill(); // this needs to be something else - doesn't look good to just disappear.
     lives.loseLife();
     // make player animation flash
     playerSprite.play('lifeLost');
-    vogon.play('abduct');
     vogon.abductSuccessful = true;
     // pause game assets for a sec?
     // DontPanic.game.paused = true;
