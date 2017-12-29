@@ -1,6 +1,6 @@
 class Player {
   constructor() {
-    const player = DontPanic.game.add.sprite(DontPanic.game.world.width/2 - 16, DontPanic.game.world.height - 100, `rocket_${config.playerColour}`);
+    const player = DontPanic.game.add.sprite(DontPanic.game.world.centerX, DontPanic.game.world.height - 100, `rocket_${config.playerColour}`);
     player.scale.x = 0.5;
     player.scale.y = 0.5;
     player.anchor.set(0.5, 0.5);
@@ -11,7 +11,7 @@ class Player {
     player.body.gravity.y = 0;
     player.body.collideWorldBounds = true;
     player.frame = 1;
-    player.lifeLostAnimate = player.animations.add('lifeLost', [-1,1,-1,1,-1]);
+    player.lifeLostAnimate = player.animations.add('lifeLost', [4,1,4,1,4]);
     // DontPanic.game.physics.p2.enable(player, true);
     //	Convex polys
     // player.body.clearShapes();
