@@ -3,10 +3,10 @@ class Player {
     const player = DontPanic.game.add.sprite(DontPanic.game.world.width/2 - 16, DontPanic.game.world.height - 100, `rocket_${config.playerColour}`);
     player.scale.x = 0.5;
     player.scale.y = 0.5;
-    player.anchor.set(0, 0);
+    player.anchor.set(0.5, 0.5);
     DontPanic.game.physics.arcade.enable(player);
     player.body.bounce.y = 0.2;
-    player.body.setSize(65, 150, 0, 28, 0);
+    player.body.setSize(65, 150, 28, 0);
     player.body.immovable = true;
     player.body.gravity.y = 0;
     player.body.collideWorldBounds = true;
@@ -40,6 +40,7 @@ class Player {
     if (this.playerSprite.angle > -45) {
       this.playerSprite.angle -= 1;
     }
+    this.playerSprite.body.setSize(85, 150, 0, 20);
     this.playerSprite.frame = 2;
   }
 
@@ -48,11 +49,13 @@ class Player {
     if (this.playerSprite.angle < 45) {
       this.playerSprite.angle += 1;
     }
+    this.playerSprite.body.setSize(85, 150, 40, 20);
     this.playerSprite.frame = 0;
   }
 
   moveUp() {
     this.playerSprite.body.velocity.x = 0;
+    this.playerSprite.body.setSize(65, 150, 28, 0);
     if (this.playerSprite.angle > 0 ) {
       this.playerSprite.angle -= 1;
     }
