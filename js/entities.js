@@ -26,6 +26,7 @@ class Enemy {
 
   moveEnemy() {
     this.enemies.forEachExists((sprite) =>  {
+      DontPanic.game.debug.body(sprite);
       if (!sprite.positioned && !sprite.abductCheck) {
           this.descend(sprite);
           this.moveToPlayer(sprite);
