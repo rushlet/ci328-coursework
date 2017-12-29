@@ -8,6 +8,7 @@ let gameStarted = false;
 let coinTotal = localStorage['coinTotal'] || '0';
 let currentDistance;
 let bestDistance = localStorage['bestDistance'] || '0';
+let filter;
 
 function init() {
   const gameWidth = 360;
@@ -20,22 +21,24 @@ function init() {
 }
 
 function preload() {
-    DontPanic.game.load.image('background1', 'assets/space_background.png');
-    DontPanic.game.load.image('home_background', 'assets/game_screen.jpg');
-    DontPanic.game.load.image('startButton', 'assets/button_start.png'); // placeholders for now
-    DontPanic.game.load.image('settingsButton', 'assets/button_settings.png'); // placeholders for now
-    DontPanic.game.load.image('playAgainButton', 'assets/button_play-again.png'); // placeholders for now
-    DontPanic.game.load.spritesheet('rocket_red', 'assets/rocket_spritesheet_attempt.png', 115, 175);
-    DontPanic.game.load.spritesheet('rocket_blue', 'assets/rocket_spritesheet_blue.png', 115, 175);
-    DontPanic.game.load.image('whale', 'assets/whale.png');
-    DontPanic.game.load.spritesheet('enemyShip', 'assets/enemy_ship_spritesheet.png', 440, 1181);
-    DontPanic.game.load.image('heart', 'assets/life.png');
-    DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png') //placeholder
-    DontPanic.game.load.image('coin', 'assets/coin_2.png')
+  DontPanic.game.load.script('filter', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/LightBeam.js');
+  DontPanic.game.load.image('background1', 'assets/space_background.png');
+  DontPanic.game.load.image('home_background', 'assets/game_screen.jpg');
+  DontPanic.game.load.image('startButton', 'assets/button_start.png'); // placeholders for now
+  DontPanic.game.load.image('settingsButton', 'assets/button_settings.png'); // placeholders for now
+  DontPanic.game.load.image('playAgainButton', 'assets/button_play-again.png'); // placeholders for now
+  DontPanic.game.load.spritesheet('rocket_red', 'assets/rocket_spritesheet1.png', 115, 175);
+  DontPanic.game.load.spritesheet('rocket_blue', 'assets/rocket_spritesheet_blue1.png', 115, 175);
+  DontPanic.game.load.image('whale', 'assets/whale.png');
+  DontPanic.game.load.spritesheet('enemyShip', 'assets/enemy_ship_spritesheet1.png', 440, 1140);
+  DontPanic.game.load.image('heart', 'assets/life.png');
+  DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png'); //placeholder
+  DontPanic.game.load.image('coin', 'assets/coin_2.png');
 }
 
 function create() {
   DontPanic.game.world.setBounds(0, 0, 360, 600);
+  // DontPanic.game.physics.startSystem(Phaser.Physics.P2JS); //may need to swap to p2 system for better collision areas
   cursors = DontPanic.game.input.keyboard.createCursorKeys();
   mainMenu();
   console.log(config[config.currentLevel]['coinSpawnRate']);
@@ -47,6 +50,7 @@ function update() {
     player.handleInput();
     handleCollision();
     enemy.moveEnemy();
+    // DontPanic.game.debug.spriteBounds(player);
   }
   // game.debug.cameraInfo(game.camera, 32, 32);
 }
@@ -84,15 +88,14 @@ function collectCoin(player, coin) {
 function abductPlayer(player, vogon) {
   console.log('enemy overlap');
 
-  if (!vogon.abductSuccessful) {
+  if (!vogon.abductSuccessful && vogon.frame == 2) {
     console.log(lives.lives.livesLeft);
     vogon.abductSuccessful = true;
-    vogon.animations.play('beamUp', 20, false);
-    vogon.beamUpAnimate.onComplete.add(vogon.kill, this);
     // vogon.kill(); // this needs to be something else - doesn't look good to just disappear.
     lives.loseLife();
 
     // make player animation flash
+    player.animations.play('lifeLost', 20, false);
     // pause game assets for a sec?
   }
 }

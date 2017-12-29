@@ -8,43 +8,67 @@ class Enemy {
   }
 
   createEnemy() {
-    let randomY = Math.floor(Math.random() * 200) + 50;
-    const enemy = this.enemies.create(-10, randomY, 'enemyShip');
+    // let randomY = Math.floor(Math.random() * 200) + 50;
+    const enemy = this.enemies.create(DontPanic.game.world.centerX, -10, 'enemyShip');
     enemy.scale.x = 0.2;
     enemy.scale.y = 0.2;
     enemy.fixedToCamera = true;
     DontPanic.game.physics.arcade.enable(enemy);
     enemy.body.collideWorldBounds = false;
     enemy.abductAnimate = enemy.animations.add('abduct');
-    enemy.beamUpAnimate = enemy.animations.add('beamUp', [2,1,0]);
+    enemy.beamUpAnimate = enemy.animations.add('beamUp', [3,3,3,3,2,1,0]);
     enemy.abductCheck = false;
     enemy.abductSuccessful = false;
+    enemy.positioned = false;
+    DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3, this.position, this, enemy);
+    DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.abduct, this, enemy);
   }
 
   moveEnemy() {
     this.enemies.forEachExists((sprite) =>  {
-      sprite.cameraOffset.x += 1;
-      enemy.moveToPlayer(sprite);
+      if (!sprite.positioned && !sprite.abductCheck) {
+          this.descend(sprite);
+          this.moveToPlayer(sprite);
+      }
+      if (sprite.abductCheck) {
+        this.leaveScreen(sprite);
+      }
     });
   }
 
   moveToPlayer(sprite) {
-    // console.log(enemy.enemySprite.y, player.playerSprite.y);
-    if (sprite.y < (player.playerSprite.y - 250)) {
-      sprite.cameraOffset.y += 1;
+    if (sprite.x > player.playerSprite.x) {
+      sprite.cameraOffset.x -= 1.5;
+    } else {
+      sprite.cameraOffset.x += 1;
     }
-    else {
-      this.abduct(sprite);
-    }
-    // if (sprite.x > player.playerSprite.x) {
-    //   // this.enemySprite.cameraOffset.x += 1;
-    // }
-    // if player x > enemy x move down toward player
   }
+
+  descend(sprite) {
+    if (sprite.y < (player.playerSprite.y - 100)) {
+      sprite.cameraOffset.y += 1.5;
+    }
+  }
+
+  leaveScreen(sprite) {
+    if (sprite.x < player.playerSprite.x) {
+      sprite.cameraOffset.x -= 1.5;
+    } else {
+      sprite.cameraOffset.x += 1.5;
+    }
+  }
+
+  position(sprite) {
+    sprite.positioned = true;
+    console.log('position. currently: ', sprite.x, sprite.y);
+  }
+
+
 
   abduct(sprite) {
     if (!sprite.abductCheck) {
       sprite.animations.play('abduct', 20, false);
+      sprite.abductAnimate.onComplete.add(() => {sprite.animations.play('beamUp', 20, false);}, this);
       sprite.abductCheck = true;
     }
   }
@@ -53,7 +77,7 @@ class Enemy {
 class Whale {
   constructor() {
     let randomHeight = (Math.floor(Math.random() * 5000) + 500)
-    const whale = DontPanic.game.add.sprite(DontPanic.game.world.width/2 - 16, -(randomHeight), 'whale');
+    const whale = DontPanic.game.add.sprite(DontPanic.game.world.centerX, -(randomHeight), 'whale');
     whale.scale.x = 0.3;
     whale.scale.y = 0.3;
     DontPanic.game.physics.arcade.enable(whale);
