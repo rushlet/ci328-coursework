@@ -85,18 +85,19 @@ function collectCoin(player, coin) {
   coinScore.addToCoinScore()
 }
 
-function abductPlayer(player, vogon) {
+function abductPlayer(playerSprite, vogon) {
   console.log('enemy overlap');
 
-  if (!vogon.abductSuccessful && vogon.frame == 2) {
+  if (!vogon.abductSuccessful && vogon.frame == 3) {
     console.log(lives.lives.livesLeft);
-    vogon.abductSuccessful = true;
     // vogon.kill(); // this needs to be something else - doesn't look good to just disappear.
     lives.loseLife();
-
     // make player animation flash
-    player.animations.play('lifeLost', 20, false);
+    playerSprite.play('lifeLost');
+    vogon.play('abduct');
+    vogon.abductSuccessful = true;
     // pause game assets for a sec?
+    // DontPanic.game.paused = true;
   }
 }
 
