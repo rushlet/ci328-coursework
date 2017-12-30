@@ -1,3 +1,4 @@
+var currentScenario = 'reset';
 class ImprobabilityDrive {
   constructor() {
     let improbabilityDrive = DontPanic.game.add.group();
@@ -31,8 +32,51 @@ class ImprobabilityDrive {
     }
   }
 
+  //could call either regenerate assets or trigger another event (whale?)
+
   regenerateAssets(button_iid) {
     console.log('iid triggered');
+    var improbabilityDriveDuration = config[config.currentLevel]['infiniteImprobabilityDuration'];
+    this.improbabilityDurationTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * improbabilityDriveDuration, this.improbabilityDriveReset, this);
+    this.improbabilityDurationTimer.timer.start();
     button_iid.kill();
+    improbabilityDriveTriggered = true;
+    currentScenario = 1;
+    background.background.loadTexture(improbabilityScenarios[1].background);
+    player.playerSprite.loadTexture(improbabilityScenarios[1].player, 0);
+    enemy.enemies.forEachExists((enemy) =>  {
+      enemy.loadTexture(improbabilityScenarios[1].enemy, 0);
+    });
+    coins.coins.forEachExists((coin) =>  {
+      coin.loadTexture(improbabilityScenarios[1].coins);
+    });
+  }
+
+  improbabilityDriveReset() {
+    console.log('reset');
+    currentScenario = 'reset';
+    background.background.loadTexture(improbabilityScenarios['reset'].background);
+    player.playerSprite.loadTexture(improbabilityScenarios['reset'].player, 0);
+    enemy.enemies.forEachExists((enemy) =>  {
+      enemy.loadTexture(improbabilityScenarios['reset'].enemy, 0);
+    });
+    coins.coins.forEachExists((coin) =>  {
+      coin.loadTexture(improbabilityScenarios['reset'].coins);
+    });
+  }
+}
+
+const improbabilityScenarios = {
+  reset: {
+    player: `rocket_${config.playerColour}`, //get the right one from config
+    enemy: 'enemyShip',
+    background: 'background1',
+    coins: 'coin',
+  },
+  1 : {
+    player: 'IID_player1',
+    enemy: 'IID_enemy1',
+    background: 'IID_background1',
+    coins: 'IID_teacup',
   }
 }

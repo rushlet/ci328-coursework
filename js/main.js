@@ -10,6 +10,7 @@ let currentDistance;
 let bestDistance = localStorage['bestDistance'] || '0';
 let filter;
 let improbabilityDrive;
+let improbabilityDriveTriggered = false;
 
 function init() {
   const gameWidth = 360;
@@ -36,6 +37,11 @@ function preload() {
   DontPanic.game.load.image('heart', 'assets/life.png');
   DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png'); //placeholder
   DontPanic.game.load.image('coin', 'assets/coin_2.png');
+
+  DontPanic.game.load.image('IID_background1', 'assets/iid/iid_bg.png');
+  DontPanic.game.load.spritesheet('IID_enemy1', 'assets/iid/iid_enemy1.png', 440, 1140);
+  DontPanic.game.load.spritesheet('IID_player1', 'assets/iid/iid_player1.png', 115, 175);
+  DontPanic.game.load.image('IID_teacup', 'assets/iid/tea.png');
 }
 
 function create() {
@@ -59,8 +65,7 @@ function update() {
 
 function startGame() {
   gameStarted = true;
-  background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
-  background.autoScroll(0, 50);
+  background = new Background();
   player = new Player();
   whale = new Whale();
   enemy = new Enemy();

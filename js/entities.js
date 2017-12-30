@@ -23,6 +23,12 @@ class Enemy {
     enemy.abductSuccessful = false;
     enemy.positioned = false;
     DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.abduct, this, enemy);
+    if (improbabilityDriveTriggered) {
+      enemy.loadTexture(improbabilityScenarios[currentScenario].enemy, 1);
+      if (currentScenario == 'reset') {
+        improbabilityDriveTriggered = false;
+      }
+    }
   }
 
   moveEnemy() {
@@ -122,5 +128,8 @@ class Coins {
     coin.enableBody = true;
     coin.body.velocity.y = 100;
     coin.body.collideWorldBounds = false;
+    if (improbabilityDriveTriggered) {
+      coin.loadTexture(improbabilityScenarios[currentScenario].coins, 1);
+    }
   }
 }
