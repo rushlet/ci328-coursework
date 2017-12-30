@@ -19,7 +19,8 @@ class ImprobabilityDrive {
       improbabilityDrive.generated = false;
     } else {
       console.log('improbabilityDrive generating!');
-      var button_iid = this.improbabilityDrive.create(DontPanic.game.world.centerX/2, DontPanic.game.world.height - 50, 'red_button');
+      console.log(DontPanic.game.world.height);
+      var button_iid = this.improbabilityDrive.create(DontPanic.game.world.centerX/5, 1050, 'red_button');
       button_iid.scale.x = 0.3;
       button_iid.scale.y = 0.3;
       button_iid.enableBody = true;
@@ -28,6 +29,7 @@ class ImprobabilityDrive {
       button_iid.inputEnabled = true;
       button_iid.events.onInputDown.add(this.regenerateAssets, this);
       DontPanic.game.debug.body(button_iid);
+      console.log(button_iid);
       improbabilityDrive.generated = true;
     }
   }
