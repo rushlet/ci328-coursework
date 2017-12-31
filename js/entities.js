@@ -105,7 +105,6 @@ class Coins {
   }
 
   createCoin(x, y) {
-    console.log(x, y);
     var coin = this.coins.create(x, y, 'coin');
     coin.scale.x = 0.3;
     coin.scale.y = 0.3;

@@ -51,7 +51,6 @@ function create() {
   // DontPanic.game.physics.startSystem(Phaser.Physics.P2JS); //may need to swap to p2 system for better collision areas
   cursors = DontPanic.game.input.keyboard.createCursorKeys();
   mainMenu();
-  console.log(config[config.currentLevel]['coinSpawnRate']);
   // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.LO);
 }
 
@@ -100,9 +99,7 @@ function collectCoin(player, coin) {
 }
 
 function abductPlayer(playerSprite, vogon) {
-  console.log('abducting');
   if (!vogon.abductSuccessful && vogon.frame == 3) {
-    console.log(lives.lives.livesLeft);
     // vogon.kill(); // this needs to be something else - doesn't look good to just disappear.
     lives.loseLife();
     // make player animation flash
