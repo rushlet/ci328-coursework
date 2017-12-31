@@ -23,6 +23,12 @@ class Enemy {
     enemy.abductSuccessful = false;
     enemy.positioned = false;
     DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.abduct, this, enemy);
+    if (improbabilityDriveTriggered) {
+      enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 1);
+      if (currentScenario == 'reset') {
+        improbabilityDriveTriggered = false;
+      }
+    }
   }
 
   moveEnemy() {
@@ -72,22 +78,6 @@ class Enemy {
   }
 }
 
-class Whale {
-  constructor() {
-    let randomHeight = (Math.floor(Math.random() * 5000) + 500)
-    const whale = DontPanic.game.add.sprite(DontPanic.game.world.centerX, -(randomHeight), 'whale');
-    whale.scale.x = 0.3;
-    whale.scale.y = 0.3;
-    DontPanic.game.physics.arcade.enable(whale);
-    whale.body.collideWorldBounds = false;
-    whale.body.gravity.y = randomHeight / 100;
-    this.whaleSprite = whale;
-  }
-}
-
-class Petunias {
-}
-
 class Coins {
   constructor() {
     let coins = DontPanic.game.add.group();
@@ -115,12 +105,14 @@ class Coins {
   }
 
   createCoin(x, y) {
-    console.log(x, y);
     var coin = this.coins.create(x, y, 'coin');
     coin.scale.x = 0.3;
     coin.scale.y = 0.3;
     coin.enableBody = true;
     coin.body.velocity.y = 100;
     coin.body.collideWorldBounds = false;
+    if (improbabilityDriveTriggered) {
+      coin.loadTexture(improbabilityScenarioAssets[currentScenario].coins, 1);
+    }
   }
 }
