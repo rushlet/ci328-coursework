@@ -37,15 +37,15 @@ class ImprobabilityDrive {
     var eventTriggered = Math.random() <= 0.5 ? this.regenerateAssets : this.randomEvent;
     console.log(this);
     let that = this;
-    eventTriggered(button_iid, that);
+    eventTriggered(button_iid);
+    button_iid.kill();
   }
 
-  regenerateAssets(button_iid, that) {
+  regenerateAssets(button_iid) {
     console.log('iid triggered');
     var improbabilityDriveDuration = config[config.currentLevel]['infiniteImprobabilityDuration'];
-    that.improbabilityDurationTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * improbabilityDriveDuration, that.assetReset, this);
-    that.improbabilityDurationTimer.timer.start();
-    button_iid.kill();
+    let improbabilityDurationTimer = DontPanic.game.time.events.add(Phaser.Timer.SECOND * improbabilityDriveDuration, improbabilityDrive.assetReset, this);
+    improbabilityDurationTimer.timer.start();
     improbabilityDriveTriggered = true;
     currentScenario = 1;
     background.background.loadTexture(improbabilityScenarioAssets[1].background);
@@ -59,7 +59,7 @@ class ImprobabilityDrive {
   }
 
   assetReset() {
-    console.log('reset');
+    console.log('reset', this);
     currentScenario = 'reset';
     background.background.loadTexture(improbabilityScenarioAssets['reset'].background);
     player.playerSprite.loadTexture(improbabilityScenarioAssets['reset'].player, 0);
