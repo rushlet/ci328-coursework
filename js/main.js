@@ -1,7 +1,6 @@
 let DontPanic = {};
 let player;
-let whale;
-let petunias;
+let obstacle;
 let enemy;
 let fuelbar;
 let background;
@@ -74,18 +73,14 @@ function startGame() {
   coinScore = new CoinScore();
   distanceScore = new DistanceScore();
   improbabilityDrive = new ImprobabilityDrive();
+  obstacle = new Obstacle();
   // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 }
 
 function handleCollision() {
   DontPanic.game.physics.arcade.overlap(player.playerSprite, coins.coins, collectCoin, null, this);
   DontPanic.game.physics.arcade.overlap(player.playerSprite, enemy.enemies, abductPlayer, null, this);
-  if (whale) {
-    DontPanic.game.physics.arcade.overlap(player.playerSprite, whale.whaleSprite, obstacleCollision, null, this);
-  }
-  if (petunias) {
-    DontPanic.game.physics.arcade.overlap(player.playerSprite, petunias.petuniasSprite, obstacleCollision, null, this);
-  }
+  DontPanic.game.physics.arcade.overlap(player.playerSprite, obstacle.obstacles, obstacleCollision, null, this);
 }
 
 function obstacleCollision() {

@@ -34,7 +34,7 @@ class ImprobabilityDrive {
 
   //could call either regenerate assets or trigger another event (whale?)
   triggerEvent(button_iid){
-    var eventTriggered = Math.random() <= 0.5 ? this.regenerateAssets : this.randomEvent;
+    var eventTriggered = Math.random() <= 0.5 ? this.regenerateAssets : this.randomObstacle;
     console.log(this);
     let that = this;
     eventTriggered(button_iid);
@@ -71,9 +71,9 @@ class ImprobabilityDrive {
     });
   }
 
-  randomEvent() {
-    var eventTriggered = Math.random() <= 0.5 ? Whale : Petunias;
-    new eventTriggered();
+  randomObstacle() {
+    var obstacleTriggered = Math.random() <= 0.5 ? obstacle.whale : obstacle.petunias;
+    obstacleTriggered();
   }
 }
 
@@ -92,28 +92,31 @@ const improbabilityScenarioAssets = {
   }
 };
 
-class Whale {
+class Obstacle {
   constructor() {
-    var randomX = Math.floor(Math.random() * 300) + 100;
-    const whale = DontPanic.game.add.sprite(randomX, -100, 'whale');
+    let obstacles = DontPanic.game.add.group();
+    obstacles.enableBody = true;
+    DontPanic.game.physics.arcade.enable(obstacles);
+    this.obstacles = obstacles;
+  }
+
+  whale() {
+    var randomX = Math.floor(Math.random() * 250) + 100;
+    const whale = obstacle.obstacles.create(randomX, -100, 'whale');
     whale.scale.x = 0.3;
     whale.scale.y = 0.3;
     DontPanic.game.physics.arcade.enable(whale);
     whale.body.collideWorldBounds = false;
     whale.body.gravity.y = 50;
-    this.whaleSprite = whale;
   }
-}
 
-class Petunias {
-  constructor() {
+  petunias() {
     var randomX = Math.floor(Math.random() * 320) + 25;
-    const petunias = DontPanic.game.add.sprite(randomX, -50, 'petunias');
+    const petunias = obstacle.obstacles.create(randomX, -50, 'petunias');
     petunias.scale.x = 0.1;
     petunias.scale.y = 0.1;
     DontPanic.game.physics.arcade.enable(petunias);
     petunias.body.collideWorldBounds = false;
     petunias.body.gravity.y = 60;
-    this.petuniasSprite = petunias;
   }
 }
