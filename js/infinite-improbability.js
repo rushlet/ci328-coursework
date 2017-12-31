@@ -91,32 +91,3 @@ const improbabilityScenarioAssets = {
     coins: 'IID_teacup',
   }
 };
-
-class Obstacle {
-  constructor() {
-    let obstacles = DontPanic.game.add.group();
-    obstacles.enableBody = true;
-    DontPanic.game.physics.arcade.enable(obstacles);
-    this.obstacles = obstacles;
-  }
-
-  whale() {
-    var randomX = Math.floor(Math.random() * 250) + 100;
-    const whale = obstacle.obstacles.create(randomX, -100, 'whale');
-    whale.scale.x = 0.3;
-    whale.scale.y = 0.3;
-    DontPanic.game.physics.arcade.enable(whale);
-    whale.body.collideWorldBounds = false;
-    whale.body.gravity.y = 50;
-  }
-
-  petunias() {
-    var randomX = Math.floor(Math.random() * 320) + 25;
-    const petunias = obstacle.obstacles.create(randomX, -50, 'petunias');
-    petunias.scale.x = 0.1;
-    petunias.scale.y = 0.1;
-    DontPanic.game.physics.arcade.enable(petunias);
-    petunias.body.collideWorldBounds = false;
-    petunias.body.gravity.y = 60;
-  }
-}
