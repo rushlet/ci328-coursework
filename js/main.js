@@ -33,7 +33,7 @@ function preload() {
   DontPanic.game.load.spritesheet('rocket_blue', 'assets/rocket_spritesheet_blue1.png', 115, 175);
   DontPanic.game.load.image('whale', 'assets/whale.png');
   DontPanic.game.load.spritesheet('enemyShip', 'assets/enemy_ship_spritesheet1.png', 440, 1140);
-  DontPanic.game.load.spritesheet('red_button', 'assets/iid-button.png', 465, 472);
+  DontPanic.game.load.spritesheet('red_button', 'assets/iid-button.png', 472, 472);
   DontPanic.game.load.image('heart', 'assets/life.png');
   DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png'); //placeholder
   DontPanic.game.load.image('coin', 'assets/coin_2.png');
