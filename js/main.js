@@ -2,7 +2,6 @@ let DontPanic = {};
 let player;
 let obstacle;
 let enemy;
-let fuelbar;
 let background;
 let gameStarted = false;
 let coinTotal = localStorage['coinTotal'] || '0';
@@ -11,6 +10,7 @@ let bestDistance = localStorage['bestDistance'] || '0';
 let filter;
 let improbabilityDrive;
 let improbabilityDriveTriggered = false;
+let extraLife;
 
 function init() {
   const gameWidth = 360;
@@ -36,6 +36,7 @@ function preload() {
   DontPanic.game.load.image('heart', 'assets/life.png');
   DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png'); //placeholder
   DontPanic.game.load.image('coin', 'assets/coin_2.png');
+  DontPanic.game.load.image('extraLife', 'assets/extra_life.png');
 
   DontPanic.game.load.image('IID_background1', 'assets/iid/iid_bg.png');
   DontPanic.game.load.spritesheet('IID_enemy1', 'assets/iid/iid_enemy1.png', 440, 1140);
@@ -65,17 +66,24 @@ function startGame() {
   player = new Player();
   enemy = new Enemy();
   coins = new Coins();
-  lives = new Lives();
+  lives = new LivesScore();
   coinScore = new CoinScore();
   distanceScore = new DistanceScore();
   improbabilityDrive = new ImprobabilityDrive();
   obstacle = new Obstacle();
+  extraLife = new ExtraLife();
 }
 
 function handleCollision() {
   DontPanic.game.physics.arcade.overlap(player.playerSprite, coins.coins, collectCoin, null, this);
   DontPanic.game.physics.arcade.overlap(player.playerSprite, enemy.enemies, abductPlayer, null, this);
   DontPanic.game.physics.arcade.overlap(player.playerSprite, obstacle.obstacles, obstacleCollision, null, this);
+  DontPanic.game.physics.arcade.overlap(player.playerSprite, extraLife.extraLives, gainLife, null, this);
+}
+
+function gainLife(player, life) {
+  life.kill();
+  lives.gainLife();
 }
 
 function obstacleCollision() {

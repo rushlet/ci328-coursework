@@ -146,3 +146,40 @@ class Obstacle {
     petunias.body.gravity.y = 60;
   }
 }
+
+class ExtraLife {
+  constructor() {
+    let extraLives = DontPanic.game.add.group();
+    extraLives.enableBody = true;
+    DontPanic.game.physics.arcade.enable(extraLives);
+    this.extraLifeTimer;
+    this.extraLives = extraLives;
+  }
+
+  triggerExtraLife() {
+    console.log('trigger called, lives left: ', lives.lives.livesLeft);
+    var extraLifeSpawnRate = config[config.currentLevel]['extraLifeSpawnRate'];
+    DontPanic.game.time.events.remove(extraLife.extraLifeTimer);
+    if (lives.lives.livesLeft < 4 && lives.lives.livesLeft > 1) {
+      extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * extraLifeSpawnRate, extraLife.extraLife, this);
+      extraLife.extraLifeTimer.timer.start();
+    }
+    if (lives.lives.livesLeft <= 1) {
+      DontPanic.game.time.events.remove(extraLife.extraLifeTimer);
+      extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * (extraLifeSpawnRate/2), extraLife.extraLife, this);
+      extraLife.extraLifeTimer.timer.start();
+    }
+  }
+
+  extraLife() {
+    console.log('extra life added');
+    var randomX = Math.floor(Math.random() * 320) + 5;
+    const life = extraLife.extraLives.create(randomX, -100, 'extraLife');
+    life.scale.x = 0.06;
+    life.scale.y = 0.06;
+    life.enableBody = true;
+    DontPanic.game.physics.arcade.enable(life);
+    life.body.collideWorldBounds = false;
+    life.body.gravity.y = 40;
+  }
+}
