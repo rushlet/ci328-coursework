@@ -104,11 +104,7 @@ function difficultyListener(input) {
 
 function soundListener(input) {
   let previousSelection = config.soundOn; //true or false
-  if (input["_text"].toLowerCase() == "on") {
-    config.soundOn = true;
-  } else {
-    config.soundOn = false;
-  }
+  config.soundOn = (input["_text"].toLowerCase() == "on") ?  true : false;
   if (config.soundOn != previousSelection) {
     for (var i = 0; i < settingsText__sound.children.length; i++) {
       colourText(settingsText__sound.children[i]);
