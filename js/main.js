@@ -47,10 +47,8 @@ function preload() {
 
 function create() {
   DontPanic.game.world.setBounds(0, 0, 360, 600);
-  // DontPanic.game.physics.startSystem(Phaser.Physics.P2JS); //may need to swap to p2 system for better collision areas
   cursors = DontPanic.game.input.keyboard.createCursorKeys();
   mainMenu();
-  // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.LO);
 }
 
 function update() {
@@ -58,9 +56,7 @@ function update() {
     player.handleInput();
     handleCollision();
     enemy.moveEnemy();
-    // DontPanic.game.debug.spriteBounds(player);
   }
-  // game.debug.cameraInfo(game.camera, 32, 32);
 }
 
 function startGame() {
@@ -74,7 +70,6 @@ function startGame() {
   distanceScore = new DistanceScore();
   improbabilityDrive = new ImprobabilityDrive();
   obstacle = new Obstacle();
-  // DontPanic.game.camera.follow(player.playerSprite, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 }
 
 function handleCollision() {
@@ -95,13 +90,10 @@ function collectCoin(player, coin) {
 
 function abductPlayer(playerSprite, vogon) {
   if (!vogon.abductSuccessful && vogon.frame == 3) {
-    // vogon.kill(); // this needs to be something else - doesn't look good to just disappear.
     lives.loseLife();
-    // make player animation flash
     playerSprite.play('lifeLost');
     vogon.abductSuccessful = true;
     // pause game assets for a sec?
-    // DontPanic.game.paused = true;
   }
 }
 
@@ -114,7 +106,7 @@ function gameOver() {
   player.playerSprite.kill();
   DontPanic.game.gameOver = DontPanic.game.add.text(DontPanic.game.world.centerX, DontPanic.game.world.centerY * 0.75, 'GAME OVER', { font: '40px whoopass', fill: '#fff' });
   DontPanic.game.gameOver.anchor.setTo(0.5);
-  DontPanic.game.camera.fade(0x0000000, 4000); // https://phaser.io/examples/v2/camera/camera-fade
+  DontPanic.game.camera.fade(0x0000000, 4000);
   DontPanic.game.camera.onFadeComplete.add(playAgainMenu, this);
   gameStarted = false;
   stopGameAssetGeneration();
