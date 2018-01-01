@@ -8,8 +8,7 @@ class Enemy {
 
   createEnemy() {
     const enemy = this.enemies.create(DontPanic.game.world.centerX, -10, 'enemyShip');
-    enemy.scale.x = 0.2;
-    enemy.scale.y = 0.2;
+    resizeSprite(enemy, 0.2);
     enemy.fixedToCamera = true;
     DontPanic.game.physics.arcade.enable(enemy);
     enemy.body.collideWorldBounds = false;
@@ -103,8 +102,7 @@ class Coins {
     var x = x || randomNumber(320, 5);
     var y = y || randomNumber(10, -10)
     var coin = this.coins.create(x, y, 'coin');
-    coin.scale.x = 0.3;
-    coin.scale.y = 0.3;
+    resizeSprite(coin, 0.3);
     coin.enableBody = true;
     coin.body.velocity.y = 100;
     coin.body.collideWorldBounds = false;
@@ -124,20 +122,14 @@ class Obstacle {
 
   whale() {
     const whale = obstacle.obstacles.create(randomNumber(250, 100), -100, 'whale');
-    whale.scale.x = 0.3;
-    whale.scale.y = 0.3;
-    DontPanic.game.physics.arcade.enable(whale);
-    whale.body.collideWorldBounds = false;
-    whale.body.gravity.y = 50;
+    resizeSprite(whale, 0.3);
+    addGenericPropertiesForFallingObjects(whale, 50);
   }
 
   petunias() {
     const petunias = obstacle.obstacles.create(randomNumber(320, 25), -50, 'petunias');
-    petunias.scale.x = 0.1;
-    petunias.scale.y = 0.1;
-    DontPanic.game.physics.arcade.enable(petunias);
-    petunias.body.collideWorldBounds = false;
-    petunias.body.gravity.y = 60;
+    resizeSprite(petunias, 0.1)
+    addGenericPropertiesForFallingObjects(petunias, 60);
   }
 }
 
@@ -166,11 +158,7 @@ class ExtraLife {
   extraLife() {
     console.log('extra life added');
     const life = extraLife.extraLives.create(randomNumber(320, 5), -100, 'extraLife');
-    life.scale.x = 0.06;
-    life.scale.y = 0.06;
-    life.enableBody = true;
-    DontPanic.game.physics.arcade.enable(life);
-    life.body.collideWorldBounds = false;
-    life.body.gravity.y = 40;
+    resizeSprite(life, 0.06);
+    addGenericPropertiesForFallingObjects(life, 40);
   }
 }
