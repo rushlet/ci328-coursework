@@ -88,7 +88,7 @@ class Coins {
     this.coins = coins;
     this.initialCoins();
     var coinSpawnRate = config[config.currentLevel]['coinSpawnRate'];
-    this.coinTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * coinSpawnRate, this.randomCoinGenerator, this);
+    this.coinTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * coinSpawnRate, this.createCoin, this);
     this.coinTimer.timer.start();
   }
 
@@ -99,14 +99,8 @@ class Coins {
     }
   }
 
-  randomCoinGenerator() {
-    var randomX = Math.floor(Math.random() * 320) + 5;
-    var randomY = Math.floor(Math.random() * 10) + -10;
-    this.createCoin(randomX, randomY);
-  }
-
   createCoin(x, y) {
-    var coin = this.coins.create(x, y, 'coin');
+    var coin = this.coins.create(randomNumber(320, 5), randomNumber(10, -10), 'coin');
     coin.scale.x = 0.3;
     coin.scale.y = 0.3;
     coin.enableBody = true;
@@ -127,8 +121,7 @@ class Obstacle {
   }
 
   whale() {
-    var randomX = Math.floor(Math.random() * 250) + 100;
-    const whale = obstacle.obstacles.create(randomX, -100, 'whale');
+    const whale = obstacle.obstacles.create(randomNumber(250, 100), -100, 'whale');
     whale.scale.x = 0.3;
     whale.scale.y = 0.3;
     DontPanic.game.physics.arcade.enable(whale);
@@ -137,8 +130,7 @@ class Obstacle {
   }
 
   petunias() {
-    var randomX = Math.floor(Math.random() * 320) + 25;
-    const petunias = obstacle.obstacles.create(randomX, -50, 'petunias');
+    const petunias = obstacle.obstacles.create(randomNumber(320, 25), -50, 'petunias');
     petunias.scale.x = 0.1;
     petunias.scale.y = 0.1;
     DontPanic.game.physics.arcade.enable(petunias);
@@ -171,8 +163,7 @@ class ExtraLife {
 
   extraLife() {
     console.log('extra life added');
-    var randomX = Math.floor(Math.random() * 320) + 5;
-    const life = extraLife.extraLives.create(randomX, -100, 'extraLife');
+    const life = extraLife.extraLives.create(randomNumber(320, 5), -100, 'extraLife');
     life.scale.x = 0.06;
     life.scale.y = 0.06;
     life.enableBody = true;
