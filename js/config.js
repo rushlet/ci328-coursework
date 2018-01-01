@@ -12,6 +12,7 @@ const config = {
     infiniteImprobabilityDuration: 6,
     enemySpeedHorizontal: 1,
     enemySpeedVertical: 1.5,
+    extraLifeSpawnRate: 4,
   },
   hard: {
     coinSpawnRate: 2,
@@ -23,5 +24,6 @@ const config = {
     infiniteImprobabilityDuration: 5,
     enemySpeedHorizontal: 1.5,
     enemySpeedVertical: 2,
+    extraLifeSpawnRate: 5,
   },
 }

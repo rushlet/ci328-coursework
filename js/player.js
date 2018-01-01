@@ -12,17 +12,11 @@ class Player {
     player.body.collideWorldBounds = true;
     player.frame = 1;
     player.lifeLostAnimate = player.animations.add('lifeLost', [4,1,4,1,4]);
-    // DontPanic.game.physics.p2.enable(player, true);
-    //	Convex polys
-    // player.body.clearShapes();
-    // player.body.loadPolygon('physicsData', `rocket_${config.playerColour}`);
     this.playerSprite = player;
   }
 
   handleInput() {
-    DontPanic.game.debug.spriteInfo(this.playerSprite, 32, 32);
-    // DontPanic.game.debug.spriteBounds(player);
-    DontPanic.game.debug.body(this.playerSprite);
+    // DontPanic.game.debug.body(this.playerSprite);
     this.playerSprite.body.velocity.x = 0;
     if ((cursors.left.isDown && !cursors.right.isDown) || (DontPanic.game.input.pointer1.isDown && DontPanic.game.input.pointer1.x < DontPanic.game.world.centerX)) {
       this.moveLeft();
@@ -63,9 +57,5 @@ class Player {
       this.playerSprite.angle += 1;
     }
     this.playerSprite.frame = 1;
-  }
-
-  loseLifeFlash() {
-    player.tint = 0xff0000;
   }
 }
