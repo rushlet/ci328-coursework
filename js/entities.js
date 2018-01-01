@@ -123,13 +123,13 @@ class Obstacle {
   whale() {
     const whale = obstacle.obstacles.create(randomNumber(250, 100), -100, 'whale');
     resizeSprite(whale, 0.3);
-    addGenericPropertiesForFallingObjects(whale, 50);
+    addGenericProperties(whale, 50);
   }
 
   petunias() {
     const petunias = obstacle.obstacles.create(randomNumber(320, 25), -50, 'petunias');
     resizeSprite(petunias, 0.1)
-    addGenericPropertiesForFallingObjects(petunias, 60);
+    addGenericProperties(petunias, 60);
   }
 }
 
@@ -159,6 +159,6 @@ class ExtraLife {
     console.log('extra life added');
     const life = extraLife.extraLives.create(randomNumber(320, 5), -100, 'extraLife');
     resizeSprite(life, 0.06);
-    addGenericPropertiesForFallingObjects(life, 40);
+    addGenericProperties(life, 40);
   }
 }
