@@ -85,21 +85,9 @@ function addCategorySpecifics(textOb, category) {
 
 function getCurrentSettings() {
   const currentSettings = {};
-  var level = config.currentLevel;
-  if (level == "easy") {
-    currentSettings["easy"] = true;
-  }
-  else {
-    currentSettings["easy"] = false;
-  }
+  currentSettings["easy"] = (config.currentLevel == "easy") ?  true : false;
   currentSettings["soundOn"] = config.soundOn;
-  var playerColour = config.playerColour;
-  if (playerColour == "red") {
-    currentSettings["red"] = true;
-  }
-  else {
-    currentSettings["red"] = false;
-  }
+  currentSettings["red"] = (config.playerColour == "red") ?  true : false;
   return currentSettings;
 }
 
