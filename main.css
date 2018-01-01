@@ -7,3 +7,8 @@
   font-family: 'whoopass';
   color: #fff;
 }
+
+canvas {
+  display: block;
+  margin: auto;
+}

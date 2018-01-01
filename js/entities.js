@@ -127,7 +127,7 @@ class Obstacle {
   }
 
   whale() {
-    var randomX = Math.floor(Math.random() * 250) + 100;
+    var randomX = Math.floor(Math.random() * 200) + 100;
     const whale = obstacle.obstacles.create(randomX, -100, 'whale');
     whale.scale.x = 0.3;
     whale.scale.y = 0.3;
@@ -138,7 +138,7 @@ class Obstacle {
 
   petunias() {
     var randomX = Math.floor(Math.random() * 320) + 25;
-    const petunias = obstacle.obstacles.create(randomX, -50, 'petunias');
+    const petunias = obstacle.obstacles.create(randomX, -150, 'petunias');
     petunias.scale.x = 0.1;
     petunias.scale.y = 0.1;
     DontPanic.game.physics.arcade.enable(petunias);
