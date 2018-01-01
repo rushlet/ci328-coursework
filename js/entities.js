@@ -4,11 +4,9 @@ class Enemy {
     var enemySpawnRate = config[config.currentLevel]['enemySpawnRate'];
     this.enemyTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * enemySpawnRate, this.createEnemy, this);
     this.enemyTimer.timer.start();
-    // this.abduct();
   }
 
   createEnemy() {
-    // let randomY = Math.floor(Math.random() * 200) + 50;
     const enemy = this.enemies.create(DontPanic.game.world.centerX, -10, 'enemyShip');
     enemy.scale.x = 0.2;
     enemy.scale.y = 0.2;
@@ -17,12 +15,16 @@ class Enemy {
     enemy.body.collideWorldBounds = false;
     enemy.abductAnimate = enemy.animations.add('abduct');
     enemy.beamUpAnimate = enemy.animations.add('beamUp', [3,3,3,3,2,1,0]);
-    enemy.body.setSize(275, 1140, 80, 0);
+    enemy.body.setSize(275, 1140, 80, 0); // collision hit area
     enemy.body.immovable = true;
     enemy.abductCheck = false;
     enemy.abductSuccessful = false;
     enemy.positioned = false;
     DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.abduct, this, enemy);
+    this.checkIfImprobabilityDriveSprite(enemy);
+  }
+
+  checkIfImprobabilityDriveSprite(enemy) {
     if (improbabilityDriveTriggered) {
       enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 1);
       if (currentScenario == 'reset') {
@@ -33,7 +35,7 @@ class Enemy {
 
   moveEnemy() {
     this.enemies.forEachExists((sprite) =>  {
-      DontPanic.game.debug.body(sprite);
+      // DontPanic.game.debug.body(sprite);
       if (!sprite.positioned && !sprite.abductCheck) {
           this.descend(sprite);
           this.moveToPlayer(sprite);
@@ -85,7 +87,6 @@ class Coins {
     DontPanic.game.physics.arcade.enable(coins);
     this.coins = coins;
     this.initialCoins();
-    // randomly generate more coins at intervals - https://developer.amazon.com/blogs/appstore/post/Tx3AT4I2ENBOI6R/intro-to-phaser-part-3-obstacles-collision-score-sound-and-publishing
     var coinSpawnRate = config[config.currentLevel]['coinSpawnRate'];
     this.coinTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * coinSpawnRate, this.randomCoinGenerator, this);
     this.coinTimer.timer.start();
