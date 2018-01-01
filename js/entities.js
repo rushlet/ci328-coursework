@@ -26,7 +26,7 @@ class Enemy {
 
   checkIfImprobabilityDriveSprite(enemy) {
     if (improbabilityDriveTriggered) {
-      enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 1);
+      enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 0);
       if (currentScenario == 'reset') {
         improbabilityDriveTriggered = false;
       }
