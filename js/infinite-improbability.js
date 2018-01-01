@@ -16,7 +16,7 @@ class ImprobabilityDrive {
   }
 
   improbabilityDriveGenerator() {
-    if (improbabilityDrive.generated == true) {
+    if (improbabilityDrive.generated) {
       improbabilityDrive.generated = false;
     } else {
       var button_iid = this.improbabilityDrive.create(DontPanic.game.world.centerX/5, 1050, 'red_button');
@@ -32,42 +32,34 @@ class ImprobabilityDrive {
     }
   }
 
-  //could call either regenerate assets or trigger another event (whale?)
   triggerEvent(button_iid){
-    var eventTriggered = Math.random() <= 0.5 ? this.regenerateAssets : this.randomObstacle;
-    console.log(this);
-    let that = this;
+    var eventTriggered = Math.random() <= 0.5 ? this.randomAssets : this.randomObstacle;
     eventTriggered(button_iid);
     button_iid.kill();
   }
 
-  regenerateAssets(button_iid) {
-    console.log('iid triggered');
+  randomAssets(button_iid) {
     var improbabilityDriveDuration = config[config.currentLevel]['infiniteImprobabilityDuration'];
     let improbabilityDurationTimer = DontPanic.game.time.events.add(Phaser.Timer.SECOND * improbabilityDriveDuration, improbabilityDrive.assetReset, this);
     improbabilityDurationTimer.timer.start();
     improbabilityDriveTriggered = true;
-    currentScenario = 1;
-    background.background.loadTexture(improbabilityScenarioAssets[1].background);
-    player.playerSprite.loadTexture(improbabilityScenarioAssets[1].player, 0);
-    enemy.enemies.forEachExists((enemy) =>  {
-      enemy.loadTexture(improbabilityScenarioAssets[1].enemy, 0);
-    });
-    coins.coins.forEachExists((coin) =>  {
-      coin.loadTexture(improbabilityScenarioAssets[1].coins);
-    });
+    currentScenario = 1; // when more scenarios are added this will be randomly generated
+    improbabilityDrive.regenerateAssets();
   }
 
   assetReset() {
-    console.log('reset', this);
     currentScenario = 'reset';
-    background.background.loadTexture(improbabilityScenarioAssets['reset'].background);
-    player.playerSprite.loadTexture(improbabilityScenarioAssets['reset'].player, 0);
+    improbabilityDrive.regenerateAssets();
+  }
+
+  regenerateAssets() {
+    background.background.loadTexture(improbabilityScenarioAssets[currentScenario].background);
+    player.playerSprite.loadTexture(improbabilityScenarioAssets[currentScenario].player, 0);
     enemy.enemies.forEachExists((enemy) =>  {
-      enemy.loadTexture(improbabilityScenarioAssets['reset'].enemy, 0);
+      enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 0);
     });
     coins.coins.forEachExists((coin) =>  {
-      coin.loadTexture(improbabilityScenarioAssets['reset'].coins);
+      coin.loadTexture(improbabilityScenarioAssets[currentScenario].coins);
     });
   }
 
