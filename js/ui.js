@@ -1,18 +1,3 @@
-class Background {
-    constructor() {
-        this.background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
-        this.background.autoScroll(0, 50);
-    }
-
-    random() {
-      // change background to random image
-    }
-
-    reset() {
-      this.background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
-    }
-}
-
 class LivesScore {
   constructor() {
     let lives = DontPanic.game.add.group();
@@ -26,7 +11,6 @@ class LivesScore {
 
   createHeart(i) {
     var heart = this.lives.create((10+(i*20)), 10, 'heart');
-    console.log(i);
     heart.scale.x = 0.04;
     heart.scale.y = 0.04;
   }

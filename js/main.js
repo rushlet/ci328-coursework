@@ -62,7 +62,8 @@ function update() {
 
 function startGame() {
   gameStarted = true;
-  background = new Background();
+  background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
+  background.autoScroll(0, 50);
   player = new Player();
   enemy = new Enemy();
   coins = new Coins();
