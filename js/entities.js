@@ -25,7 +25,7 @@ class Enemy {
 
   checkIfImprobabilityDriveSprite(enemy) {
     if (improbabilityDriveTriggered) {
-      enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 1);
+      enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 0);
       if (currentScenario == 'reset') {
         improbabilityDriveTriggered = false;
       }
@@ -121,15 +121,15 @@ class Obstacle {
   }
 
   whale() {
-    const whale = obstacle.obstacles.create(randomNumber(250, 100), -100, 'whale');
+    const whale = obstacle.obstacles.create(randomNumber(200, 100), -100, 'whale');
     resizeSprite(whale, 0.3);
-    addGenericProperties(whale, 50);
+    addGenericPropertiesForFallingObjects(whale, 50);
   }
 
   petunias() {
-    const petunias = obstacle.obstacles.create(randomNumber(320, 25), -50, 'petunias');
+    const petunias = obstacle.obstacles.create(randomNumber(320, 25), -150, 'petunias');
     resizeSprite(petunias, 0.1)
-    addGenericProperties(petunias, 60);
+    addGenericPropertiesForFallingObjects(petunias, 60);
   }
 }
 
@@ -159,6 +159,6 @@ class ExtraLife {
     console.log('extra life added');
     const life = extraLife.extraLives.create(randomNumber(320, 5), -100, 'extraLife');
     resizeSprite(life, 0.06);
-    addGenericProperties(life, 40);
+    addGenericPropertiesForFallingObjects(life, 40);
   }
 }
