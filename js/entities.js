@@ -157,7 +157,6 @@ class ExtraLife {
   }
 
   triggerExtraLife() {
-    console.log('trigger called, lives left: ', lives.lives.livesLeft);
     var extraLifeSpawnRate = config[config.currentLevel]['extraLifeSpawnRate'];
     DontPanic.game.time.events.remove(extraLife.extraLifeTimer);
     if (lives.lives.livesLeft < 4 && lives.lives.livesLeft > 1) {
@@ -165,7 +164,6 @@ class ExtraLife {
       extraLife.extraLifeTimer.timer.start();
     }
     if (lives.lives.livesLeft <= 1) {
-      DontPanic.game.time.events.remove(extraLife.extraLifeTimer);
       extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * (extraLifeSpawnRate/2), extraLife.extraLife, this);
       extraLife.extraLifeTimer.timer.start();
     }

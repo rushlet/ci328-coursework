@@ -35,23 +35,13 @@ class LivesScore {
     if (this.lives.livesLeft > 0) {
       this.lives.livesLeft -= 1;
       extraLife.triggerExtraLife();
-      // get length of children
-      // find last one that is alive
-      // remove
-      var lifeChildren = this.lives.children;
       var lifeLost = false;
-      for (var i = lifeChildren.length - 1; i >= 0 ; i--) {
-        console.log(lifeChildren[i]);
-        if (lifeChildren[i].alive && !lifeLost) {
-          lifeChildren[i].kill();
+      for (var i = this.lives.children.length - 1; i >= 0 ; i--) {
+        if (this.lives.children[i].alive && !lifeLost) {
+          this.lives.children[i].kill();
           lifeLost = true;
         }
       }
-      // if (this.lives.children[this.lives.children.length].checkAlive()) {
-      //   console.log('alive');
-      //   this.lives.children[this.lives.children.length].checkAlive().kill();
-      // }
-      // this.lives.children[this.lives.livesLeft-1].kill();
     }
     else {
       gameOver();
