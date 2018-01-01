@@ -53,7 +53,7 @@ class ImprobabilityDrive {
   }
 
   regenerateAssets() {
-    background.background.loadTexture(improbabilityScenarioAssets[currentScenario].background);
+    background.loadTexture(improbabilityScenarioAssets[currentScenario].background);
     player.playerSprite.loadTexture(improbabilityScenarioAssets[currentScenario].player, 0);
     enemy.enemies.forEachExists((enemy) =>  {
       enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 0);
