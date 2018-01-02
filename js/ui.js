@@ -13,23 +13,35 @@ class Background {
     }
 }
 
-class Lives {
+class LivesScore {
   constructor() {
     let lives = DontPanic.game.add.group();
     lives.fixedToCamera = true;
-    lives.livesLeft = 3;
+    lives.livesLeft = 4;
     this.lives = lives;
     for (var i = 0; i < 3; i++) {
-      var heart = this.lives.create((10+(i*20)), 10, 'heart');
-      heart.scale.x = 0.04;
-      heart.scale.y = 0.04;
+      this.createHeart(i)
     }
+  }
+
+  createHeart(i) {
+    var heart = this.lives.create((10+(i*20)), 10, 'heart');
+    console.log(i);
+    heart.scale.x = 0.04;
+    heart.scale.y = 0.04;
   }
 
   loseLife() {
     if (this.lives.livesLeft > 0) {
       this.lives.livesLeft -= 1;
-      this.lives.children[this.lives.livesLeft].kill();
+      extraLife.triggerExtraLife();
+      var lifeLost = false;
+      for (var i = this.lives.children.length - 1; i >= 0 ; i--) {
+        if (this.lives.children[i].alive && !lifeLost) {
+          this.lives.children[i].kill();
+          lifeLost = true;
+        }
+      }
     }
     else {
       gameOver();
@@ -37,9 +49,11 @@ class Lives {
   }
 
   gainLife() {
-    if (this.lives.livesLeft > 4) {
+    if (this.lives.livesLeft < 4) {
       this.lives.livesLeft += 1;
+      this.createHeart(this.lives.livesLeft - 2);
     }
+    extraLife.triggerExtraLife();
   }
 }
 
@@ -82,20 +96,3 @@ class DistanceScore {
     this.distcanceReachedText.setText(`Distance: ${currentDistance}`);
   }
 }
-
-// class FuelBar {
-//   constructor() {
-//     let fuelbar = DontPanic.game.add.sprite(5, 10, 'fuelbar');
-//     let fuelLevel = 100;
-//     fuelbar.width = 100;
-//     fuelbar.height = 10;
-//     fuelbar.fixedToCamera = true;
-//     this.fuelbar = fuelbar;
-//     this.fuelLevel = fuelLevel;
-//   }
-//
-//   reduceFuel(amount) {
-//     this.fuelLevel -= amount;
-//     this.fuelbar.width = this.fuelLevel;
-//   }
-// }
