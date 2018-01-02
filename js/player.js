@@ -11,7 +11,6 @@ class Player {
     player.body.gravity.y = 0;
     player.body.collideWorldBounds = true;
     player.frame = 1;
-    player.lifeLostAnimate = player.animations.add('lifeLost', [4,1,4,1,4]);
     this.playerSprite = player;
   }
 
@@ -57,13 +56,5 @@ class Player {
       this.playerSprite.angle += 1;
     }
     this.playerSprite.frame = 1;
-  }
-
-  loseLifeFlash(playerSprite) {
-    playerSprite.frame = 0;
-    console.log(this.playerSprite);
-    console.log('animation called');
-    // playerSprite.animations.play('lifeLost', 20, true);
-    // playerSprite.lifeLostAnimate.onComplete.add(() => {DontPanic.game.pause = true});
   }
 }

@@ -99,12 +99,8 @@ function collectCoin(player, coin) {
 function abductPlayer(playerSprite, vogon) {
   if (!vogon.abductSuccessful && vogon.frame == 3) {
     lives.loseLife();
-    // player.playerSprite.lifeLostAnimate.play();
     DontPanic.game.camera.shake(0.005, 500);
-    // player.loseLifeFlash(playerSprite);
-    // playerSprite.play('lifeLost');
     vogon.abductSuccessful = true;
-    // pause game assets for a sec?
   }
 }
 
