@@ -109,13 +109,23 @@ function stopGameAssetGeneration() {
   enemy.enemyTimer.timer.stop();
 }
 
-function gameOver() {
+
+function removeAllEntities() {
   player.playerSprite.kill();
+  enemy.enemies.kill();
+  coins.coins.kill();
+  obstacle.obstacles.kill();
+  improbabilityDrive.improbabilityDrive.kill();
+}
+
+function gameOver() {
   DontPanic.game.gameOver = DontPanic.game.add.text(DontPanic.game.world.centerX, DontPanic.game.world.centerY * 0.75, 'GAME OVER', { font: '40px whoopass', fill: '#fff' });
   DontPanic.game.gameOver.anchor.setTo(0.5);
-  DontPanic.game.camera.fade(0x0000000, 4000);
+  DontPanic.game.camera.fade(0x0000000, 3000);
   DontPanic.game.camera.onFadeComplete.add(playAgainMenu, this);
+  background.background.stopScroll();
   gameStarted = false;
+  removeAllEntities();
   stopGameAssetGeneration();
   if (currentDistance > parseInt(bestDistance)) {
     localStorage['bestDistance'] = currentDistance.toString();
