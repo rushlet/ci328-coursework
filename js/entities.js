@@ -84,6 +84,7 @@ class Coins {
   constructor() {
     let coins = DontPanic.game.add.group();
     coins.enableBody = true;
+    coins.collection = DontPanic.game.add.audio('coinPing');
     DontPanic.game.physics.arcade.enable(coins);
     this.coins = coins;
     this.initialCoins();

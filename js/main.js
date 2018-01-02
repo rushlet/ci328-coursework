@@ -38,6 +38,8 @@ function preload() {
   DontPanic.game.load.image('coin', 'assets/coin_2.png');
   DontPanic.game.load.image('extraLife', 'assets/extra_life.png');
 
+  DontPanic.game.load.audio('coinPing', 'assets/audio/coin_collection.wav');
+
   DontPanic.game.load.image('IID_background1', 'assets/iid/iid_bg.png');
   DontPanic.game.load.spritesheet('IID_enemy1', 'assets/iid/iid_enemy1.png', 440, 1140);
   DontPanic.game.load.spritesheet('IID_player1', 'assets/iid/iid_player1.png', 115, 175);
@@ -92,6 +94,7 @@ function obstacleCollision() {
 }
 
 function collectCoin(player, coin) {
+  coins.coins.collection.play();
   coin.kill();
   coinScore.addToCoinScore()
 }
