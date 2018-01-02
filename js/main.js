@@ -11,6 +11,7 @@ let filter;
 let improbabilityDrive;
 let improbabilityDriveTriggered = false;
 let extraLife;
+let newBestScore = false;
 
 function init() {
   const gameWidth = 360;
@@ -32,12 +33,12 @@ function preload() {
   DontPanic.game.load.spritesheet('rocket_red', 'assets/rocket_spritesheet1.png', 115, 175);
   DontPanic.game.load.spritesheet('rocket_blue', 'assets/rocket_spritesheet_blue1.png', 115, 175);
   DontPanic.game.load.spritesheet('enemyShip', 'assets/enemy_ship_spritesheet1.png', 440, 1140);
-  DontPanic.game.load.spritesheet('red_button', 'assets/iid-button.png', 472, 472);
   DontPanic.game.load.image('heart', 'assets/life.png');
   DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png'); //placeholder
   DontPanic.game.load.image('coin', 'assets/coin_2.png');
   DontPanic.game.load.image('extraLife', 'assets/extra_life.png');
 
+  DontPanic.game.load.spritesheet('red_button', 'assets/iid/iid-button1.png', 304, 275);
   DontPanic.game.load.image('IID_background1', 'assets/iid/iid_bg.png');
   DontPanic.game.load.spritesheet('IID_enemy1', 'assets/iid/iid_enemy1.png', 440, 1140);
   DontPanic.game.load.spritesheet('IID_player1', 'assets/iid/iid_player1.png', 115, 175);
@@ -110,15 +111,33 @@ function stopGameAssetGeneration() {
   enemy.enemyTimer.timer.stop();
 }
 
-function gameOver() {
+
+function removeAllEntities() {
   player.playerSprite.kill();
+  enemy.enemies.kill();
+  coins.coins.kill();
+  obstacle.obstacles.kill();
+  improbabilityDrive.improbabilityDrive.kill();
+  extraLife.extraLives.kill();
+}
+
+function gameOver() {
+  distanceScore.distanceTimer.timer.stop();
+  checkBestDistance();
   DontPanic.game.gameOver = DontPanic.game.add.text(DontPanic.game.world.centerX, DontPanic.game.world.centerY * 0.75, 'GAME OVER', { font: '40px whoopass', fill: '#fff' });
   DontPanic.game.gameOver.anchor.setTo(0.5);
-  DontPanic.game.camera.fade(0x0000000, 4000);
+  DontPanic.game.camera.fade(0x0000000, 3000);
   DontPanic.game.camera.onFadeComplete.add(playAgainMenu, this);
-  gameStarted = false;
+  background.background.stopScroll();
+  removeAllEntities();
   stopGameAssetGeneration();
+  gameStarted = false;
+}
+
+function checkBestDistance() {
   if (currentDistance > parseInt(bestDistance)) {
     localStorage['bestDistance'] = currentDistance.toString();
+    bestDistance = localStorage['bestDistance'];
+    newBestScore = true;
   }
 }
