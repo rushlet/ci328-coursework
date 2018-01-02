@@ -12,3 +12,13 @@ function addGenericPropertiesForFallingObjects(entity, gravity) {
   entity.body.collideWorldBounds = false;
   entity.body.gravity.y = gravity;
 }
+
+function eventOnLatestChildAdded(children, callback) {
+  var triggered = false;
+  for (var i = children.length - 1; i >= 0 ; i--) {
+    if (children[i].alive && !triggered) {
+      callback(children[i]);
+      triggered = true;
+    }
+  }
+}

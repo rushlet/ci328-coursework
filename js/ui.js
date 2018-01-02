@@ -19,17 +19,15 @@ class LivesScore {
     if (this.lives.livesLeft > 1) {
       this.lives.livesLeft -= 1;
       extraLife.triggerExtraLife();
-      var lifeLost = false;
-      for (var i = this.lives.children.length - 1; i >= 0 ; i--) {
-        if (this.lives.children[i].alive && !lifeLost) {
-          this.lives.children[i].kill();
-          lifeLost = true;
-        }
-      }
+      eventOnLatestChildAdded(this.lives.children, this.removeLife);
     }
     else {
       gameOver();
     }
+  }
+
+  removeLife(heart) {
+    heart.kill();
   }
 
   gainLife() {
