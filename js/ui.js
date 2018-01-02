@@ -32,7 +32,7 @@ class LivesScore {
   }
 
   loseLife() {
-    if (this.lives.livesLeft > 0) {
+    if (this.lives.livesLeft > 1) {
       this.lives.livesLeft -= 1;
       extraLife.triggerExtraLife();
       var lifeLost = false;
