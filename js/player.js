@@ -10,7 +10,6 @@ class Player {
     player.body.gravity.y = 0;
     player.body.collideWorldBounds = true;
     player.frame = 1;
-    player.lifeLostAnimate = player.animations.add('lifeLost', [4,1,4,1,4]);
     this.playerSprite = player;
   }
 
