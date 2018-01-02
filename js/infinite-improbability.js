@@ -20,8 +20,8 @@ class ImprobabilityDrive {
       improbabilityDrive.generated = false;
     } else {
       var button_iid = this.improbabilityDrive.create(DontPanic.game.world.centerX/5, 1050, 'red_button');
-      button_iid.scale.x = 0.3;
-      button_iid.scale.y = 0.3;
+      button_iid.scale.x = 0.5;
+      button_iid.scale.y = 0.5;
       button_iid.enableBody = true;
       button_iid.animation = button_iid.animations.add('flash', [0,1,0,1,0,1,0], true);
       button_iid.play('flash');
@@ -29,6 +29,18 @@ class ImprobabilityDrive {
       button_iid.events.onInputDown.add(this.triggerEvent, this);
       DontPanic.game.debug.body(button_iid);
       improbabilityDrive.generated = true;
+      improbabilityDrive.destructionTimer = DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.removeButton, this);
+    }
+  }
+
+  removeButton() {
+    let iidButtons = improbabilityDrive.improbabilityDrive.children;
+    var buttonDestroyed = false;
+    for (var i = iidButtons.length - 1; i >= 0 ; i--) {
+      if (iidButtons[i].alive && !buttonDestroyed) {
+        iidButtons[i].kill();
+        buttonDestroyed = true;
+      }
     }
   }
 
