@@ -154,9 +154,13 @@ function colourText(text) {
 function playAgainMenu() {
   DontPanic.game.gameOver.destroy();
   DontPanic.game.camera.resetFX();
-  const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `Best Distance: ${bestDistance}`, 30);
-  const restartButton = DontPanic.game.add.button(DontPanic.game.world.width*0.5, DontPanic.game.world.height*0.5, 'playAgainButton', startGame, this);
+  const restartButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY, 'playAgainButton', startGame, this);
   restartButton.anchor.set(0.5);
   const settingsButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY + 100, 'settingsButton', settingsMenu, this);
   settingsButton.anchor.set(0.5);
+  if (newBestScore) {
+    const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `New Best Distance!!\n${bestDistance}`, 30);
+  } else {
+    const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `Best Distance: ${bestDistance}`, 30);
+  }
 }
