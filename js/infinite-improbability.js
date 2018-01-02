@@ -29,6 +29,8 @@ class ImprobabilityDrive {
       button_iid.events.onInputDown.add(this.triggerEvent, this);
       DontPanic.game.debug.body(button_iid);
       improbabilityDrive.generated = true;
+      button_iid.alpha = 0;
+      DontPanic.game.add.tween(button_iid).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0);
       improbabilityDrive.destructionTimer = DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.removeButton, this);
     }
   }
@@ -38,7 +40,8 @@ class ImprobabilityDrive {
     var buttonDestroyed = false;
     for (var i = iidButtons.length - 1; i >= 0 ; i--) {
       if (iidButtons[i].alive && !buttonDestroyed) {
-        iidButtons[i].kill();
+        let fadeOut = DontPanic.game.add.tween(iidButtons[i]).to( { alpha: 0 }, 500, Phaser.Easing.Linear.None, true, 0);
+        fadeOut.onComplete.add((button)=>{button.kill();}, this);
         buttonDestroyed = true;
       }
     }
