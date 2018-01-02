@@ -1,6 +1,7 @@
 class Enemy {
   constructor() {
     this.enemies = DontPanic.game.add.group();
+    this.abductionSound = DontPanic.game.add.audio('abduction');
     var enemySpawnRate = config[config.currentLevel]['enemySpawnRate'];
     this.enemyTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * enemySpawnRate, this.createEnemy, this);
     this.enemyTimer.timer.start();

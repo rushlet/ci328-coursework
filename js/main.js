@@ -39,6 +39,8 @@ function preload() {
   DontPanic.game.load.image('extraLife', 'assets/extra_life.png');
 
   DontPanic.game.load.audio('coinPing', 'assets/audio/coin_collection.wav');
+  DontPanic.game.load.audio('backgroundMusic', 'assets/audio/background_music.wav');
+  DontPanic.game.load.audio('abduction', 'assets/audio/abduction.wav');
 
   DontPanic.game.load.spritesheet('red_button', 'assets/iid/iid-button1.png', 304, 275);
   DontPanic.game.load.image('IID_background1', 'assets/iid/iid_bg.png');
@@ -75,6 +77,9 @@ function startGame() {
   improbabilityDrive = new ImprobabilityDrive();
   obstacle = new Obstacle();
   extraLife = new ExtraLife();
+  if (config.soundOn) {
+    new backgroundMusic();
+  }
 }
 
 function handleCollision() {
@@ -102,6 +107,7 @@ function collectCoin(player, coin) {
 
 function abductPlayer(playerSprite, vogon) {
   if (!vogon.abductSuccessful && vogon.frame == 3) {
+    enemy.abductionSound.play();
     lives.loseLife();
     DontPanic.game.camera.shake(0.005, 500);
     vogon.abductSuccessful = true;
