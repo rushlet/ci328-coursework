@@ -36,7 +36,7 @@ function loadAudio() {
 
 function loadSound() {
   if (config.soundOn) {
-    DontPanic.backgroundMusic = new BackgroundMusic();
+    DontPanic.backgroundMusic = backgroundMusic();
   } else {
     DontPanic.game.sound.mute = true;
   }

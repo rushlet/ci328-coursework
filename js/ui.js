@@ -4,14 +4,12 @@ function createUI() {
   DontPanic.distance = new DistanceScore();
 }
 
-class BackgroundMusic {
-  constructor() {
+function backgroundMusic() {
     let backgroundMusic = DontPanic.game.add.audio('backgroundMusic');
     backgroundMusic.loop = true;
     backgroundMusic.volume = 0.1;
     backgroundMusic.play();
-    this.backgroundMusic = backgroundMusic;
-  }
+    return backgroundMusic;
 }
 
 class LivesScore {
