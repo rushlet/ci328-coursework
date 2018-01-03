@@ -67,10 +67,7 @@ class CoinScore {
     var coinTotalText = DontPanic.game.add.text(DontPanic.game.world.centerX, 30, `Total Coins: ${DontPanic.coinTotal}`, {
         font: `${config.style.fontSize_score} ${config.style.font}`,
       });
-    coinTotalText.anchor.setTo(0.5);
-    coinTotalText.align = 'center';
-    coinTotalText.fill = config.style.textColour;
-    coinTotalText.padding.set(16, 16);
+    styleScoreText(coinTotalText);
     this.coinTotalText = coinTotalText;
   }
 
@@ -88,10 +85,7 @@ class DistanceScore {
     var distanceReachedText = DontPanic.game.add.text(DontPanic.game.width - 50, 30, `Distance: ${DontPanic.currentDistance}`, {
         font: `${config.style.fontSize_score} ${config.style.font}`,
     });
-    distanceReachedText.anchor.setTo(0.5);
-    distanceReachedText.align = 'center';
-    distanceReachedText.fill = config.style.textColour;
-    distanceReachedText.padding.set(16, 16);
+    styleScoreText(distanceReachedText);
     this.distanceReachedText = distanceReachedText;
   }
 
@@ -107,4 +101,11 @@ class DistanceScore {
       DontPanic.newBestScore = true;
     }
   }
+}
+
+function styleScoreText(text) {
+  text.anchor.setTo(0.5);
+  text.align = 'center';
+  text.fill = config.style.textColour;
+  text.padding.set(16, 16);
 }
