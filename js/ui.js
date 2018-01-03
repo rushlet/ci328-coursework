@@ -64,11 +64,7 @@ class LivesScore {
 
 class CoinScore {
   constructor() {
-    var coinTotalText = DontPanic.game.add.text(DontPanic.game.world.centerX, 30, `Total Coins: ${DontPanic.coinTotal}`, {
-        font: `${config.style.fontSize_score} ${config.style.font}`,
-      });
-    styleScoreText(coinTotalText);
-    this.coinTotalText = coinTotalText;
+    this.coinTotalText = createScoreText(DontPanic.game.world.centerX, `Total Coins: ${DontPanic.coinTotal}`);
   }
 
   addToCoinScore() {
@@ -82,11 +78,7 @@ class DistanceScore {
     DontPanic.currentDistance = 0;
     this.distanceTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * 0.25, this.distanceIncrease, this);
     this.distanceTimer.timer.start();
-    var distanceReachedText = DontPanic.game.add.text(DontPanic.game.width - 50, 30, `Distance: ${DontPanic.currentDistance}`, {
-        font: `${config.style.fontSize_score} ${config.style.font}`,
-    });
-    styleScoreText(distanceReachedText);
-    this.distanceReachedText = distanceReachedText;
+    this.distanceReachedText = createScoreText(DontPanic.game.width - 50, `Distance: ${DontPanic.currentDistance}`);
   }
 
   distanceIncrease() {
@@ -103,9 +95,13 @@ class DistanceScore {
   }
 }
 
-function styleScoreText(text) {
+function createScoreText(x, content) {
+  text =  DontPanic.game.add.text(x, 30, content, {
+        font: `${config.style.fontSize_score} ${config.style.font}`,
+  });
   text.anchor.setTo(0.5);
   text.align = 'center';
   text.fill = config.style.textColour;
   text.padding.set(16, 16);
+  return text;
 }
