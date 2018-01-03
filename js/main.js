@@ -85,6 +85,8 @@ function startGame() {
   extraLife = new ExtraLife();
   if (config.soundOn) {
     backgroundMusic = new BackgroundMusic();
+  } else {
+    DontPanic.game.sound.mute = true;
   }
 }
 
