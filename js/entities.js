@@ -35,6 +35,7 @@ class Enemy {
     const enemy = this.enemies.create(DontPanic.game.world.centerX, -10, 'enemyShip');
     resizeSprite(enemy, 0.2);
     enemy.fixedToCamera = true;
+    enemy.anchor.set(0.5, 0);
     DontPanic.game.physics.arcade.enable(enemy);
     enemy.body.collideWorldBounds = false;
     enemy.abductAnimate = enemy.animations.add('abduct');
@@ -71,10 +72,12 @@ class Enemy {
   }
 
   moveToPlayer(sprite) {
-    if (sprite.x >= DontPanic.player.playerSprite.x - (DontPanic.player.playerSprite.width / 2)) {
+    if (sprite.x > DontPanic.player.playerSprite.x + 1) {
+      console.log('left');
       sprite.cameraOffset.x -= config[config.currentLevel]['enemySpeedHorizontal'];
-    } else {
+    } else if (sprite.x < DontPanic.player.playerSprite.x - 1){
       sprite.cameraOffset.x += config[config.currentLevel]['enemySpeedHorizontal'];
+      console.log('right');
     }
   }
 
