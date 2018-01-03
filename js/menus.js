@@ -4,7 +4,7 @@ var settingsText__sound;
 var settingsText__colour;
 
 function mainMenu() {
-    background = DontPanic.game.add.image(0, -20, 'home_background');
+    DontPanic.background = DontPanic.game.add.image(0, -20, 'home_background');
     let startButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 120, 'startButton', startGame, this);
     startButton.anchor.set(0.5);
     let settingsButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 60, 'settingsButton', settingsMenu, this);
@@ -142,9 +142,9 @@ function playAgainMenu() {
   restartButton.anchor.set(0.5);
   const settingsButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY + 100, 'settingsButton', settingsMenu, this);
   settingsButton.anchor.set(0.5);
-  if (newBestScore) {
-    const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `New Best Distance!!\n${bestDistance}`, 30);
+  if (DontPanic.newBestScore) {
+    const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `New Best Distance!!\n${DontPanic.bestDistance}`, 30);
   } else {
-    const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `Best Distance: ${bestDistance}`, 30);
+    const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `Best Distance: ${DontPanic.bestDistance}`, 30);
   }
 }

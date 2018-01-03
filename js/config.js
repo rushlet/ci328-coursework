@@ -8,7 +8,7 @@ const config = {
     lifeSpawnRate: 0.5,
     whaleDelay: 50,
     petuniaSpeed: 60,
-    infiniteImprobabilityDelay: 12,
+    infiniteImprobabilityDelay: 3,
     infiniteImprobabilityDuration: 6,
     enemySpeedHorizontal: 1,
     enemySpeedVertical: 1.5,

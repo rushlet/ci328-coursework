@@ -16,10 +16,10 @@ class Player {
   handleInput() {
     // DontPanic.game.debug.body(this.playerSprite);
     this.playerSprite.body.velocity.x = 0;
-    if ((cursors.left.isDown && !cursors.right.isDown) || (DontPanic.game.input.pointer1.isDown && DontPanic.game.input.pointer1.x < DontPanic.game.world.centerX)) {
+    if ((DontPanic.cursors.left.isDown && !DontPanic.cursors.right.isDown) || (DontPanic.game.input.pointer1.isDown && DontPanic.game.input.pointer1.x < DontPanic.game.world.centerX)) {
       this.moveLeft();
     }
-    else if ((cursors.right.isDown && !cursors.left.isDown) || (DontPanic.game.input.pointer1.isDown && DontPanic.game.input.pointer1.x > DontPanic.game.world.centerX)) {
+    else if ((DontPanic.cursors.right.isDown && !DontPanic.cursors.left.isDown) || (DontPanic.game.input.pointer1.isDown && DontPanic.game.input.pointer1.x > DontPanic.game.world.centerX)) {
       this.moveRight();
     }
     else {

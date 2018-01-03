@@ -28,7 +28,7 @@ class LivesScore {
   loseLife() {
     if (this.lives.livesLeft > 1) {
       this.lives.livesLeft -= 1;
-      extraLife.triggerExtraLife();
+      DontPanic.extraLife.triggerExtraLife();
       eventOnLatestChildAdded(this.lives.children, this.removeLife);
     }
     else {
@@ -45,13 +45,13 @@ class LivesScore {
       this.lives.livesLeft += 1;
       this.createHeart(this.lives.livesLeft - 2);
     }
-    extraLife.triggerExtraLife();
+    DontPanic.extraLife.triggerExtraLife();
   }
 }
 
 class CoinScore {
   constructor() {
-    var coinTotalText = DontPanic.game.add.text(DontPanic.game.world.centerX, 30, `Total Coins: ${coinTotal}`, {
+    var coinTotalText = DontPanic.game.add.text(DontPanic.game.world.centerX, 30, `Total Coins: ${DontPanic.coinTotal}`, {
         font: '16px whoopass',
       });
     coinTotalText.anchor.setTo(0.5);
@@ -62,29 +62,29 @@ class CoinScore {
   }
 
   addToCoinScore() {
-    coinTotal++;
-    this.coinTotalText.setText(`Total Coins: ${coinTotal}`);
+    DontPanic.coinTotal++;
+    this.coinTotalText.setText(`Total Coins: ${DontPanic.coinTotal}`);
   }
 }
 
 class DistanceScore {
   constructor() {
-    currentDistance = 0;
+    DontPanic.currentDistance = 0;
     this.distanceTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * 0.25, this.distanceIncrease, this);
     this.distanceTimer.timer.start();
 
-    var distcanceReachedText = DontPanic.game.add.text(DontPanic.game.width - 50, 30, `Distance: ${currentDistance}`, {
+    var distanceReachedText = DontPanic.game.add.text(DontPanic.game.width - 50, 30, `Distance: ${DontPanic.currentDistance}`, {
         font: '16px whoopass',
     });
-    distcanceReachedText.anchor.setTo(0.5);
-    distcanceReachedText.align = 'center';
-    distcanceReachedText.fill = '#fff';
-    distcanceReachedText.padding.set(16, 16);
-    this.distcanceReachedText = distcanceReachedText;
+    distanceReachedText.anchor.setTo(0.5);
+    distanceReachedText.align = 'center';
+    distanceReachedText.fill = '#fff';
+    distanceReachedText.padding.set(16, 16);
+    this.distanceReachedText = distanceReachedText;
   }
 
   distanceIncrease() {
-    currentDistance++;
-    this.distcanceReachedText.setText(`Distance: ${currentDistance}`);
+    DontPanic.currentDistance++;
+    this.distanceReachedText.setText(`Distance: ${DontPanic.currentDistance}`);
   }
 }

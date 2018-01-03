@@ -1,18 +1,9 @@
 let DontPanic = {};
-let player;
-let obstacle;
-let enemy;
-let background;
-let gameStarted = false;
-let coinTotal = localStorage['coinTotal'] || '0';
-let currentDistance;
-let bestDistance = localStorage['bestDistance'] || '0';
-let filter;
-let improbabilityDrive;
-let improbabilityDriveTriggered = false;
-let extraLife;
-let newBestScore = false;
-let backgroundMusic
+DontPanic.coinTotal = localStorage['coinTotal'] || '0';
+DontPanic.currentDistance;
+DontPanic.bestDistance = localStorage['bestDistance'] || '0';
+DontPanic.improbabilityDriveTriggered = false;
+DontPanic.newBestScore = false;
 
 function init() {
   const gameWidth = 360;
@@ -59,108 +50,108 @@ function preload() {
 
 function create() {
   DontPanic.game.world.setBounds(0, 0, 360, 600);
-  cursors = DontPanic.game.input.keyboard.createCursorKeys();
+  DontPanic.cursors = DontPanic.game.input.keyboard.createCursorKeys();
   mainMenu();
 }
 
 function update() {
-  if (gameStarted) {
-    player.handleInput();
+  if (DontPanic.gameStarted) {
+    DontPanic.player.handleInput();
     handleCollision();
-    enemy.moveEnemy();
+    DontPanic.enemy.moveEnemy();
   }
 }
 
 function startGame() {
-  gameStarted = true;
-  background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
-  background.autoScroll(0, 50);
-  player = new Player();
-  enemy = new Enemy();
-  coins = new Coins();
-  lives = new LivesScore();
-  coinScore = new CoinScore();
-  distanceScore = new DistanceScore();
-  improbabilityDrive = new ImprobabilityDrive();
-  obstacle = new Obstacle();
-  extraLife = new ExtraLife();
+  DontPanic.gameStarted = true;
+  DontPanic.background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
+  DontPanic.background.autoScroll(0, 50);
+  DontPanic.player = new Player();
+  DontPanic.enemy = new Enemy();
+  DontPanic.coins = new Coins();
+  DontPanic.lives = new LivesScore();
+  DontPanic.coinScore = new CoinScore();
+  DontPanic.distanceScore = new DistanceScore();
+  DontPanic.improbabilityDrive = new ImprobabilityDrive();
+  DontPanic.obstacle = new Obstacle();
+  DontPanic.extraLife = new ExtraLife();
   if (config.soundOn) {
-    backgroundMusic = new BackgroundMusic();
+    DontPanic.backgroundMusic = new BackgroundMusic();
   } else {
     DontPanic.game.sound.mute = true;
   }
 }
 
 function handleCollision() {
-  DontPanic.game.physics.arcade.overlap(player.playerSprite, coins.coins, collectCoin, null, this);
-  DontPanic.game.physics.arcade.overlap(player.playerSprite, enemy.enemies, abductPlayer, null, this);
-  DontPanic.game.physics.arcade.overlap(player.playerSprite, obstacle.obstacles, obstacleCollision, null, this);
-  DontPanic.game.physics.arcade.overlap(player.playerSprite, extraLife.extraLives, gainLife, null, this);
+  DontPanic.game.physics.arcade.overlap(DontPanic.player.playerSprite, DontPanic.coins.coins, collectCoin, null, this);
+  DontPanic.game.physics.arcade.overlap(DontPanic.player.playerSprite, DontPanic.enemy.enemies, abductPlayer, null, this);
+  DontPanic.game.physics.arcade.overlap(DontPanic.player.playerSprite, DontPanic.obstacle.obstacles, obstacleCollision, null, this);
+  DontPanic.game.physics.arcade.overlap(DontPanic.player.playerSprite, DontPanic.extraLife.extraLives, gainLife, null, this);
 }
 
 function gainLife(player, life) {
-  extraLife.extraLives.collection.play();
+  DontPanic.extraLife.extraLives.collection.play();
   life.kill();
-  lives.gainLife();
+  DontPanic.lives.gainLife();
 }
 
 function obstacleCollision() {
-  obstacle.obstacles.soundFall.stop();
-  obstacle.obstacles.soundCollide.play();
-  player.playerSprite.kill();
+  DontPanic.obstacle.obstacles.soundFall.stop();
+  DontPanic.obstacle.obstacles.soundCollide.play();
+  DontPanic.player.playerSprite.kill();
   gameOver();
 }
 
 function collectCoin(player, coin) {
-  coins.coins.collection.play();
+  DontPanic.coins.coins.collection.play();
   coin.kill();
-  coinScore.addToCoinScore()
+  DontPanic.coinScore.addToCoinScore()
 }
 
 function abductPlayer(playerSprite, vogon) {
   if (!vogon.abductSuccessful && vogon.frame == 3) {
-    enemy.abductionSound.play();
-    lives.loseLife();
+    DontPanic.enemy.abductionSound.play();
+    DontPanic.lives.loseLife();
     DontPanic.game.camera.shake(0.005, 500);
     vogon.abductSuccessful = true;
   }
 }
 
 function stopGameAssetGeneration() {
-  coins.coinTimer.timer.stop();
-  enemy.enemyTimer.timer.stop();
+  DontPanic.coins.coinTimer.timer.stop();
+  DontPanic.enemy.enemyTimer.timer.stop();
 }
 
 
 function removeAllEntities() {
-  player.playerSprite.kill();
-  enemy.enemies.kill();
-  coins.coins.kill();
-  obstacle.obstacles.kill();
-  improbabilityDrive.improbabilityDrive.kill();
-  extraLife.extraLives.kill();
+  DontPanic.player.playerSprite.kill();
+  DontPanic.enemy.enemies.kill();
+  DontPanic.coins.coins.kill();
+  DontPanic.obstacle.obstacles.kill();
+  DontPanic.improbabilityDrive.improbabilityDrive.kill();
+  DontPanic.extraLife.extraLives.kill();
 }
 
 function gameOver() {
-  backgroundMusic.backgroundMusic.fadeOut(1000);
-  let gameOverSound = DontPanic.game.add.audio('gameOver');
-  gameOverSound.play();
-  distanceScore.distanceTimer.timer.stop();
+  DontPanic.backgroundMusic.backgroundMusic.fadeOut(1000);
+  DontPanic.gameOverSound = DontPanic.game.add.audio('gameOver');
+  DontPanic.gameOverSound.play();
+  DontPanic.distanceScore.distanceTimer.timer.stop();
   checkBestDistance();
   DontPanic.game.gameOver = DontPanic.game.add.text(DontPanic.game.world.centerX, DontPanic.game.world.centerY * 0.75, 'GAME OVER', { font: '40px whoopass', fill: '#fff' });
   DontPanic.game.gameOver.anchor.setTo(0.5);
   DontPanic.game.camera.fade(0x0000000, 3000);
   DontPanic.game.camera.onFadeComplete.add(playAgainMenu, this);
-  background.stopScroll();
+  DontPanic.background.stopScroll();
   removeAllEntities();
   stopGameAssetGeneration();
-  gameStarted = false;
+  DontPanic.gameStarted = false;
 }
 
 function checkBestDistance() {
-  if (currentDistance > parseInt(bestDistance)) {
-    localStorage['bestDistance'] = currentDistance.toString();
-    bestDistance = localStorage['bestDistance'];
-    newBestScore = true;
+  if (DontPanic.currentDistance > parseInt(DontPanic.bestDistance)) {
+    localStorage['bestDistance'] = DontPanic.currentDistance.toString();
+    DontPanic.bestDistance = localStorage['bestDistance'];
+    DontPanic.newBestScore = true;
   }
 }
