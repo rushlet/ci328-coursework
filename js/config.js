@@ -33,6 +33,7 @@ const config = {
     font: 'whoopass',
     fontSize_score: '16px',
     fontSize_default: '24px',
+    fontSize_bestDistance: '30px',
     fontSize_heading: '36px',
     fontSize_title: '48px',
   }
