@@ -16,6 +16,11 @@ function removeAllEntities() {
   DontPanic.extraLife.extraLives.kill();
 }
 
+function stopEntityGeneration() {
+  DontPanic.coins.coinTimer.timer.stop();
+  DontPanic.enemy.enemyTimer.timer.stop();
+}
+
 class Enemy {
   constructor() {
     this.enemies = DontPanic.game.add.group();
@@ -98,6 +103,15 @@ class Enemy {
       sprite.abductCheck = true;
     }
   }
+
+  abductPlayer(playerSprite, vogon) {
+    if (!vogon.abductSuccessful && vogon.frame == 3) {
+      DontPanic.enemy.abductionSound.play();
+      DontPanic.lives.loseLife();
+      DontPanic.game.camera.shake(0.005, 500);
+      vogon.abductSuccessful = true;
+    }
+  }
 }
 
 class Coins {
@@ -132,6 +146,12 @@ class Coins {
       coin.loadTexture(improbabilityScenarioAssets[currentScenario].coins, 1);
     }
   }
+
+  collectCoin(player, coin) {
+    DontPanic.coins.coins.collection.play();
+    coin.kill();
+    DontPanic.coinScore.addToCoinScore()
+  }
 }
 
 class Obstacle {
@@ -156,6 +176,14 @@ class Obstacle {
     resizeSprite(petunias, 0.1)
     addGenericPropertiesForFallingObjects(petunias, 60);
     DontPanic.obstacle.obstacles.soundFall.play();
+  }
+
+  obstacleCollision() {
+    DontPanic.obstacle.obstacles.soundFall.stop();
+    DontPanic.obstacle.obstacles.soundCollide.play();
+    DontPanic.player.playerSprite.kill();
+    DontPanic.lives.loseAllLives();
+    gameOver();
   }
 }
 

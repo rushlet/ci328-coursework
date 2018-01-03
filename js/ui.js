@@ -1,7 +1,7 @@
 function createUI() {
   DontPanic.lives = new LivesScore();
   DontPanic.coinScore = new CoinScore();
-  DontPanic.distanceScore = new DistanceScore();
+  DontPanic.distance = new DistanceScore();
 }
 
 class BackgroundMusic {
@@ -46,10 +46,13 @@ class LivesScore {
     heart.kill();
   }
 
-  gainLife() {
-    if (this.lives.livesLeft < 4) {
-      this.lives.livesLeft += 1;
-      this.createHeart(this.lives.livesLeft - 2);
+  gainLife(player, life) {
+    DontPanic.extraLife.extraLives.collection.play();
+    life.kill();
+    let livesLeft = DontPanic.lives.lives.livesLeft;
+    if (livesLeft < 4) {
+      livesLeft += 1;
+      DontPanic.lives.createHeart(livesLeft - 2);
     }
     DontPanic.extraLife.triggerExtraLife();
   }
@@ -98,5 +101,13 @@ class DistanceScore {
   distanceIncrease() {
     DontPanic.currentDistance++;
     this.distanceReachedText.setText(`Distance: ${DontPanic.currentDistance}`);
+  }
+
+  checkBestDistance() {
+    if (DontPanic.currentDistance > parseInt(DontPanic.bestDistance)) {
+      localStorage['bestDistance'] = DontPanic.currentDistance.toString();
+      DontPanic.bestDistance = localStorage['bestDistance'];
+      DontPanic.newBestScore = true;
+    }
   }
 }
