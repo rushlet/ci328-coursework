@@ -5,8 +5,7 @@ class ImprobabilityDrive {
     let improbabilityDrive = DontPanic.game.add.group();
     improbabilityDrive.enableBody = true;
     DontPanic.game.physics.arcade.enable(improbabilityDrive);
-    improbabilityDrive.scale.x = 0.5;
-    improbabilityDrive.scale.y = 0.5;
+    resizeSprite(improbabilityDrive, 0.5);
     improbabilityDrive.generated = false;
     this.improbabilityDrive = improbabilityDrive;
     var improbabilityDriveDelay = config[config.currentLevel]['infiniteImprobabilityDelay'];
@@ -20,8 +19,7 @@ class ImprobabilityDrive {
       DontPanic.improbabilityDrive.generated = false;
     } else {
       var button_iid = this.improbabilityDrive.create(DontPanic.game.world.centerX/5, 1050, 'red_button');
-      button_iid.scale.x = 0.5;
-      button_iid.scale.y = 0.5;
+      resizeSprite(button_iid, 0.5);
       button_iid.enableBody = true;
       button_iid.animation = button_iid.animations.add('flash', [0,1,0,1,0,1,0], true);
       button_iid.play('flash');

@@ -25,8 +25,7 @@ class LivesScore {
 
   createHeart(i) {
     var heart = this.lives.create((10+(i*20)), 10, 'heart');
-    heart.scale.x = 0.04;
-    heart.scale.y = 0.04;
+    resizeSprite(heart, 0.04);
   }
 
   loseLife() {
