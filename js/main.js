@@ -12,6 +12,7 @@ let improbabilityDrive;
 let improbabilityDriveTriggered = false;
 let extraLife;
 let newBestScore = false;
+let backgroundMusic
 
 function init() {
   const gameWidth = 360;
@@ -37,6 +38,15 @@ function preload() {
   DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png'); //placeholder
   DontPanic.game.load.image('coin', 'assets/coin_2.png');
   DontPanic.game.load.image('extraLife', 'assets/extra_life.png');
+
+  DontPanic.game.load.audio('coinPing', 'assets/audio/coin_collection.wav');
+  DontPanic.game.load.audio('backgroundMusic', 'assets/audio/background_music.wav');
+  DontPanic.game.load.audio('abduction', 'assets/audio/abduction.wav');
+  DontPanic.game.load.audio('abductionFail', 'assets/audio/abduction-fail.wav');
+  DontPanic.game.load.audio('lifePing', 'assets/audio/extra-life.mp3');
+  DontPanic.game.load.audio('obstacleWhoosh', 'assets/audio/obstacle-fall.mp3');
+  DontPanic.game.load.audio('obstacleCollision', 'assets/audio/obstacle-collision.wav');
+  DontPanic.game.load.audio('gameOver', 'assets/audio/game-over.wav');
 
   DontPanic.game.load.spritesheet('red_button', 'assets/iid/iid-button1.png', 304, 275);
   DontPanic.game.load.image('IID_background1', 'assets/iid/iid_bg.png');
@@ -73,6 +83,11 @@ function startGame() {
   improbabilityDrive = new ImprobabilityDrive();
   obstacle = new Obstacle();
   extraLife = new ExtraLife();
+  if (config.soundOn) {
+    backgroundMusic = new BackgroundMusic();
+  } else {
+    DontPanic.game.sound.mute = true;
+  }
 }
 
 function handleCollision() {
@@ -83,22 +98,27 @@ function handleCollision() {
 }
 
 function gainLife(player, life) {
+  extraLife.extraLives.collection.play();
   life.kill();
   lives.gainLife();
 }
 
 function obstacleCollision() {
+  obstacle.obstacles.soundFall.stop();
+  obstacle.obstacles.soundCollide.play();
   player.playerSprite.kill();
   gameOver();
 }
 
 function collectCoin(player, coin) {
+  coins.coins.collection.play();
   coin.kill();
   coinScore.addToCoinScore()
 }
 
 function abductPlayer(playerSprite, vogon) {
   if (!vogon.abductSuccessful && vogon.frame == 3) {
+    enemy.abductionSound.play();
     lives.loseLife();
     DontPanic.game.camera.shake(0.005, 500);
     vogon.abductSuccessful = true;
@@ -121,6 +141,9 @@ function removeAllEntities() {
 }
 
 function gameOver() {
+  backgroundMusic.backgroundMusic.fadeOut(1000);
+  let gameOverSound = DontPanic.game.add.audio('gameOver');
+  gameOverSound.play();
   distanceScore.distanceTimer.timer.stop();
   checkBestDistance();
   DontPanic.game.gameOver = DontPanic.game.add.text(DontPanic.game.world.centerX, DontPanic.game.world.centerY * 0.75, 'GAME OVER', { font: '40px whoopass', fill: '#fff' });

@@ -13,6 +13,16 @@ class Background {
     }
 }
 
+class BackgroundMusic {
+  constructor() {
+    let backgroundMusic = DontPanic.game.add.audio('backgroundMusic');
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = 0.1;
+    backgroundMusic.play();
+    this.backgroundMusic = backgroundMusic;
+  }
+}
+
 class LivesScore {
   constructor() {
     let lives = DontPanic.game.add.group();
