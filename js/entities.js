@@ -1,3 +1,26 @@
+function createEntities() {
+  DontPanic.player = new Player();
+  DontPanic.enemy = new Enemy();
+  DontPanic.coins = new Coins();
+  DontPanic.improbabilityDrive = new ImprobabilityDrive();
+  DontPanic.obstacle = new Obstacle();
+  DontPanic.extraLife = new ExtraLife();
+}
+
+function removeAllEntities() {
+  DontPanic.player.playerSprite.kill();
+  DontPanic.enemy.enemies.kill();
+  DontPanic.coins.coins.kill();
+  DontPanic.obstacle.obstacles.kill();
+  DontPanic.improbabilityDrive.improbabilityDrive.kill();
+  DontPanic.extraLife.extraLives.kill();
+}
+
+function stopEntityGeneration() {
+  DontPanic.coins.coinTimer.timer.stop();
+  DontPanic.enemy.enemyTimer.timer.stop();
+}
+
 class Enemy {
   constructor() {
     this.enemies = DontPanic.game.add.group();
@@ -10,9 +33,9 @@ class Enemy {
 
   createEnemy() {
     const enemy = this.enemies.create(DontPanic.game.world.centerX, -10, 'enemyShip');
-    enemy.scale.x = 0.2;
-    enemy.scale.y = 0.2;
+    resizeSprite(enemy, 0.2);
     enemy.fixedToCamera = true;
+    enemy.anchor.set(0.5, 0);
     DontPanic.game.physics.arcade.enable(enemy);
     enemy.body.collideWorldBounds = false;
     enemy.abductAnimate = enemy.animations.add('abduct');
@@ -27,10 +50,10 @@ class Enemy {
   }
 
   checkIfImprobabilityDriveSprite(enemy) {
-    if (improbabilityDriveTriggered) {
+    if (DontPanic.improbabilityDriveTriggered) {
       enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 0);
       if (currentScenario == 'reset') {
-        improbabilityDriveTriggered = false;
+        DontPanic.improbabilityDriveTriggered = false;
       }
     }
   }
@@ -49,15 +72,17 @@ class Enemy {
   }
 
   moveToPlayer(sprite) {
-    if (sprite.x >= player.playerSprite.x - (player.playerSprite.width / 2)) {
+    if (sprite.x > DontPanic.player.playerSprite.x + 1) {
+      console.log('left');
       sprite.cameraOffset.x -= config[config.currentLevel]['enemySpeedHorizontal'];
-    } else {
+    } else if (sprite.x < DontPanic.player.playerSprite.x - 1){
       sprite.cameraOffset.x += config[config.currentLevel]['enemySpeedHorizontal'];
+      console.log('right');
     }
   }
 
   descend(sprite) {
-    if (sprite.y < (player.playerSprite.y - 255)) {
+    if (sprite.y < (DontPanic.player.playerSprite.y - 255)) {
       sprite.cameraOffset.y += config[config.currentLevel]['enemySpeedVertical'];
     }
     else {
@@ -66,7 +91,7 @@ class Enemy {
   }
 
   leaveScreen(sprite) {
-    if (sprite.x < player.playerSprite.x) {
+    if (sprite.x < DontPanic.player.playerSprite.x) {
       sprite.cameraOffset.x -= 1.5;
     } else {
       sprite.cameraOffset.x += 1.5;
@@ -75,10 +100,19 @@ class Enemy {
 
   abduct(sprite) {
     if (!sprite.abductCheck) {
-      enemy.abductionSoundFail.play();
+      DontPanic.enemy.abductionSoundFail.play();
       sprite.animations.play('abduct', 20, false);
       sprite.abductAnimate.onComplete.add(() => {sprite.animations.play('beamUp', 20, false);}, this);
       sprite.abductCheck = true;
+    }
+  }
+
+  abductPlayer(playerSprite, vogon) {
+    if (!vogon.abductSuccessful && vogon.frame == 3) {
+      DontPanic.enemy.abductionSound.play();
+      DontPanic.lives.loseLife();
+      DontPanic.game.camera.shake(0.005, 500);
+      vogon.abductSuccessful = true;
     }
   }
 }
@@ -92,7 +126,7 @@ class Coins {
     this.coins = coins;
     this.initialCoins();
     var coinSpawnRate = config[config.currentLevel]['coinSpawnRate'];
-    this.coinTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * coinSpawnRate, this.randomCoinGenerator, this);
+    this.coinTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * coinSpawnRate, this.createCoin, this);
     this.coinTimer.timer.start();
   }
 
@@ -103,22 +137,23 @@ class Coins {
     }
   }
 
-  randomCoinGenerator() {
-    var randomX = Math.floor(Math.random() * 320) + 5;
-    var randomY = Math.floor(Math.random() * 10) + -10;
-    this.createCoin(randomX, randomY);
-  }
-
   createCoin(x, y) {
+    var x = x || randomNumber(320, 5);
+    var y = y || randomNumber(10, -10)
     var coin = this.coins.create(x, y, 'coin');
-    coin.scale.x = 0.3;
-    coin.scale.y = 0.3;
+    resizeSprite(coin, 0.3);
     coin.enableBody = true;
     coin.body.velocity.y = 100;
     coin.body.collideWorldBounds = false;
-    if (improbabilityDriveTriggered) {
+    if (DontPanic.improbabilityDriveTriggered) {
       coin.loadTexture(improbabilityScenarioAssets[currentScenario].coins, 1);
     }
+  }
+
+  collectCoin(player, coin) {
+    DontPanic.coins.coins.collection.play();
+    coin.kill();
+    DontPanic.coinScore.addToCoinScore()
   }
 }
 
@@ -133,25 +168,25 @@ class Obstacle {
   }
 
   whale() {
-    var randomX = Math.floor(Math.random() * 200) + 100;
-    const whale = obstacle.obstacles.create(randomX, -100, 'whale');
-    whale.scale.x = 0.3;
-    whale.scale.y = 0.3;
-    DontPanic.game.physics.arcade.enable(whale);
-    whale.body.collideWorldBounds = false;
-    whale.body.gravity.y = 50;
-    obstacle.obstacles.soundFall.play();
+    const whale = DontPanic.obstacle.obstacles.create(randomNumber(200, 100), -100, 'whale');
+    resizeSprite(whale, 0.3);
+    addGenericPropertiesForFallingObjects(whale, 50);
+    DontPanic.obstacle.obstacles.soundFall.play();
   }
 
   petunias() {
-    var randomX = Math.floor(Math.random() * 320) + 25;
-    const petunias = obstacle.obstacles.create(randomX, -150, 'petunias');
-    petunias.scale.x = 0.1;
-    petunias.scale.y = 0.1;
-    DontPanic.game.physics.arcade.enable(petunias);
-    petunias.body.collideWorldBounds = false;
-    petunias.body.gravity.y = 60;
-    obstacle.obstacles.soundFall.play();
+    const petunias = DontPanic.obstacle.obstacles.create(randomNumber(320, 25), -150, 'petunias');
+    resizeSprite(petunias, 0.1)
+    addGenericPropertiesForFallingObjects(petunias, 60);
+    DontPanic.obstacle.obstacles.soundFall.play();
+  }
+
+  obstacleCollision() {
+    DontPanic.obstacle.obstacles.soundFall.stop();
+    DontPanic.obstacle.obstacles.soundCollide.play();
+    DontPanic.player.playerSprite.kill();
+    DontPanic.lives.loseAllLives();
+    gameOver();
   }
 }
 
@@ -167,26 +202,21 @@ class ExtraLife {
 
   triggerExtraLife() {
     var extraLifeSpawnRate = config[config.currentLevel]['extraLifeSpawnRate'];
-    DontPanic.game.time.events.remove(extraLife.extraLifeTimer);
-    if (lives.lives.livesLeft < 4 && lives.lives.livesLeft > 1) {
-      extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * extraLifeSpawnRate, extraLife.extraLife, this);
-      extraLife.extraLifeTimer.timer.start();
+    DontPanic.game.time.events.remove(DontPanic.extraLife.extraLifeTimer);
+    if (DontPanic.lives.lives.livesLeft < 4 && DontPanic.lives.lives.livesLeft > 1) {
+      DontPanic.extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * extraLifeSpawnRate, DontPanic.extraLife.extraLife, this);
+      DontPanic.extraLife.extraLifeTimer.timer.start();
     }
-    if (lives.lives.livesLeft <= 1) {
-      extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * (extraLifeSpawnRate/2), extraLife.extraLife, this);
-      extraLife.extraLifeTimer.timer.start();
+    if (DontPanic.lives.lives.livesLeft <= 1) {
+      DontPanic.extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * (extraLifeSpawnRate/2), DontPanic.extraLife.extraLife, this);
+      DontPanic.extraLife.extraLifeTimer.timer.start();
     }
   }
 
   extraLife() {
     console.log('extra life added');
-    var randomX = Math.floor(Math.random() * 320) + 5;
-    const life = extraLife.extraLives.create(randomX, -100, 'extraLife');
-    life.scale.x = 0.06;
-    life.scale.y = 0.06;
-    life.enableBody = true;
-    DontPanic.game.physics.arcade.enable(life);
-    life.body.collideWorldBounds = false;
-    life.body.gravity.y = 40;
+    const life = DontPanic.extraLife.extraLives.create(randomNumber(320, 5), -100, 'extraLife');
+    resizeSprite(life, 0.06);
+    addGenericPropertiesForFallingObjects(life, 40);
   }
 }

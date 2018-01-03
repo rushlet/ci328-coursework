@@ -16,8 +16,8 @@ class ImprobabilityDrive {
   }
 
   improbabilityDriveGenerator() {
-    if (improbabilityDrive.generated) {
-      improbabilityDrive.generated = false;
+    if (DontPanic.improbabilityDrive.generated) {
+      DontPanic.improbabilityDrive.generated = false;
     } else {
       var button_iid = this.improbabilityDrive.create(DontPanic.game.world.centerX/5, 1050, 'red_button');
       button_iid.scale.x = 0.5;
@@ -28,23 +28,20 @@ class ImprobabilityDrive {
       button_iid.inputEnabled = true;
       button_iid.events.onInputDown.add(this.triggerEvent, this);
       DontPanic.game.debug.body(button_iid);
-      improbabilityDrive.generated = true;
+      DontPanic.improbabilityDrive.generated = true;
       button_iid.alpha = 0;
       DontPanic.game.add.tween(button_iid).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0);
-      improbabilityDrive.destructionTimer = DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.removeButton, this);
+      DontPanic.improbabilityDrive.destructionTimer = DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.removeButton, this);
     }
   }
 
   removeButton() {
-    let iidButtons = improbabilityDrive.improbabilityDrive.children;
-    var buttonDestroyed = false;
-    for (var i = iidButtons.length - 1; i >= 0 ; i--) {
-      if (iidButtons[i].alive && !buttonDestroyed) {
-        let fadeOut = DontPanic.game.add.tween(iidButtons[i]).to( { alpha: 0 }, 500, Phaser.Easing.Linear.None, true, 0);
-        fadeOut.onComplete.add((button)=>{button.kill();}, this);
-        buttonDestroyed = true;
-      }
-    }
+    eventOnLatestChildAdded(DontPanic.improbabilityDrive.improbabilityDrive.children, DontPanic.improbabilityDrive.fadeOut)
+  }
+
+  fadeOut(sprite) {
+    var fadeOut = DontPanic.game.add.tween(sprite).to( { alpha: 0 }, 500, Phaser.Easing.Linear.None, true, 0);
+    fadeOut.onComplete.add((button)=>{button.kill();}, this);
   }
 
   triggerEvent(button_iid){
@@ -55,31 +52,31 @@ class ImprobabilityDrive {
 
   randomAssets(button_iid) {
     var improbabilityDriveDuration = config[config.currentLevel]['infiniteImprobabilityDuration'];
-    let improbabilityDurationTimer = DontPanic.game.time.events.add(Phaser.Timer.SECOND * improbabilityDriveDuration, improbabilityDrive.assetReset, this);
+    let improbabilityDurationTimer = DontPanic.game.time.events.add(Phaser.Timer.SECOND * improbabilityDriveDuration, DontPanic.improbabilityDrive.assetReset, this);
     improbabilityDurationTimer.timer.start();
-    improbabilityDriveTriggered = true;
+    DontPanic.improbabilityDriveTriggered = true;
     currentScenario = 1; // when more scenarios are added this will be randomly generated
-    improbabilityDrive.regenerateAssets();
+    DontPanic.improbabilityDrive.regenerateAssets();
   }
 
   assetReset() {
     currentScenario = 'reset';
-    improbabilityDrive.regenerateAssets();
+    DontPanic.improbabilityDrive.regenerateAssets();
   }
 
   regenerateAssets() {
-    background.background.loadTexture(improbabilityScenarioAssets[currentScenario].background);
-    player.playerSprite.loadTexture(improbabilityScenarioAssets[currentScenario].player, 0);
-    enemy.enemies.forEachExists((enemy) =>  {
+    DontPanic.background.loadTexture(improbabilityScenarioAssets[currentScenario].background);
+    DontPanic.player.playerSprite.loadTexture(improbabilityScenarioAssets[currentScenario].player, 0);
+    DontPanic.enemy.enemies.forEachExists((enemy) =>  {
       enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 0);
     });
-    coins.coins.forEachExists((coin) =>  {
+    DontPanic.coins.coins.forEachExists((coin) =>  {
       coin.loadTexture(improbabilityScenarioAssets[currentScenario].coins);
     });
   }
 
   randomObstacle() {
-    var obstacleTriggered = Math.random() <= 0.5 ? obstacle.whale : obstacle.petunias;
+    var obstacleTriggered = Math.random() <= 0.5 ? DontPanic.obstacle.whale : DontPanic.obstacle.petunias;
     obstacleTriggered();
   }
 }

@@ -1,26 +1,15 @@
-class Background {
-    constructor() {
-        this.background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
-        this.background.autoScroll(0, 50);
-    }
-
-    random() {
-      // change background to random image
-    }
-
-    reset() {
-      this.background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
-    }
+function createUI() {
+  DontPanic.lives = new LivesScore();
+  DontPanic.coinScore = new CoinScore();
+  DontPanic.distance = new DistanceScore();
 }
 
-class BackgroundMusic {
-  constructor() {
+function backgroundMusic() {
     let backgroundMusic = DontPanic.game.add.audio('backgroundMusic');
     backgroundMusic.loop = true;
     backgroundMusic.volume = 0.1;
     backgroundMusic.play();
-    this.backgroundMusic = backgroundMusic;
-  }
+    return backgroundMusic;
 }
 
 class LivesScore {
@@ -36,7 +25,6 @@ class LivesScore {
 
   createHeart(i) {
     var heart = this.lives.create((10+(i*20)), 10, 'heart');
-    console.log(i);
     heart.scale.x = 0.04;
     heart.scale.y = 0.04;
   }
@@ -44,65 +32,76 @@ class LivesScore {
   loseLife() {
     if (this.lives.livesLeft > 1) {
       this.lives.livesLeft -= 1;
-      extraLife.triggerExtraLife();
-      var lifeLost = false;
-      for (var i = this.lives.children.length - 1; i >= 0 ; i--) {
-        if (this.lives.children[i].alive && !lifeLost) {
-          this.lives.children[i].kill();
-          lifeLost = true;
-        }
-      }
+      DontPanic.extraLife.triggerExtraLife();
+      eventOnLatestChildAdded(this.lives.children, this.removeLife);
     }
     else {
       gameOver();
     }
   }
 
-  gainLife() {
-    if (this.lives.livesLeft < 4) {
-      this.lives.livesLeft += 1;
-      this.createHeart(this.lives.livesLeft - 2);
+  removeLife(heart) {
+    heart.kill();
+  }
+
+  gainLife(player, life) {
+    DontPanic.extraLife.extraLives.collection.play();
+    life.kill();
+    let livesLeft = DontPanic.lives.lives.livesLeft;
+    if (livesLeft < 4) {
+      livesLeft += 1;
+      DontPanic.lives.createHeart(livesLeft - 2);
     }
-    extraLife.triggerExtraLife();
+    DontPanic.extraLife.triggerExtraLife();
+  }
+
+  loseAllLives() {
+    this.lives.forEachExists((sprite) =>  {
+      DontPanic.lives.removeLife(sprite);
+    });
   }
 }
 
 class CoinScore {
   constructor() {
-    var coinTotalText = DontPanic.game.add.text(DontPanic.game.world.centerX, 30, `Total Coins: ${coinTotal}`, {
-        font: '16px whoopass',
-      });
-    coinTotalText.anchor.setTo(0.5);
-    coinTotalText.align = 'center';
-    coinTotalText.fill = '#fff';
-    coinTotalText.padding.set(16, 16);
-    this.coinTotalText = coinTotalText;
+    this.coinTotalText = createScoreText(DontPanic.game.world.centerX, `Total Coins: ${DontPanic.coinTotal}`);
   }
 
   addToCoinScore() {
-    coinTotal++;
-    this.coinTotalText.setText(`Total Coins: ${coinTotal}`);
+    DontPanic.coinTotal++;
+    this.coinTotalText.setText(`Total Coins: ${DontPanic.coinTotal}`);
   }
 }
 
 class DistanceScore {
   constructor() {
-    currentDistance = 0;
+    DontPanic.currentDistance = 0;
     this.distanceTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * 0.25, this.distanceIncrease, this);
     this.distanceTimer.timer.start();
-
-    var distcanceReachedText = DontPanic.game.add.text(DontPanic.game.width - 50, 30, `Distance: ${currentDistance}`, {
-        font: '16px whoopass',
-    });
-    distcanceReachedText.anchor.setTo(0.5);
-    distcanceReachedText.align = 'center';
-    distcanceReachedText.fill = '#fff';
-    distcanceReachedText.padding.set(16, 16);
-    this.distcanceReachedText = distcanceReachedText;
+    this.distanceReachedText = createScoreText(DontPanic.game.width - 50, `Distance: ${DontPanic.currentDistance}`);
   }
 
   distanceIncrease() {
-    currentDistance++;
-    this.distcanceReachedText.setText(`Distance: ${currentDistance}`);
+    DontPanic.currentDistance++;
+    this.distanceReachedText.setText(`Distance: ${DontPanic.currentDistance}`);
   }
+
+  checkBestDistance() {
+    if (DontPanic.currentDistance > parseInt(DontPanic.bestDistance)) {
+      localStorage['bestDistance'] = DontPanic.currentDistance.toString();
+      DontPanic.bestDistance = localStorage['bestDistance'];
+      DontPanic.newBestScore = true;
+    }
+  }
+}
+
+function createScoreText(x, content) {
+  text =  DontPanic.game.add.text(x, 30, content, {
+        font: `${config.style.fontSize_score} ${config.style.font}`,
+  });
+  text.anchor.setTo(0.5);
+  text.align = 'center';
+  text.fill = config.style.textColour;
+  text.padding.set(16, 16);
+  return text;
 }
