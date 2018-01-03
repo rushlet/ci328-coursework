@@ -73,11 +73,9 @@ class Enemy {
 
   moveToPlayer(sprite) {
     if (sprite.x > DontPanic.player.playerSprite.x + 1) {
-      console.log('left');
       sprite.cameraOffset.x -= config[config.currentLevel]['enemySpeedHorizontal'];
     } else if (sprite.x < DontPanic.player.playerSprite.x - 1){
       sprite.cameraOffset.x += config[config.currentLevel]['enemySpeedHorizontal'];
-      console.log('right');
     }
   }
 
@@ -214,7 +212,6 @@ class ExtraLife {
   }
 
   extraLife() {
-    console.log('extra life added');
     const life = DontPanic.extraLife.extraLives.create(randomNumber(320, 5), -100, 'extraLife');
     resizeSprite(life, 0.06);
     addGenericPropertiesForFallingObjects(life, 40);
