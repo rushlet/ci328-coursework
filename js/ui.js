@@ -47,6 +47,12 @@ class LivesScore {
     }
     DontPanic.extraLife.triggerExtraLife();
   }
+
+  loseAllLives() {
+    this.lives.forEachExists((sprite) =>  {
+      DontPanic.lives.removeLife(sprite);
+    });
+  }
 }
 
 class CoinScore {

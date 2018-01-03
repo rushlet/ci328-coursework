@@ -99,6 +99,7 @@ function obstacleCollision() {
   DontPanic.obstacle.obstacles.soundFall.stop();
   DontPanic.obstacle.obstacles.soundCollide.play();
   DontPanic.player.playerSprite.kill();
+  DontPanic.lives.loseAllLives();
   gameOver();
 }
 
