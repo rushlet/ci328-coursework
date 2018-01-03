@@ -1,3 +1,9 @@
+function createUI() {
+  DontPanic.lives = new LivesScore();
+  DontPanic.coinScore = new CoinScore();
+  DontPanic.distanceScore = new DistanceScore();
+}
+
 class BackgroundMusic {
   constructor() {
     let backgroundMusic = DontPanic.game.add.audio('backgroundMusic');

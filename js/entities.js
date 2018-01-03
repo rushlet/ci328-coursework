@@ -1,3 +1,21 @@
+function createEntities() {
+  DontPanic.player = new Player();
+  DontPanic.enemy = new Enemy();
+  DontPanic.coins = new Coins();
+  DontPanic.improbabilityDrive = new ImprobabilityDrive();
+  DontPanic.obstacle = new Obstacle();
+  DontPanic.extraLife = new ExtraLife();
+}
+
+function removeAllEntities() {
+  DontPanic.player.playerSprite.kill();
+  DontPanic.enemy.enemies.kill();
+  DontPanic.coins.coins.kill();
+  DontPanic.obstacle.obstacles.kill();
+  DontPanic.improbabilityDrive.improbabilityDrive.kill();
+  DontPanic.extraLife.extraLives.kill();
+}
+
 class Enemy {
   constructor() {
     this.enemies = DontPanic.game.add.group();
