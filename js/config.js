@@ -26,4 +26,14 @@ const config = {
     enemySpeedVertical: 2,
     extraLifeSpawnRate: 5,
   },
+  style: {
+    textColour: '#fff',
+    textColour_highlight: '#b8180c',
+    textColour_highlightOutline: '#f5a62a',
+    font: 'whoopass',
+    fontSize_score: '16px',
+    fontSize_default: '24px',
+    fontSize_heading: '36px',
+    fontSize_title: '48px',
+  }
 }

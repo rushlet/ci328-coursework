@@ -65,11 +65,11 @@ class LivesScore {
 class CoinScore {
   constructor() {
     var coinTotalText = DontPanic.game.add.text(DontPanic.game.world.centerX, 30, `Total Coins: ${DontPanic.coinTotal}`, {
-        font: '16px whoopass',
+        font: `${config.style.fontSize_score} ${config.style.font}`,
       });
     coinTotalText.anchor.setTo(0.5);
     coinTotalText.align = 'center';
-    coinTotalText.fill = '#fff';
+    coinTotalText.fill = config.style.textColour;
     coinTotalText.padding.set(16, 16);
     this.coinTotalText = coinTotalText;
   }
@@ -85,13 +85,12 @@ class DistanceScore {
     DontPanic.currentDistance = 0;
     this.distanceTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * 0.25, this.distanceIncrease, this);
     this.distanceTimer.timer.start();
-
     var distanceReachedText = DontPanic.game.add.text(DontPanic.game.width - 50, 30, `Distance: ${DontPanic.currentDistance}`, {
-        font: '16px whoopass',
+        font: `${config.style.fontSize_score} ${config.style.font}`,
     });
     distanceReachedText.anchor.setTo(0.5);
     distanceReachedText.align = 'center';
-    distanceReachedText.fill = '#fff';
+    distanceReachedText.fill = config.style.textColour;
     distanceReachedText.padding.set(16, 16);
     this.distanceReachedText = distanceReachedText;
   }

@@ -18,24 +18,24 @@ function settingsMenu() {
 
     const currentSettings = getCurrentSettings();
 
-    addText(DontPanic.game.world.centerX, 75, "Settings", 48, false, "", false);
+    addText(DontPanic.game.world.centerX, 75, "Settings", config.style.fontSize_title, false, "", false);
 
     settingsText__difficulty = DontPanic.game.add.group();
-    addText(DontPanic.game.world.centerX, 175, "Difficulty", 36);
-    addText(DontPanic.game.world.centerX * 0.75, 220, "Easy", 24,  true, "difficulty", currentSettings.easy);
-    addText(DontPanic.game.world.centerX * 1.25, 220, "Hard", 24,  true, "difficulty", !currentSettings.easy);
+    addText(DontPanic.game.world.centerX, 175, "Difficulty", config.style.fontSize_heading);
+    addText(DontPanic.game.world.centerX * 0.75, 220, "Easy", config.style.fontSize_default,  true, "difficulty", currentSettings.easy);
+    addText(DontPanic.game.world.centerX * 1.25, 220, "Hard", config.style.fontSize_default,  true, "difficulty", !currentSettings.easy);
 
     settingsText__sound = DontPanic.game.add.group();
-    addText(DontPanic.game.world.centerX, 290, "Sound", 36);
-    addText(DontPanic.game.world.centerX * 0.75, 335, "On", 24, true, "sound", currentSettings.soundOn);
-    addText(DontPanic.game.world.centerX * 1.25, 335, "Off", 24,  true, "sound", !currentSettings.soundOn);
+    addText(DontPanic.game.world.centerX, 290, "Sound", config.style.fontSize_heading);
+    addText(DontPanic.game.world.centerX * 0.75, 335, "On", config.style.fontSize_default, true, "sound", currentSettings.soundOn);
+    addText(DontPanic.game.world.centerX * 1.25, 335, "Off", config.style.fontSize_default,  true, "sound", !currentSettings.soundOn);
 
     settingsText__colour = DontPanic.game.add.group();
-    addText(DontPanic.game.world.centerX, 405, "Ship Colour", 36);
-    addText(DontPanic.game.world.centerX * 0.75, 450, "Red", 24, true, "colour", currentSettings.red);
-    addText(DontPanic.game.world.centerX * 1.25, 450, "Blue", 24, true, "colour", !currentSettings.red);
+    addText(DontPanic.game.world.centerX, 405, "Ship Colour", config.style.fontSize_heading);
+    addText(DontPanic.game.world.centerX * 0.75, 450, "Red", config.style.fontSize_default, true, "colour", currentSettings.red);
+    addText(DontPanic.game.world.centerX * 1.25, 450, "Blue", config.style.fontSize_default, true, "colour", !currentSettings.red);
 
-    addText(DontPanic.game.world.centerX, 580, "Back", 24, true, "back");
+    addText(DontPanic.game.world.centerX, 580, "Back", config.style.fontSize_default, true, "back");
 
     settingsText.add(settingsText__difficulty);
     settingsText.add(settingsText__sound);
@@ -44,11 +44,11 @@ function settingsMenu() {
 
 function addText(x, y, string, size, clickevent, category, selected) {
   var textOb = DontPanic.game.add.text(x, y, string, {
-    font: `${size}px whoopass`,
+    font: `${size} ${config.style.font}`,
   });
   textOb.anchor.setTo(0.5);
   textOb.align = 'center';
-  textOb.fill = '#fff';
+  textOb.fill = config.style.textColour;
   textOb.fontSize = size;
   textOb.padding.set(16, 16);
   textOb.inputEnabled = true;
@@ -125,12 +125,12 @@ function colourListener(input) {
 }
 
 function colourText(text) {
-  if (text['style']['fill'] == "#b8180c") {
-    text.fill = "#fff";
+  if (text['style']['fill'] == config.style.textColour_highlight) {
+    text.fill = config.style.textColour;
     text.strokeThickness = 0;
   } else {
-    text.fill = "#b8180c";
-    text.stroke = "#f5a62a";
+    text.fill = config.style.textColour_highlight;
+    text.stroke = config.style.textColour_highlightOutline;
     text.strokeThickness = 3;
   }
 }

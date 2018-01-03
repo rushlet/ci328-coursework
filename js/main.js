@@ -57,7 +57,7 @@ function gameOver() {
   DontPanic.gameOverSound.play();
   DontPanic.distance.distanceTimer.timer.stop();
   DontPanic.distance.checkBestDistance();
-  DontPanic.game.gameOver = DontPanic.game.add.text(DontPanic.game.world.centerX, DontPanic.game.world.centerY * 0.75, 'GAME OVER', { font: '40px whoopass', fill: '#fff' });
+  DontPanic.game.gameOver = DontPanic.game.add.text(DontPanic.game.world.centerX, DontPanic.game.world.centerY * 0.75, 'GAME OVER', { font: `${config.style.fontSize_title} ${config.style.font}`, fill: config.style.textColour });
   DontPanic.game.gameOver.anchor.setTo(0.5);
   DontPanic.game.camera.fade(0x0000000, 3000);
   DontPanic.game.camera.onFadeComplete.add(playAgainMenu, this);
