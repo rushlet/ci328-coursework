@@ -52,7 +52,7 @@ function handleCollision() {
 }
 
 function gameOver() {
-  DontPanic.backgroundMusic.backgroundMusic.fadeOut(1000);
+  DontPanic.backgroundMusic.fadeOut(1000);
   DontPanic.gameOverSound = DontPanic.game.add.audio('gameOver');
   DontPanic.gameOverSound.play();
   DontPanic.distance.distanceTimer.timer.stop();
