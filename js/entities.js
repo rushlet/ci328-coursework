@@ -1,6 +1,8 @@
 class Enemy {
   constructor() {
     this.enemies = DontPanic.game.add.group();
+    this.abductionSound = DontPanic.game.add.audio('abduction');
+    this.abductionSoundFail = DontPanic.game.add.audio('abductionFail');
     var enemySpawnRate = config[config.currentLevel]['enemySpawnRate'];
     this.enemyTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * enemySpawnRate, this.createEnemy, this);
     this.enemyTimer.timer.start();
@@ -72,6 +74,7 @@ class Enemy {
 
   abduct(sprite) {
     if (!sprite.abductCheck) {
+      enemy.abductionSoundFail.play();
       sprite.animations.play('abduct', 20, false);
       sprite.abductAnimate.onComplete.add(() => {sprite.animations.play('beamUp', 20, false);}, this);
       sprite.abductCheck = true;
@@ -83,6 +86,7 @@ class Coins {
   constructor() {
     let coins = DontPanic.game.add.group();
     coins.enableBody = true;
+    coins.collection = DontPanic.game.add.audio('coinPing');
     DontPanic.game.physics.arcade.enable(coins);
     this.coins = coins;
     this.initialCoins();
@@ -116,6 +120,8 @@ class Obstacle {
   constructor() {
     let obstacles = DontPanic.game.add.group();
     obstacles.enableBody = true;
+    obstacles.soundFall = DontPanic.game.add.audio('obstacleWhoosh');
+    obstacles.soundCollide = DontPanic.game.add.audio('obstacleCollision');
     DontPanic.game.physics.arcade.enable(obstacles);
     this.obstacles = obstacles;
   }
@@ -124,12 +130,14 @@ class Obstacle {
     const whale = obstacle.obstacles.create(randomNumber(200, 100), -100, 'whale');
     resizeSprite(whale, 0.3);
     addGenericPropertiesForFallingObjects(whale, 50);
+    obstacle.obstacles.soundFall.play();
   }
 
   petunias() {
     const petunias = obstacle.obstacles.create(randomNumber(320, 25), -150, 'petunias');
     resizeSprite(petunias, 0.1)
     addGenericPropertiesForFallingObjects(petunias, 60);
+    obstacle.obstacles.soundFall.play();
   }
 }
 
@@ -137,6 +145,7 @@ class ExtraLife {
   constructor() {
     let extraLives = DontPanic.game.add.group();
     extraLives.enableBody = true;
+    extraLives.collection = DontPanic.game.add.audio('lifePing');
     DontPanic.game.physics.arcade.enable(extraLives);
     this.extraLifeTimer;
     this.extraLives = extraLives;
