@@ -40,6 +40,7 @@ function startGame() {
   DontPanic.background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
   DontPanic.background.autoScroll(0, 50);
   createEntities();
+  createUI();
   loadSound();
 }
 
