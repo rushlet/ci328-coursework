@@ -13,7 +13,7 @@ class Background {
     }
 }
 
-class backgroundMusic {
+class BackgroundMusic {
   constructor() {
     let backgroundMusic = DontPanic.game.add.audio('backgroundMusic');
     backgroundMusic.loop = true;
