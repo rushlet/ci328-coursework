@@ -7,7 +7,8 @@ DontPanic.newBestScore = false;
 
 function init() {
   const gameWidth = 360;
-  const gameHeight = 600;
+  const gameHeight = 580;
+  document.getElementById('gameWindow').innerHTML = '';
   DontPanic.game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, 'gameWindow', {
     preload: preload,
     create: create,
@@ -22,7 +23,7 @@ function preload() {
 }
 
 function create() {
-  DontPanic.game.world.setBounds(0, 0, 360, 600);
+  DontPanic.game.world.setBounds(0, 0, 360, 580);
   DontPanic.cursors = DontPanic.game.input.keyboard.createCursorKeys();
   mainMenu();
 }
