@@ -3,12 +3,32 @@
   src: url('./assets/WHOOPASS.TTF') format('truetype');
 }
 
+body {
+  margin: 0;
+  background-color: #282e42;
+}
+
 #gameWindow {
   font-family: 'whoopass';
   color: #fff;
+  margin: 24px auto;
 }
 
 canvas {
   display: block;
   margin: auto;
+  border: 1px solid #a9a9b5;
+}
+
+@media (max-height: 640px) {
+  #gameWindow {
+    margin: 0;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+
+  canvas {
+    border: none;
+  }
+
 }

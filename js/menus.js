@@ -4,7 +4,7 @@ var settingsText__sound;
 var settingsText__colour;
 
 function mainMenu() {
-    DontPanic.background = DontPanic.game.add.image(0, -20, 'home_background');
+    DontPanic.background = DontPanic.game.add.image(0, -40, 'home_background');
     let startButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 120, 'startButton', startGame, this);
     startButton.anchor.set(0.5);
     let settingsButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 60, 'settingsButton', settingsMenu, this);
@@ -35,7 +35,7 @@ function settingsMenu() {
     addText(DontPanic.game.world.centerX * 0.75, 450, "Red", config.style.fontSize_default, true, "colour", currentSettings.red);
     addText(DontPanic.game.world.centerX * 1.25, 450, "Blue", config.style.fontSize_default, true, "colour", !currentSettings.red);
 
-    addText(DontPanic.game.world.centerX, 580, "Back", config.style.fontSize_default, true, "back");
+    addText(DontPanic.game.world.centerX, 550, "Back", config.style.fontSize_default, true, "back");
 
     settingsText.add(settingsText__difficulty);
     settingsText.add(settingsText__sound);
