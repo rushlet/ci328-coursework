@@ -3,6 +3,10 @@
   src: url('./assets/WHOOPASS.TTF') format('truetype');
 }
 
+body {
+  margin: 0;
+}
+
 #gameWindow {
   font-family: 'whoopass';
   color: #fff;
@@ -11,4 +15,12 @@
 canvas {
   display: block;
   margin: auto;
+}
+
+@media (max-height: 640) {
+  #gameWindow {
+    margin: 0;
+    max-height: 100vh;
+    overflow: hidden;
+  }
 }
