@@ -35,7 +35,7 @@ function settingsMenu() {
     addText(DontPanic.game.world.centerX * 0.75, 450, "Red", config.style.fontSize_default, true, "colour", currentSettings.red);
     addText(DontPanic.game.world.centerX * 1.25, 450, "Blue", config.style.fontSize_default, true, "colour", !currentSettings.red);
 
-    addText(DontPanic.game.world.centerX, 580, "Back", config.style.fontSize_default, true, "back");
+    addText(DontPanic.game.world.centerX, 550, "Back", config.style.fontSize_default, true, "back");
 
     settingsText.add(settingsText__difficulty);
     settingsText.add(settingsText__sound);

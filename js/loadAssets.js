@@ -14,7 +14,7 @@ function loadMainImages() {
 }
 
 function loadImprobabilityDriveImages() {
-  DontPanic.game.load.spritesheet('red_button', 'assets/iid/iid-button1.png', 304, 275);
+  DontPanic.game.load.spritesheet('red_button', 'assets/iid/iid-button1.png', 152, 119);
   DontPanic.game.load.image('IID_background1', 'assets/iid/iid_bg.png');
   DontPanic.game.load.spritesheet('IID_enemy1', 'assets/iid/iid_enemy1.png', 440, 1140);
   DontPanic.game.load.spritesheet('IID_player1', 'assets/iid/iid_player1.png', 115, 175);
