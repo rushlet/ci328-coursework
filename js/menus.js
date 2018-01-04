@@ -4,11 +4,12 @@ var settingsText__sound;
 var settingsText__colour;
 
 function mainMenu() {
+    mainMenu = this;
     DontPanic.background = DontPanic.game.add.image(0, -40, 'home_background');
-    let startButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 120, 'startButton', startGame, this);
-    startButton.anchor.set(0.5);
-    let settingsButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 60, 'settingsButton', settingsMenu, this);
-    settingsButton.anchor.set(0.5);
+    DontPanic.startButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 120, 'startButton', startGame, this);
+    DontPanic.startButton.anchor.set(0.5);
+    DontPanic.settingsButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 60, 'settingsButton', settingsMenu, this);
+    DontPanic.settingsButton.anchor.set(0.5);
 }
 
 function settingsMenu() {

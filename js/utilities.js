@@ -22,3 +22,7 @@ function eventOnLatestChildAdded(children, callback) {
     }
   }
 }
+
+function disableButtons(button) {
+  button.input.stop();
+}
