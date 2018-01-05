@@ -1,17 +1,21 @@
 function loadMainImages() {
   DontPanic.game.load.image('background1', 'assets/space_background.png');
   DontPanic.game.load.image('home_background', 'assets/game_screen.jpg');
-  DontPanic.game.load.image('startButton', 'assets/button_start.png'); // placeholders for now
-  DontPanic.game.load.image('settingsButton', 'assets/button_settings.png'); // placeholders for now
-  DontPanic.game.load.image('playAgainButton', 'assets/button_play-again.png'); // placeholders for now
   DontPanic.game.load.spritesheet('rocket_red', 'assets/rocket_spritesheet1.png', 115, 175);
   DontPanic.game.load.spritesheet('rocket_blue', 'assets/rocket_spritesheet_blue1.png', 115, 175);
   DontPanic.game.load.spritesheet('enemyShip', 'assets/enemy_ship_spritesheet1.png', 440, 1140);
-  DontPanic.game.load.image('heart', 'assets/life.png');
   DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png'); //placeholder
   DontPanic.game.load.image('coin', 'assets/coin_2.png');
   DontPanic.game.load.image('extraLife', 'assets/extra_life.png');
+}
+
+function loadUIAssets() {
+  DontPanic.game.load.image('startButton', 'assets/button_start.png'); // placeholders for now
+  DontPanic.game.load.image('settingsButton', 'assets/button_settings.png'); // placeholders for now
+  DontPanic.game.load.image('playAgainButton', 'assets/button_play-again.png'); // placeholders for now
+  DontPanic.game.load.image('heart', 'assets/life.png');
   DontPanic.game.load.image('pauseIcon', 'assets/pause-button.png');
+  DontPanic.game.load.image('playIcon', 'assets/play-button.png');
 }
 
 function loadImprobabilityDriveImages() {

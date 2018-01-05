@@ -18,6 +18,7 @@ function init() {
 
 function preload() {
   loadMainImages();
+  loadUIAssets();
   loadAudio();
   loadImprobabilityDriveImages();
 }
@@ -37,8 +38,8 @@ function update() {
 }
 
 function startGame(menu) {
-  disableButtons(DontPanic.settingsButton);
-  disableButtons(DontPanic.startButton)
+  DontPanic.game.world.removeAll();
+  DontPanic.game.paused = false;
   DontPanic.gameStarted = true;
   DontPanic.background = DontPanic.game.add.tileSprite(0, 0, DontPanic.game.width, DontPanic.game.height, 'background1');
   DontPanic.background.autoScroll(0, 50);
