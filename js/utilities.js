@@ -1,5 +1,7 @@
-function randomNumber(x, y) {
-  return Math.floor(Math.random() * x) + y;
+function randomInt(max, min) {
+  max = Math.floor(max);
+  min = Math.ceil(min);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function resizeSprite(sprite, factor) {
