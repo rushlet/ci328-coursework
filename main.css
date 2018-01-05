@@ -6,6 +6,36 @@
 body {
   margin: 0;
   background-color: #282e42;
+  font-family: sans-serif;
+  color: #fff;
+}
+
+h1 {
+  font-family: 'whoopass';
+  font-size: 48px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+p {
+
+}
+
+a {
+  color: #a8dcf5;
+  text-decoration: none;
+}
+
+a::hover {
+  cursor: pointer;
+}
+
+.explainer {
+  margin: 16px auto;
+  padding: 1em;
+  max-width: 650px;
+  display: block;
 }
 
 #gameWindow {
@@ -30,5 +60,26 @@ canvas {
   canvas {
     border: none;
   }
+}
 
+/* desktop */
+@media (hover: hover) {
+  .mobile {
+    display: none;
+  }
+
+  .desktop {
+    display: block;
+  }
+}
+
+/* touchscreen */
+@media (hover: none) {
+  .mobile {
+    display: block;
+  }
+
+  .desktop {
+    display: none;
+  }
 }
