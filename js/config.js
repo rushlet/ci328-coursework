@@ -16,7 +16,7 @@ const config = {
     extraLifeSpawnRate: 4,
   },
   hard: {
-    coinSpawnRate: 2,
+    coinSpawnRate: 0.8,
     enemySpawnRate: 2,
     whaleDelay: 100,
     petuniaSpeed: 120,
