@@ -136,8 +136,8 @@ class Coins {
   }
 
   createCoin(x, y) {
-    var x = x || randomNumber(320, 5);
-    var y = y || randomNumber(10, -10)
+    var x = x || randomInt(320, 5);
+    var y = y || randomInt(10, -10)
     var coin = this.coins.create(x, y, 'coin');
     resizeSprite(coin, 0.3);
     coin.enableBody = true;
@@ -166,14 +166,14 @@ class Obstacle {
   }
 
   whale() {
-    const whale = DontPanic.obstacle.obstacles.create(randomNumber(200, 100), -100, 'whale');
+    const whale = DontPanic.obstacle.obstacles.create(randomInt(200, 100), -100, 'whale');
     resizeSprite(whale, 0.3);
     addGenericPropertiesForFallingObjects(whale, 50);
     DontPanic.obstacle.obstacles.soundFall.play();
   }
 
   petunias() {
-    const petunias = DontPanic.obstacle.obstacles.create(randomNumber(320, 25), -150, 'petunias');
+    const petunias = DontPanic.obstacle.obstacles.create(randomInt(320, 25), -150, 'petunias');
     resizeSprite(petunias, 0.1)
     addGenericPropertiesForFallingObjects(petunias, 60);
     DontPanic.obstacle.obstacles.soundFall.play();
@@ -212,7 +212,7 @@ class ExtraLife {
   }
 
   extraLife() {
-    const life = DontPanic.extraLife.extraLives.create(randomNumber(320, 5), -100, 'extraLife');
+    const life = DontPanic.extraLife.extraLives.create(randomInt(320, 5), -100, 'extraLife');
     resizeSprite(life, 0.06);
     addGenericPropertiesForFallingObjects(life, 40);
   }

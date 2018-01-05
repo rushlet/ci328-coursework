@@ -44,7 +44,7 @@ class ImprobabilityDrive {
   }
 
   triggerEvent(button_iid){
-    var eventTriggered = Math.random() <= 0.5 ? this.randomAssets : this.randomObstacle;
+    var eventTriggered = Math.random() >= config[config.currentLevel]['infiniteImprobabilityDifficulty'] ? this.randomAssets : this.randomObstacle;
     eventTriggered(button_iid);
     button_iid.kill();
   }
@@ -54,7 +54,8 @@ class ImprobabilityDrive {
     let improbabilityDurationTimer = DontPanic.game.time.events.add(Phaser.Timer.SECOND * improbabilityDriveDuration, DontPanic.improbabilityDrive.assetReset, this);
     improbabilityDurationTimer.timer.start();
     DontPanic.improbabilityDriveTriggered = true;
-    currentScenario = 1; // when more scenarios are added this will be randomly generated
+    currentScenario = randomInt(3, 1);
+    console.log(currentScenario);
     DontPanic.improbabilityDrive.regenerateAssets();
   }
 
@@ -92,5 +93,17 @@ const improbabilityScenarioAssets = {
     enemy: 'IID_enemy1',
     background: 'IID_background1',
     coins: 'IID_teacup',
+  },
+  2 : {
+    player: 'IID_player2',
+    enemy: 'IID_enemy2',
+    background: 'IID_background2',
+    coins: 'IID_coin2',
+  },
+  3 : {
+    player: 'IID_player3',
+    enemy: 'IID_enemy3',
+    background: 'IID_background3',
+    coins: 'IID_coin3',
   }
 };
