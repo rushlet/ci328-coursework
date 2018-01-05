@@ -25,6 +25,7 @@ class ImprobabilityDrive {
       button_iid.animation = button_iid.animations.add('flash', [0,1,0,1,0,1,0], true);
       button_iid.play('flash');
       button_iid.inputEnabled = true;
+      button_iid.input.useHandCursor = true;
       button_iid.events.onInputDown.add(this.triggerEvent, this);
       DontPanic.improbabilityDrive.generated = true;
       button_iid.alpha = 0;
