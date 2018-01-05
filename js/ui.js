@@ -2,6 +2,7 @@ function createUI() {
   DontPanic.lives = new LivesScore();
   DontPanic.coinScore = new CoinScore();
   DontPanic.distance = new DistanceScore();
+  pauseButton();
 }
 
 function backgroundMusic() {
@@ -10,6 +11,11 @@ function backgroundMusic() {
     backgroundMusic.volume = 0.1;
     backgroundMusic.play();
     return backgroundMusic;
+}
+
+function pauseButton() {
+  DontPanic.pauseButton = DontPanic.game.add.button(DontPanic.game.world.width - 30, DontPanic.game.world.height - 30, 'pauseIcon', pauseMenu, this);
+  DontPanic.pauseButton.input.useHandCursor = true;
 }
 
 class LivesScore {
