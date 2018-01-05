@@ -44,7 +44,7 @@ class ImprobabilityDrive {
   }
 
   triggerEvent(button_iid){
-    var eventTriggered = Math.random() <= 0.75 ? this.randomAssets : this.randomObstacle;
+    var eventTriggered = Math.random() >= config[config.currentLevel]['infiniteImprobabilityDifficulty'] ? this.randomAssets : this.randomObstacle;
     eventTriggered(button_iid);
     button_iid.kill();
   }
