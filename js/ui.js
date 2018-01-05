@@ -52,10 +52,9 @@ class LivesScore {
   gainLife(player, life) {
     DontPanic.extraLife.extraLives.collection.play();
     life.kill();
-    let livesLeft = DontPanic.lives.lives.livesLeft;
-    if (livesLeft < 4) {
-      livesLeft += 1;
-      DontPanic.lives.createHeart(livesLeft - 2);
+    if (DontPanic.lives.lives.livesLeft < 4) {
+      DontPanic.lives.lives.livesLeft += 1;
+      DontPanic.lives.createHeart(DontPanic.lives.lives.livesLeft - 2);
     }
     DontPanic.extraLife.triggerExtraLife();
   }
