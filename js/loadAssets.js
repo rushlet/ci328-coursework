@@ -11,6 +11,7 @@ function loadMainImages() {
   DontPanic.game.load.image('enemyBullet', 'assets/enemy-bullet.png'); //placeholder
   DontPanic.game.load.image('coin', 'assets/coin_2.png');
   DontPanic.game.load.image('extraLife', 'assets/extra_life.png');
+  DontPanic.game.load.image('pauseIcon', 'assets/pause-button.png');
 }
 
 function loadImprobabilityDriveImages() {
