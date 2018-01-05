@@ -2,8 +2,6 @@ var settingsText;
 var settingsText__difficulty;
 var settingsText__sound;
 var settingsText__colour;
-var pauseCalledPreviously = false;
-let pausedText;
 
 function mainMenu() {
     DontPanic.background = DontPanic.game.add.image(0, -40, 'home_background');
@@ -152,20 +150,16 @@ function playAgainMenu() {
 
 function pauseMenu() {
   if (!DontPanic.game.paused) {
-    console.log('calling first one');
-    paused = DontPanic.game.add.group();
-    pausedText = addText(DontPanic.game.world.centerX, 190, 'Paused', config.style.fontSize_title);
-    paused.add(pausedText);
-    console.log(pausedText);
     DontPanic.game.paused = true;
-    settingsButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY, 'settingsButton', settingsMenu, this);
-    settingsButton.anchor.set(0.5);
-    settingsButton.input.useHandCursor = true;
-    paused.add(settingsButton);
+    DontPanic.paused = DontPanic.game.add.group();
+    let pausedText = addText(DontPanic.game.world.centerX, 190, 'Paused', config.style.fontSize_title);
+    let settingsButton = DontPanic.settingsButton;
+    settingsButton.y = DontPanic.game.world.centerY;
+    DontPanic.paused.add(pausedText);
+    DontPanic.paused.add(settingsButton);
     DontPanic.pauseButton.loadTexture('playIcon');
   } else {
-    console.log(pausedText);
-    paused.kill();
+    DontPanic.paused.kill();
     DontPanic.game.paused = false;
     DontPanic.pauseButton.loadTexture('pauseIcon');
   }
