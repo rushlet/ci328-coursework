@@ -4,7 +4,6 @@ var settingsText__sound;
 var settingsText__colour;
 
 function mainMenu() {
-    mainMenu = this;
     DontPanic.background = DontPanic.game.add.image(0, -40, 'home_background');
     DontPanic.startButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY - 120, 'startButton', startGame, this);
     DontPanic.startButton.anchor.set(0.5);
@@ -36,7 +35,7 @@ function settingsMenu() {
     addText(DontPanic.game.world.centerX * 0.75, 450, "Red", config.style.fontSize_default, true, "colour", currentSettings.red);
     addText(DontPanic.game.world.centerX * 1.25, 450, "Blue", config.style.fontSize_default, true, "colour", !currentSettings.red);
 
-    addText(DontPanic.game.world.centerX, 550, "Back", config.style.fontSize_default, true, "back");
+    addText(DontPanic.game.world.centerX, 550, "Play", config.style.fontSize_default, true, "play");
 
     settingsText.add(settingsText__difficulty);
     settingsText.add(settingsText__sound);
@@ -53,10 +52,12 @@ function addText(x, y, string, size, clickevent, category, selected) {
   textOb.fontSize = size;
   textOb.padding.set(16, 16);
   textOb.inputEnabled = true;
+  textOb.input.useHandCursor = clickevent;
   addCategorySpecifics(textOb, category);
   if (selected) {
     colourText(textOb);
   }
+  return textOb;
 }
 
 function addCategorySpecifics(textOb, category) {
@@ -64,21 +65,18 @@ function addCategorySpecifics(textOb, category) {
     case "difficulty":
       settingsText__difficulty.add(textOb);
       textOb.events.onInputDown.add(difficultyListener, this);
-      textOb.input.useHandCursor = true;
       break;
     case "sound":
       settingsText__sound.add(textOb);
       textOb.events.onInputDown.add(soundListener, this);
-      textOb.input.useHandCursor = true;
       break;
     case "colour":
       settingsText__colour.add(textOb);
       textOb.events.onInputDown.add(colourListener, this);
-      textOb.input.useHandCursor = true;
       break;
-    case "back":
-      textOb.events.onInputDown.add(mainMenu, this);
-      textOb.input.useHandCursor = true;
+    case "play":
+      settingsText.add(textOb);
+      textOb.events.onInputDown.add(startGame, this);
       break;
     default: ;
   }
@@ -147,5 +145,22 @@ function playAgainMenu() {
     const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `New Best Distance!!\n${DontPanic.bestDistance}`, config.style.fontSize_bestDistance);
   } else {
     const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `Best Distance: ${DontPanic.bestDistance}`, config.style.fontSize_bestDistance);
+  }
+}
+
+function pauseMenu() {
+  if (!DontPanic.game.paused) {
+    DontPanic.game.paused = true;
+    DontPanic.paused = DontPanic.game.add.group();
+    let pausedText = addText(DontPanic.game.world.centerX, 190, 'Paused', config.style.fontSize_title);
+    let settingsButton = DontPanic.settingsButton;
+    settingsButton.y = DontPanic.game.world.centerY;
+    DontPanic.paused.add(pausedText);
+    DontPanic.paused.add(settingsButton);
+    DontPanic.pauseButton.loadTexture('playIcon');
+  } else {
+    DontPanic.paused.kill();
+    DontPanic.game.paused = false;
+    DontPanic.pauseButton.loadTexture('pauseIcon');
   }
 }
