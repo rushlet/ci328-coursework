@@ -1,0 +1,27 @@
+{
+  "name": "ci328-coursework",
+  "version": "1.0.0",
+  "description": "phaser endless runner game inspired by hitchhiker's guide to the galaxy",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rushlet/ci328-coursework.git"
+  },
+  "author": "Becky Rush",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rushlet/ci328-coursework/issues"
+  },
+  "homepage": "https://github.com/rushlet/ci328-coursework#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "live-server": "^1.2.0"
+  }
+}
