@@ -45,7 +45,7 @@ function startGame(menu) {
   DontPanic.background.autoScroll(0, 50);
   createEntities();
   createUI();
-  loadSound();
+  addSound();
 }
 
 function handleCollision() {
