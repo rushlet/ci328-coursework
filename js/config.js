@@ -4,6 +4,7 @@ const config = {
   soundOn: true,
   easy: {
     coinSpawnRate: 0.5,
+    coinInitialPositions: [[300, 0], [20, 40], [60, 80], [250, 200], [90, 120], [180, 350], [220, 10], [120, 290]],
     enemySpawnRate: 4,
     lifeSpawnRate: 0.5,
     whaleDelay: 50,
@@ -17,6 +18,7 @@ const config = {
   },
   hard: {
     coinSpawnRate: 0.8,
+    coinInitialPositions: [[300, 0], [110, 80], [180, 100], [200, 200], [800, 120], [240, 300], [50, 10], [150, 20]],
     enemySpawnRate: 2,
     whaleDelay: 100,
     petuniaSpeed: 120,
