@@ -7,4 +7,8 @@ gulp.task('bundle-js', function() {
     .pipe(gulp.dest('./bundled/'));
 });
 
+gulp.task('watch', function(){
+  gulp.watch('js/*.js', ['bundle-js']);
+})
+
 gulp.task('default', ['bundle-js']);
