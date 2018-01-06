@@ -47,7 +47,7 @@ function loadAudio() {
   DontPanic.game.load.audio('gameOver', 'assets/audio/game-over.wav');
 }
 
-function loadSound() {
+function addSound() {
   if (config.soundOn) {
     DontPanic.backgroundMusic = backgroundMusic();
   } else {
