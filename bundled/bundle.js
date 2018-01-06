@@ -213,13 +213,13 @@ class Enemy {
     enemy.abductSuccessful = false;
     enemy.positioned = false;
     DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.abduct, this, enemy);
-    this.checkIfImprobabilityDriveSprite();
+    this.checkIfImprobabilityDriveSprite(enemy);
   }
 
-  checkIfImprobabilityDriveSprite() {
+  checkIfImprobabilityDriveSprite(enemy) {
     if (DontPanic.improbabilityDriveTriggered) {
-      enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 0);
-      if (currentScenario == 'reset') {
+      enemy.loadTexture(improbabilityScenarioAssets[DontPanic.improbabilityDrive.currentScenario].enemy, 0);
+      if (DontPanic.improbabilityDrive.currentScenario == 'reset') {
         DontPanic.improbabilityDriveTriggered = false;
       }
     }
@@ -310,7 +310,7 @@ class Coins {
     coin.body.velocity.y = 100;
     coin.body.collideWorldBounds = false;
     if (DontPanic.improbabilityDriveTriggered) {
-      coin.loadTexture(improbabilityScenarioAssets[currentScenario].coins, 1);
+      coin.loadTexture(improbabilityScenarioAssets[DontPanic.improbabilityDrive.currentScenario].coins, 1);
     }
   }
 
@@ -442,7 +442,7 @@ class Player {
   }
 }
 
-var currentScenario = 'reset';
+// var DontPanic.improbabilityDrive.currentScenario = 'reset';
 
 class ImprobabilityDrive {
   constructor() {
@@ -455,6 +455,7 @@ class ImprobabilityDrive {
     this.improbabilityDriveTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * improbabilityDriveDelay, this.improbabilityDriveGenerator, this);
     this.improbabilityDriveTimer.timer.start();
     this.improbabilityDrive = improbabilityDrive;
+    this.currentScenario = 'reset';
   }
 
   improbabilityDriveGenerator() {
@@ -498,24 +499,24 @@ class ImprobabilityDrive {
     let improbabilityDurationTimer = DontPanic.game.time.events.add(Phaser.Timer.SECOND * improbabilityDriveDuration, DontPanic.improbabilityDrive.assetReset, this);
     improbabilityDurationTimer.timer.start();
     DontPanic.improbabilityDriveTriggered = true;
-    currentScenario = randomInt(3, 1);
-    console.log(currentScenario);
+    DontPanic.improbabilityDrive.currentScenario = randomInt(3, 1);
+    console.log(DontPanic.improbabilityDrive.currentScenario);
     DontPanic.improbabilityDrive.regenerateAssets();
   }
 
   assetReset() {
-    currentScenario = 'reset';
+    DontPanic.improbabilityDrive.currentScenario = 'reset';
     DontPanic.improbabilityDrive.regenerateAssets();
   }
 
   regenerateAssets() {
-    DontPanic.background.loadTexture(improbabilityScenarioAssets[currentScenario].background);
-    DontPanic.player.playerSprite.loadTexture(improbabilityScenarioAssets[currentScenario].player, 0);
+    DontPanic.background.loadTexture(improbabilityScenarioAssets[DontPanic.improbabilityDrive.currentScenario].background);
+    DontPanic.player.playerSprite.loadTexture(improbabilityScenarioAssets[DontPanic.improbabilityDrive.currentScenario].player, 0);
     DontPanic.enemy.enemies.forEachExists((enemy) =>  {
-      enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 0);
+      enemy.loadTexture(improbabilityScenarioAssets[DontPanic.improbabilityDrive.currentScenario].enemy, 0);
     });
     DontPanic.coins.coins.forEachExists((coin) =>  {
-      coin.loadTexture(improbabilityScenarioAssets[currentScenario].coins);
+      coin.loadTexture(improbabilityScenarioAssets[DontPanic.improbabilityDrive.currentScenario].coins);
     });
   }
 

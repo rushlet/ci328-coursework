@@ -46,13 +46,13 @@ class Enemy {
     enemy.abductSuccessful = false;
     enemy.positioned = false;
     DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.abduct, this, enemy);
-    this.checkIfImprobabilityDriveSprite();
+    this.checkIfImprobabilityDriveSprite(enemy);
   }
 
-  checkIfImprobabilityDriveSprite() {
+  checkIfImprobabilityDriveSprite(enemy) {
     if (DontPanic.improbabilityDriveTriggered) {
-      enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 0);
-      if (currentScenario == 'reset') {
+      enemy.loadTexture(improbabilityScenarioAssets[DontPanic.improbabilityDrive.currentScenario].enemy, 0);
+      if (DontPanic.improbabilityDrive.currentScenario == 'reset') {
         DontPanic.improbabilityDriveTriggered = false;
       }
     }
@@ -143,7 +143,7 @@ class Coins {
     coin.body.velocity.y = 100;
     coin.body.collideWorldBounds = false;
     if (DontPanic.improbabilityDriveTriggered) {
-      coin.loadTexture(improbabilityScenarioAssets[currentScenario].coins, 1);
+      coin.loadTexture(improbabilityScenarioAssets[DontPanic.improbabilityDrive.currentScenario].coins, 1);
     }
   }
 
