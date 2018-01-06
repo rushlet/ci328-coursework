@@ -30,6 +30,7 @@ const config = {
     enemySpeedVertical: 2,
     extraLifeSpawnRate: 5,
   },
+  improbabilityDriveDestruction: 3.5,
   style: {
     textColour: '#fff',
     textColour_highlight: '#b8180c',

@@ -18,17 +18,13 @@ h1 {
   margin-bottom: 16px;
 }
 
-p {
-
-}
-
 a {
   color: #a8dcf5;
   text-decoration: none;
 }
 
-a::hover {
-  cursor: pointer;
+a:hover {
+  color: #71c3eb;
 }
 
 .explainer {

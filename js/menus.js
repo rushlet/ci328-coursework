@@ -12,7 +12,7 @@ function mainMenu() {
 }
 
 function settingsMenu() {
-    DontPanic.game.world.removeAll(); //this might not be a good idea as all game assets will need to be loaded back in again?
+    DontPanic.game.world.removeAll();
     DontPanic.game.add.image(0, 0, 'background1');
     settingsText = DontPanic.game.add.group();
 
@@ -146,6 +146,7 @@ function playAgainMenu() {
   } else {
     const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `Best Distance: ${DontPanic.bestDistance}`, config.style.fontSize_bestDistance);
   }
+  DontPanic.pauseButton.kill();
 }
 
 function pauseMenu() {

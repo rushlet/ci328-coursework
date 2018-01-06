@@ -152,6 +152,7 @@ const config = {
     enemySpeedVertical: 2,
     extraLifeSpawnRate: 5,
   },
+  improbabilityDriveDestruction: 3.5,
   style: {
     textColour: '#fff',
     textColour_highlight: '#b8180c',
@@ -442,8 +443,6 @@ class Player {
   }
 }
 
-// var DontPanic.improbabilityDrive.currentScenario = 'reset';
-
 class ImprobabilityDrive {
   constructor() {
     let improbabilityDrive = DontPanic.game.add.group();
@@ -475,7 +474,7 @@ class ImprobabilityDrive {
       DontPanic.improbabilityDrive.generated = true;
       button_iid.alpha = 0;
       DontPanic.game.add.tween(button_iid).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true, 0);
-      DontPanic.improbabilityDrive.destructionTimer = DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.removeButton, this);
+      DontPanic.improbabilityDrive.destructionTimer = DontPanic.game.time.events.add(Phaser.Timer.SECOND * config.improbabilityDriveDestruction, this.removeButton, this);
     }
   }
 
@@ -488,7 +487,7 @@ class ImprobabilityDrive {
     fadeOut.onComplete.add((button)=>{button.kill();}, this);
   }
 
-  triggerEvent(button_iid){
+  triggerEvent(button_iid) {
     var eventTriggered = Math.random() >= config[config.currentLevel]['infiniteImprobabilityDifficulty'] ? this.randomAssets : this.randomObstacle;
     eventTriggered(button_iid);
     button_iid.kill();
@@ -500,7 +499,6 @@ class ImprobabilityDrive {
     improbabilityDurationTimer.timer.start();
     DontPanic.improbabilityDriveTriggered = true;
     DontPanic.improbabilityDrive.currentScenario = randomInt(3, 1);
-    console.log(DontPanic.improbabilityDrive.currentScenario);
     DontPanic.improbabilityDrive.regenerateAssets();
   }
 
@@ -567,7 +565,7 @@ function mainMenu() {
 }
 
 function settingsMenu() {
-    DontPanic.game.world.removeAll(); //this might not be a good idea as all game assets will need to be loaded back in again?
+    DontPanic.game.world.removeAll();
     DontPanic.game.add.image(0, 0, 'background1');
     settingsText = DontPanic.game.add.group();
 
@@ -701,6 +699,7 @@ function playAgainMenu() {
   } else {
     const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `Best Distance: ${DontPanic.bestDistance}`, config.style.fontSize_bestDistance);
   }
+  DontPanic.pauseButton.kill();
 }
 
 function pauseMenu() {
