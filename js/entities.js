@@ -104,12 +104,12 @@ class Enemy {
     }
   }
 
-  abductPlayer(playerSprite, vogon) {
-    if (!vogon.abductSuccessful && vogon.frame == 3) {
+  abductPlayer(playerSprite, enemy) {
+    if (!enemy.abductSuccessful && enemy.frame == 3) {
       DontPanic.enemy.abductionSound.play();
       DontPanic.lives.loseLife();
       DontPanic.game.camera.shake(0.005, 500);
-      vogon.abductSuccessful = true;
+      enemy.abductSuccessful = true;
     }
   }
 }
@@ -129,7 +129,6 @@ class Coins {
 
   initialCoins() {
     var initialCoinPositions = config[config.currentLevel]['coinInitialPositions'];
-    console.log(initialCoinPositions);
     for (var i = 0; i < initialCoinPositions.length; i++) {
       this.createCoin(initialCoinPositions[i][0], initialCoinPositions[i][1]);
     }
@@ -194,7 +193,6 @@ class ExtraLife {
     extraLives.enableBody = true;
     extraLives.collection = DontPanic.game.add.audio('lifePing');
     DontPanic.game.physics.arcade.enable(extraLives);
-    this.extraLifeTimer;
     this.extraLives = extraLives;
   }
 

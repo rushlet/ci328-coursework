@@ -37,7 +37,7 @@ function update() {
   }
 }
 
-function startGame(menu) {
+function startGame() {
   DontPanic.game.world.removeAll();
   DontPanic.game.paused = false;
   DontPanic.gameStarted = true;
@@ -45,7 +45,7 @@ function startGame(menu) {
   DontPanic.background.autoScroll(0, 50);
   createEntities();
   createUI();
-  loadSound();
+  addSound();
 }
 
 function handleCollision() {
@@ -120,20 +120,13 @@ function loadAudio() {
   DontPanic.game.load.audio('gameOver', 'assets/audio/game-over.wav');
 }
 
-function loadSound() {
-  if (config.soundOn) {
-    DontPanic.backgroundMusic = backgroundMusic();
-  } else {
-    DontPanic.game.sound.mute = true;
-  }
-}
-
 const config = {
   currentLevel: 'easy',
   playerColour: 'red',
   soundOn: true,
   easy: {
     coinSpawnRate: 0.5,
+    coinInitialPositions: [[300, 0], [20, 40], [60, 80], [250, 200], [90, 120], [180, 350], [220, 10], [120, 290]],
     enemySpawnRate: 4,
     lifeSpawnRate: 0.5,
     whaleDelay: 50,
@@ -147,6 +140,7 @@ const config = {
   },
   hard: {
     coinSpawnRate: 0.8,
+    coinInitialPositions: [[300, 0], [110, 80], [180, 100], [200, 200], [800, 120], [240, 300], [50, 10], [150, 20]],
     enemySpawnRate: 2,
     whaleDelay: 100,
     petuniaSpeed: 120,
@@ -219,10 +213,10 @@ class Enemy {
     enemy.abductSuccessful = false;
     enemy.positioned = false;
     DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.abduct, this, enemy);
-    this.checkIfImprobabilityDriveSprite(enemy);
+    this.checkIfImprobabilityDriveSprite();
   }
 
-  checkIfImprobabilityDriveSprite(enemy) {
+  checkIfImprobabilityDriveSprite() {
     if (DontPanic.improbabilityDriveTriggered) {
       enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 0);
       if (currentScenario == 'reset') {
@@ -233,7 +227,6 @@ class Enemy {
 
   moveEnemy() {
     this.enemies.forEachExists((sprite) =>  {
-      // DontPanic.game.debug.body(sprite);
       if (!sprite.positioned && !sprite.abductCheck) {
           this.descend(sprite);
           this.moveToPlayer(sprite);
@@ -263,9 +256,9 @@ class Enemy {
 
   leaveScreen(sprite) {
     if (sprite.x < DontPanic.player.playerSprite.x) {
-      sprite.cameraOffset.x -= 1.5;
+      sprite.cameraOffset.x -= config[config.currentLevel]['enemySpeedHorizontal'];
     } else {
-      sprite.cameraOffset.x += 1.5;
+      sprite.cameraOffset.x += config[config.currentLevel]['enemySpeedHorizontal'];
     }
   }
 
@@ -278,12 +271,12 @@ class Enemy {
     }
   }
 
-  abductPlayer(playerSprite, vogon) {
-    if (!vogon.abductSuccessful && vogon.frame == 3) {
+  abductPlayer(playerSprite, enemy) {
+    if (!enemy.abductSuccessful && enemy.frame == 3) {
       DontPanic.enemy.abductionSound.play();
       DontPanic.lives.loseLife();
       DontPanic.game.camera.shake(0.005, 500);
-      vogon.abductSuccessful = true;
+      enemy.abductSuccessful = true;
     }
   }
 }
@@ -302,7 +295,7 @@ class Coins {
   }
 
   initialCoins() {
-    var initialCoinPositions = [[300, 0], [20, 40], [60, 80], [250, 200], [90, 120], [180, 350], [220, 10], [120, 290]]
+    var initialCoinPositions = config[config.currentLevel]['coinInitialPositions'];
     for (var i = 0; i < initialCoinPositions.length; i++) {
       this.createCoin(initialCoinPositions[i][0], initialCoinPositions[i][1]);
     }
@@ -367,7 +360,6 @@ class ExtraLife {
     extraLives.enableBody = true;
     extraLives.collection = DontPanic.game.add.audio('lifePing');
     DontPanic.game.physics.arcade.enable(extraLives);
-    this.extraLifeTimer;
     this.extraLives = extraLives;
   }
 
@@ -375,16 +367,16 @@ class ExtraLife {
     var extraLifeSpawnRate = config[config.currentLevel]['extraLifeSpawnRate'];
     DontPanic.game.time.events.remove(DontPanic.extraLife.extraLifeTimer);
     if (DontPanic.lives.lives.livesLeft < 4 && DontPanic.lives.lives.livesLeft > 1) {
-      DontPanic.extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * extraLifeSpawnRate, DontPanic.extraLife.extraLife, this);
+      DontPanic.extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * extraLifeSpawnRate, DontPanic.extraLife.createExtraLife, this);
       DontPanic.extraLife.extraLifeTimer.timer.start();
     }
     if (DontPanic.lives.lives.livesLeft <= 1) {
-      DontPanic.extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * (extraLifeSpawnRate/2), DontPanic.extraLife.extraLife, this);
+      DontPanic.extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * (extraLifeSpawnRate/2), DontPanic.extraLife.createExtraLife, this);
       DontPanic.extraLife.extraLifeTimer.timer.start();
     }
   }
 
-  extraLife() {
+  createExtraLife() {
     const life = DontPanic.extraLife.extraLives.create(randomInt(320, 5), -100, 'extraLife');
     resizeSprite(life, 0.06);
     addGenericPropertiesForFallingObjects(life, 40);
@@ -407,7 +399,6 @@ class Player {
   }
 
   handleInput() {
-    // DontPanic.game.debug.body(this.playerSprite);
     this.playerSprite.body.velocity.x = 0;
     if ((DontPanic.cursors.left.isDown && !DontPanic.cursors.right.isDown) || (DontPanic.game.input.pointer1.isDown && DontPanic.game.input.pointer1.x < DontPanic.game.world.centerX)) {
       this.moveLeft();
@@ -766,17 +757,25 @@ function createUI() {
   pauseButton();
 }
 
+function pauseButton() {
+  DontPanic.pauseButton = DontPanic.game.add.button(DontPanic.game.world.width - 30, DontPanic.game.world.height - 30, 'pauseIcon', pauseMenu, this);
+  DontPanic.pauseButton.input.useHandCursor = true;
+}
+
+function addSound() {
+  if (config.soundOn) {
+    DontPanic.backgroundMusic = backgroundMusic();
+  } else {
+    DontPanic.game.sound.mute = true;
+  }
+}
+
 function backgroundMusic() {
     let backgroundMusic = DontPanic.game.add.audio('backgroundMusic');
     backgroundMusic.loop = true;
     backgroundMusic.volume = 0.1;
     backgroundMusic.play();
     return backgroundMusic;
-}
-
-function pauseButton() {
-  DontPanic.pauseButton = DontPanic.game.add.button(DontPanic.game.world.width - 30, DontPanic.game.world.height - 30, 'pauseIcon', pauseMenu, this);
-  DontPanic.pauseButton.input.useHandCursor = true;
 }
 
 class LivesScore {
