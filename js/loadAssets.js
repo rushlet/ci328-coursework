@@ -46,11 +46,3 @@ function loadAudio() {
   DontPanic.game.load.audio('obstacleCollision', 'assets/audio/obstacle-collision.wav');
   DontPanic.game.load.audio('gameOver', 'assets/audio/game-over.wav');
 }
-
-function addSound() {
-  if (config.soundOn) {
-    DontPanic.backgroundMusic = backgroundMusic();
-  } else {
-    DontPanic.game.sound.mute = true;
-  }
-}

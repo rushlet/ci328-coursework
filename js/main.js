@@ -37,7 +37,7 @@ function update() {
   }
 }
 
-function startGame(menu) {
+function startGame() {
   DontPanic.game.world.removeAll();
   DontPanic.game.paused = false;
   DontPanic.gameStarted = true;

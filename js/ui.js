@@ -5,17 +5,25 @@ function createUI() {
   pauseButton();
 }
 
+function pauseButton() {
+  DontPanic.pauseButton = DontPanic.game.add.button(DontPanic.game.world.width - 30, DontPanic.game.world.height - 30, 'pauseIcon', pauseMenu, this);
+  DontPanic.pauseButton.input.useHandCursor = true;
+}
+
+function addSound() {
+  if (config.soundOn) {
+    DontPanic.backgroundMusic = backgroundMusic();
+  } else {
+    DontPanic.game.sound.mute = true;
+  }
+}
+
 function backgroundMusic() {
     let backgroundMusic = DontPanic.game.add.audio('backgroundMusic');
     backgroundMusic.loop = true;
     backgroundMusic.volume = 0.1;
     backgroundMusic.play();
     return backgroundMusic;
-}
-
-function pauseButton() {
-  DontPanic.pauseButton = DontPanic.game.add.button(DontPanic.game.world.width - 30, DontPanic.game.world.height - 30, 'pauseIcon', pauseMenu, this);
-  DontPanic.pauseButton.input.useHandCursor = true;
 }
 
 class LivesScore {
