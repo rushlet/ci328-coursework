@@ -1,4 +1,4 @@
-cfunction createEntities() {
+function createEntities() {
   DontPanic.player = new Player();
   DontPanic.enemy = new Enemy();
   DontPanic.coins = new Coins();
@@ -46,10 +46,10 @@ class Enemy {
     enemy.abductSuccessful = false;
     enemy.positioned = false;
     DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.abduct, this, enemy);
-    this.checkIfImprobabilityDriveSprite(enemy);
+    this.checkIfImprobabilityDriveSprite();
   }
 
-  checkIfImprobabilityDriveSprite(enemy) {
+  checkIfImprobabilityDriveSprite() {
     if (DontPanic.improbabilityDriveTriggered) {
       enemy.loadTexture(improbabilityScenarioAssets[currentScenario].enemy, 0);
       if (currentScenario == 'reset') {
@@ -60,7 +60,6 @@ class Enemy {
 
   moveEnemy() {
     this.enemies.forEachExists((sprite) =>  {
-      // DontPanic.game.debug.body(sprite);
       if (!sprite.positioned && !sprite.abductCheck) {
           this.descend(sprite);
           this.moveToPlayer(sprite);
@@ -90,9 +89,9 @@ class Enemy {
 
   leaveScreen(sprite) {
     if (sprite.x < DontPanic.player.playerSprite.x) {
-      sprite.cameraOffset.x -= 1.5;
+      sprite.cameraOffset.x -= config[config.currentLevel]['enemySpeedHorizontal'];
     } else {
-      sprite.cameraOffset.x += 1.5;
+      sprite.cameraOffset.x += config[config.currentLevel]['enemySpeedHorizontal'];
     }
   }
 
@@ -129,7 +128,8 @@ class Coins {
   }
 
   initialCoins() {
-    var initialCoinPositions = [[300, 0], [20, 40], [60, 80], [250, 200], [90, 120], [180, 350], [220, 10], [120, 290]]
+    var initialCoinPositions = config[config.currentLevel]['coinInitialPositions'];
+    console.log(initialCoinPositions);
     for (var i = 0; i < initialCoinPositions.length; i++) {
       this.createCoin(initialCoinPositions[i][0], initialCoinPositions[i][1]);
     }
