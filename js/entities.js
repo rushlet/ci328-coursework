@@ -1,4 +1,4 @@
-function createEntities() {
+cfunction createEntities() {
   DontPanic.player = new Player();
   DontPanic.enemy = new Enemy();
   DontPanic.coins = new Coins();
@@ -202,16 +202,16 @@ class ExtraLife {
     var extraLifeSpawnRate = config[config.currentLevel]['extraLifeSpawnRate'];
     DontPanic.game.time.events.remove(DontPanic.extraLife.extraLifeTimer);
     if (DontPanic.lives.lives.livesLeft < 4 && DontPanic.lives.lives.livesLeft > 1) {
-      DontPanic.extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * extraLifeSpawnRate, DontPanic.extraLife.extraLife, this);
+      DontPanic.extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * extraLifeSpawnRate, DontPanic.extraLife.createExtraLife, this);
       DontPanic.extraLife.extraLifeTimer.timer.start();
     }
     if (DontPanic.lives.lives.livesLeft <= 1) {
-      DontPanic.extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * (extraLifeSpawnRate/2), DontPanic.extraLife.extraLife, this);
+      DontPanic.extraLife.extraLifeTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * (extraLifeSpawnRate/2), DontPanic.extraLife.createExtraLife, this);
       DontPanic.extraLife.extraLifeTimer.timer.start();
     }
   }
 
-  extraLife() {
+  createExtraLife() {
     const life = DontPanic.extraLife.extraLives.create(randomInt(320, 5), -100, 'extraLife');
     resizeSprite(life, 0.06);
     addGenericPropertiesForFallingObjects(life, 40);
