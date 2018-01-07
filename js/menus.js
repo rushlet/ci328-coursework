@@ -82,14 +82,6 @@ function addCategorySpecifics(textOb, category) {
   }
 }
 
-function getCurrentSettings() {
-  const currentSettings = {};
-  currentSettings["easy"] = (config.currentLevel == "easy") ?  true : false;
-  currentSettings["soundOn"] = config.soundOn;
-  currentSettings["red"] = (config.playerColour == "red") ?  true : false;
-  return currentSettings;
-}
-
 function difficultyListener(input) {
   let previousSelection = config.currentLevel;
   config.currentLevel = input["_text"].toLowerCase();
@@ -102,7 +94,7 @@ function difficultyListener(input) {
 }
 
 function soundListener(input) {
-  let previousSelection = config.soundOn; //true or false
+  let previousSelection = config.soundOn;
   config.soundOn = (input["_text"].toLowerCase() == "on") ?  true : false;
   if (config.soundOn != previousSelection) {
     for (var i = 0; i < settingsText__sound.children.length; i++) {
@@ -123,6 +115,14 @@ function colourListener(input) {
   getCurrentSettings();
 }
 
+function getCurrentSettings() {
+  const currentSettings = {};
+  currentSettings["easy"] = (config.currentLevel == "easy") ?  true : false;
+  currentSettings["soundOn"] = config.soundOn;
+  currentSettings["red"] = (config.playerColour == "red") ?  true : false;
+  return currentSettings;
+}
+
 function colourText(text) {
   if (text['style']['fill'] == config.style.textColour_highlight) {
     text.fill = config.style.textColour;
@@ -135,12 +135,15 @@ function colourText(text) {
 }
 
 function playAgainMenu() {
-  DontPanic.game.gameOver.destroy();
+  DontPanic.game.gameOver.kill();
   DontPanic.game.camera.resetFX();
+  DontPanic.playAgain = DontPanic.game.add.group();
   const restartButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY, 'playAgainButton', startGame, this);
   restartButton.anchor.set(0.5);
-  const settingsButton = DontPanic.game.add.button(DontPanic.game.world.centerX, DontPanic.game.world.centerY + 100, 'settingsButton', settingsMenu, this);
-  settingsButton.anchor.set(0.5);
+  const settingsButton = DontPanic.settingsButton;
+  settingsButton.y = DontPanic.game.world.centerY + 100;
+  DontPanic.playAgain.add(restartButton);
+  DontPanic.playAgain.add(settingsButton);
   if (DontPanic.newBestScore) {
     const bestDistanceText = addText(DontPanic.game.world.centerX, 190, `New Best Distance!!\n${DontPanic.bestDistance}`, config.style.fontSize_bestDistance);
   } else {
@@ -153,8 +156,8 @@ function pauseMenu() {
   if (!DontPanic.game.paused) {
     DontPanic.game.paused = true;
     DontPanic.paused = DontPanic.game.add.group();
-    let pausedText = addText(DontPanic.game.world.centerX, 190, 'Paused', config.style.fontSize_title);
-    let settingsButton = DontPanic.settingsButton;
+    const pausedText = addText(DontPanic.game.world.centerX, 190, 'Paused', config.style.fontSize_title);
+    const settingsButton = DontPanic.settingsButton;
     settingsButton.y = DontPanic.game.world.centerY;
     DontPanic.paused.add(pausedText);
     DontPanic.paused.add(settingsButton);
