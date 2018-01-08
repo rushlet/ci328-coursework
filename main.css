@@ -27,8 +27,7 @@ a:hover {
   color: #71c3eb;
 }
 
-.explainer,
-.attribution {
+.text-container {
   margin: 16px auto;
   padding: 1em;
   max-width: 650px;
