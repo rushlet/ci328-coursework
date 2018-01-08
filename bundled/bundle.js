@@ -112,7 +112,7 @@ function loadImprobabilityDriveImages() {
 
 function loadAudio() {
   DontPanic.game.load.audio('coinPing', 'assets/audio/coin_collection.wav');
-  DontPanic.game.load.audio('backgroundMusic', 'assets/audio/background_music.wav');
+  DontPanic.game.load.audio('backgroundMusic', 'assets/audio/background_music.mp3');
   DontPanic.game.load.audio('abduction', 'assets/audio/abduction.wav');
   DontPanic.game.load.audio('abductionFail', 'assets/audio/abduction-fail.wav');
   DontPanic.game.load.audio('lifePing', 'assets/audio/extra-life.mp3');
