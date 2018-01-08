@@ -96,6 +96,9 @@ class DistanceScore {
   distanceIncrease() {
     DontPanic.currentDistance++;
     this.distanceReachedText.setText(`Distance: ${DontPanic.currentDistance}`);
+    if (DontPanic.currentDistance % 100 == 0) {
+      DontPanic.enemy.increaseEnemySpeed();
+    }
   }
 
   checkBestDistance() {
