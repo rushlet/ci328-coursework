@@ -38,6 +38,9 @@ function update() {
 }
 
 function startGame() {
+  if (DontPanic.settingsText) {
+    DontPanic.settingsText.kill();
+  }
   DontPanic.game.world.removeAll();
   DontPanic.game.paused = false;
   DontPanic.gameStarted = true;

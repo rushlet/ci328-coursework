@@ -14,7 +14,7 @@ function mainMenu() {
 function settingsMenu() {
     DontPanic.game.world.removeAll();
     DontPanic.game.add.image(0, 0, 'background1');
-    settingsText = DontPanic.game.add.group();
+    DontPanic.settingsText = DontPanic.game.add.group();
 
     const currentSettings = getCurrentSettings();
 
@@ -37,9 +37,9 @@ function settingsMenu() {
 
     addText(DontPanic.game.world.centerX, 550, "Play", config.style.fontSize_default, true, "play");
 
-    settingsText.add(settingsText__difficulty);
-    settingsText.add(settingsText__sound);
-    settingsText.add(settingsText__colour);
+    DontPanic.settingsText.add(settingsText__difficulty);
+    DontPanic.settingsText.add(settingsText__sound);
+    DontPanic.settingsText.add(settingsText__colour);
 }
 
 function addText(x, y, string, size, clickevent, category, selected) {
@@ -75,7 +75,7 @@ function addCategorySpecifics(textOb, category) {
       textOb.events.onInputDown.add(colourListener, this);
       break;
     case "play":
-      settingsText.add(textOb);
+      DontPanic.settingsText.add(textOb);
       textOb.events.onInputDown.add(startGame, this);
       break;
     default: ;
