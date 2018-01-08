@@ -43,6 +43,12 @@ a:hover {
   margin-top: 8px;
 }
 
+.backToGame {
+  font-family: 'whoopass';
+  color: #fff;
+  font-size: 24px;
+}
+
 #gameWindow {
   font-family: 'whoopass';
   color: #fff;
