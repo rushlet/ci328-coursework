@@ -10,5 +10,3 @@ once cloned, `cd` into the directory and run the following commands:
 `live-server`
 
 The live server command will run a local server and open it in your default browser.
-
-# Attribution

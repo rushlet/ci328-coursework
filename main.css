@@ -27,11 +27,20 @@ a:hover {
   color: #71c3eb;
 }
 
-.explainer {
+.explainer,
+.attribution {
   margin: 16px auto;
   padding: 1em;
   max-width: 650px;
   display: block;
+}
+
+.attribution h2 {
+  margin-bottom: 0;
+}
+
+.attribution ul {
+  margin-top: 8px;
 }
 
 #gameWindow {
