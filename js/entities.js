@@ -49,7 +49,6 @@ class Enemy {
     enemy.abductCheck = false;
     enemy.abductSuccessful = false;
     enemy.positioned = false;
-    console.log(DontPanic.enemy.timeBeforeAbduction);
     DontPanic.game.time.events.add(Phaser.Timer.SECOND * DontPanic.enemy.timeBeforeAbduction, this.abduct, this, enemy);
     this.checkIfImprobabilityDriveSprite(enemy);
   }
@@ -57,16 +56,12 @@ class Enemy {
   increaseEnemySpeed() {
     if (DontPanic.enemy.timeBeforeAbduction > 1.5) {
       DontPanic.enemy.timeBeforeAbduction -= config[config.currentLevel]['enemyDifficultyIncrease'] * 2;
-      console.log('time decreased', DontPanic.enemy.timeBeforeAbduction);
     }
     if (DontPanic.enemy.horizontalSpeed < 2) {
       DontPanic.enemy.horizontalSpeed += config[config.currentLevel]['enemyDifficultyIncrease'];
-      console.log('horizontalSpeed increased', DontPanic.enemy.horizontalSpeed);
     }
     if (DontPanic.enemy.verticalSpeed < 2.4) {
       DontPanic.enemy.verticalSpeed += config[config.currentLevel]['enemyDifficultyIncrease'];
-      console.log('verticalSpeed increased', DontPanic.enemy.verticalSpeed);
-
     }
     if (DontPanic.currentDistance > 500 && DontPanic.enemy.abductDistance > 220) {
       DontPanic.enemy.abductDistance -= config[config.currentLevel]['enemyDifficultyIncrease'] * 2;
