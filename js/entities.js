@@ -29,6 +29,10 @@ class Enemy {
     var enemySpawnRate = config[config.currentLevel]['enemySpawnRate'];
     this.enemyTimer = DontPanic.game.time.events.loop(Phaser.Timer.SECOND * enemySpawnRate, this.createEnemy, this);
     this.enemyTimer.timer.start();
+    this.timeBeforeAbduction = config[config.currentLevel]['enemyTimeBeforeAbduction'];
+    this.horizontalSpeed = config[config.currentLevel]['enemySpeedHorizontal'];
+    this.verticalSpeed = config[config.currentLevel]['enemySpeedVertical'];
+    this.abductDistance = config['enemyAbductDistance'];
   }
 
   createEnemy() {
@@ -45,13 +49,33 @@ class Enemy {
     enemy.abductCheck = false;
     enemy.abductSuccessful = false;
     enemy.positioned = false;
-    DontPanic.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.abduct, this, enemy);
+    console.log(DontPanic.enemy.timeBeforeAbduction);
+    DontPanic.game.time.events.add(Phaser.Timer.SECOND * DontPanic.enemy.timeBeforeAbduction, this.abduct, this, enemy);
     this.checkIfImprobabilityDriveSprite(enemy);
+  }
+
+  increaseEnemySpeed() {
+    if (DontPanic.enemy.timeBeforeAbduction > 1.5) {
+      DontPanic.enemy.timeBeforeAbduction -= config[config.currentLevel]['enemyDifficultyIncrease'] * 2;
+      console.log('time decreased', DontPanic.enemy.timeBeforeAbduction);
+    }
+    if (DontPanic.enemy.horizontalSpeed < 2) {
+      DontPanic.enemy.horizontalSpeed += config[config.currentLevel]['enemyDifficultyIncrease'];
+      console.log('horizontalSpeed increased', DontPanic.enemy.horizontalSpeed);
+    }
+    if (DontPanic.enemy.verticalSpeed < 2.4) {
+      DontPanic.enemy.verticalSpeed += config[config.currentLevel]['enemyDifficultyIncrease'];
+      console.log('verticalSpeed increased', DontPanic.enemy.verticalSpeed);
+
+    }
+    if (DontPanic.currentDistance > 500 && DontPanic.enemy.abductDistance > 220) {
+      DontPanic.enemy.abductDistance -= config[config.currentLevel]['enemyDifficultyIncrease'] * 2;
+    }
   }
 
   checkIfImprobabilityDriveSprite(enemy) {
     if (DontPanic.improbabilityDriveTriggered) {
-      enemy.loadTexture(improbabilityScenarioAssets[DontPanic.improbabilityDrive.currentScenario].enemy, 0);
+    enemy.loadTexture(improbabilityScenarioAssets[DontPanic.improbabilityDrive.currentScenario].enemy, 0);
       if (DontPanic.improbabilityDrive.currentScenario == 'reset') {
         DontPanic.improbabilityDriveTriggered = false;
       }
@@ -72,15 +96,16 @@ class Enemy {
 
   moveToPlayer(sprite) {
     if (sprite.x > DontPanic.player.playerSprite.x + 1) {
-      sprite.cameraOffset.x -= config[config.currentLevel]['enemySpeedHorizontal'];
+      sprite.cameraOffset.x -= DontPanic.enemy.horizontalSpeed;
+
     } else if (sprite.x < DontPanic.player.playerSprite.x - 1){
-      sprite.cameraOffset.x += config[config.currentLevel]['enemySpeedHorizontal'];
+      sprite.cameraOffset.x += DontPanic.enemy.horizontalSpeed;
     }
   }
 
   descend(sprite) {
-    if (sprite.y < (DontPanic.player.playerSprite.y - 255)) {
-      sprite.cameraOffset.y += config[config.currentLevel]['enemySpeedVertical'];
+    if (sprite.y < (DontPanic.player.playerSprite.y - DontPanic.enemy.abductDistance)) {
+      sprite.cameraOffset.y += DontPanic.enemy.verticalSpeed;
     }
     else {
       sprite.positioned = true;
@@ -89,13 +114,14 @@ class Enemy {
 
   leaveScreen(sprite) {
     if (sprite.x < DontPanic.player.playerSprite.x) {
-      sprite.cameraOffset.x -= config[config.currentLevel]['enemySpeedHorizontal'];
+      sprite.cameraOffset.x -= DontPanic.enemy.horizontalSpeed;
     } else {
-      sprite.cameraOffset.x += config[config.currentLevel]['enemySpeedHorizontal'];
+      sprite.cameraOffset.x += DontPanic.enemy.horizontalSpeed;
     }
   }
 
   abduct(sprite) {
+    console.log('abduct called');
     if (!sprite.abductCheck) {
       DontPanic.enemy.abductionSoundFail.play();
       sprite.animations.play('abduct', 20, false);
