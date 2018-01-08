@@ -1,5 +1,4 @@
 let DontPanic = {};
-DontPanic.coinTotal = localStorage['coinTotal'] || '0';
 DontPanic.currentDistance;
 DontPanic.bestDistance = localStorage['bestDistance'] || '0';
 DontPanic.improbabilityDriveTriggered = false;
@@ -863,6 +862,7 @@ class LivesScore {
 
 class CoinScore {
   constructor() {
+    DontPanic.coinTotal = '0';
     this.coinTotalText = createScoreText(DontPanic.game.world.centerX, `Total Coins: ${DontPanic.coinTotal}`);
   }
 

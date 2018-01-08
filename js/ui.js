@@ -76,6 +76,7 @@ class LivesScore {
 
 class CoinScore {
   constructor() {
+    DontPanic.coinTotal = '0';
     this.coinTotalText = createScoreText(DontPanic.game.world.centerX, `Total Coins: ${DontPanic.coinTotal}`);
   }
 

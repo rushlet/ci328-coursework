@@ -1,5 +1,4 @@
 let DontPanic = {};
-DontPanic.coinTotal = localStorage['coinTotal'] || '0';
 DontPanic.currentDistance;
 DontPanic.bestDistance = localStorage['bestDistance'] || '0';
 DontPanic.improbabilityDriveTriggered = false;
