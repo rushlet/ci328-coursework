@@ -102,13 +102,13 @@ function loadImprobabilityDriveImages() {
   DontPanic.game.load.image('whale', 'assets/iid/whale.png');
   DontPanic.game.load.image('petunias', 'assets/iid/flowers.png');
   DontPanic.game.load.image('IID_background2', 'assets/iid/iid_bg2.png');
-  DontPanic.game.load.spritesheet('IID_enemy2', 'assets/iid/iid_enemy2.png', 440, 1140);
+  DontPanic.game.load.spritesheet('IID_enemy2', 'assets/iid/iid_enemy3.png', 440, 1140);
   DontPanic.game.load.spritesheet('IID_player2', 'assets/iid/iid_player2.png', 115, 175);
   DontPanic.game.load.image('IID_coin2', 'assets/iid/iid_coin1.png');
   DontPanic.game.load.image('IID_background3', 'assets/iid/iid_bg1.png');
   DontPanic.game.load.spritesheet('IID_enemy3', 'assets/iid/iid_enemy.png', 440, 1140);
   DontPanic.game.load.spritesheet('IID_player3', 'assets/iid/iid_player3.png', 115, 175);
-  DontPanic.game.load.image('IID_coin3', 'assets/iid/coin.png');
+  DontPanic.game.load.image('IID_coin3', 'assets/iid/diamond.png');
 }
 
 function loadAudio() {
