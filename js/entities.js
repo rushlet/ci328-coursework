@@ -33,6 +33,7 @@ class Enemy {
     this.horizontalSpeed = config[config.currentLevel]['enemySpeedHorizontal'];
     this.verticalSpeed = config[config.currentLevel]['enemySpeedVertical'];
     this.abductDistance = config['enemyAbductDistance'];
+    this.difficultyIncreaseCount = 0;
   }
 
   createEnemy() {
@@ -54,6 +55,7 @@ class Enemy {
   }
 
   increaseEnemySpeed() {
+    DontPanic.enemy.difficultyIncreaseCount++;
     if (DontPanic.enemy.timeBeforeAbduction > 1.5) {
       DontPanic.enemy.timeBeforeAbduction -= config[config.currentLevel]['enemyDifficultyIncrease'] * 2;
     }
@@ -63,7 +65,7 @@ class Enemy {
     if (DontPanic.enemy.verticalSpeed < 2.4) {
       DontPanic.enemy.verticalSpeed += config[config.currentLevel]['enemyDifficultyIncrease'];
     }
-    if (DontPanic.currentDistance > 500 && DontPanic.enemy.abductDistance > 220) {
+    if (DontPanic.enemy.difficultyIncreaseCount >= 5 && DontPanic.enemy.abductDistance > 220) {
       DontPanic.enemy.abductDistance -= config[config.currentLevel]['enemyDifficultyIncrease'] * 2;
     }
   }

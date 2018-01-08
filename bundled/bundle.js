@@ -38,6 +38,9 @@ function update() {
 }
 
 function startGame() {
+  if (DontPanic.settingsText) {
+    DontPanic.settingsText.kill();
+  }
   DontPanic.game.world.removeAll();
   DontPanic.game.paused = false;
   DontPanic.gameStarted = true;
@@ -131,6 +134,7 @@ const config = {
     enemySpeedHorizontal: 1,
     enemySpeedVertical: 1.5,
     enemyDifficultyIncrease: 0.15,
+    enemyDifficultyIncreaseInterval: 100,
     lifeSpawnRate: 0.5,
     whaleDelay: 50,
     petuniaSpeed: 60,
@@ -140,13 +144,14 @@ const config = {
     extraLifeSpawnRate: 4,
   },
   hard: {
-    coinSpawnRate: 0.8,
+    coinSpawnRate: 0.7,
     coinInitialPositions: [[300, 0], [110, 80], [180, 100], [200, 200], [800, 120], [240, 300], [50, 10], [150, 20]],
     enemySpawnRate: 2,
     enemyTimeBeforeAbduction: 3,
     enemySpeedHorizontal: 1.5,
     enemySpeedVertical: 2,
-    enemyDifficultyIncrease: 0.25,
+    enemyDifficultyIncrease: 0.2,
+    enemyDifficultyIncreaseInterval: 75,
     whaleDelay: 100,
     petuniaSpeed: 120,
     lifeSpawnRate: 0.3,
@@ -205,6 +210,7 @@ class Enemy {
     this.horizontalSpeed = config[config.currentLevel]['enemySpeedHorizontal'];
     this.verticalSpeed = config[config.currentLevel]['enemySpeedVertical'];
     this.abductDistance = config['enemyAbductDistance'];
+    this.difficultyIncreaseCount = 0;
   }
 
   createEnemy() {
@@ -226,6 +232,7 @@ class Enemy {
   }
 
   increaseEnemySpeed() {
+    DontPanic.enemy.difficultyIncreaseCount++;
     if (DontPanic.enemy.timeBeforeAbduction > 1.5) {
       DontPanic.enemy.timeBeforeAbduction -= config[config.currentLevel]['enemyDifficultyIncrease'] * 2;
     }
@@ -235,7 +242,7 @@ class Enemy {
     if (DontPanic.enemy.verticalSpeed < 2.4) {
       DontPanic.enemy.verticalSpeed += config[config.currentLevel]['enemyDifficultyIncrease'];
     }
-    if (DontPanic.currentDistance > 500 && DontPanic.enemy.abductDistance > 220) {
+    if (DontPanic.enemy.difficultyIncreaseCount >= 5 && DontPanic.enemy.abductDistance > 220) {
       DontPanic.enemy.abductDistance -= config[config.currentLevel]['enemyDifficultyIncrease'] * 2;
     }
   }
@@ -592,7 +599,7 @@ function mainMenu() {
 function settingsMenu() {
     DontPanic.game.world.removeAll();
     DontPanic.game.add.image(0, 0, 'background1');
-    settingsText = DontPanic.game.add.group();
+    DontPanic.settingsText = DontPanic.game.add.group();
 
     const currentSettings = getCurrentSettings();
 
@@ -615,9 +622,9 @@ function settingsMenu() {
 
     addText(DontPanic.game.world.centerX, 550, "Play", config.style.fontSize_default, true, "play");
 
-    settingsText.add(settingsText__difficulty);
-    settingsText.add(settingsText__sound);
-    settingsText.add(settingsText__colour);
+    DontPanic.settingsText.add(settingsText__difficulty);
+    DontPanic.settingsText.add(settingsText__sound);
+    DontPanic.settingsText.add(settingsText__colour);
 }
 
 function addText(x, y, string, size, clickevent, category, selected) {
@@ -653,7 +660,7 @@ function addCategorySpecifics(textOb, category) {
       textOb.events.onInputDown.add(colourListener, this);
       break;
     case "play":
-      settingsText.add(textOb);
+      DontPanic.settingsText.add(textOb);
       textOb.events.onInputDown.add(startGame, this);
       break;
     default: ;
@@ -876,7 +883,7 @@ class DistanceScore {
   distanceIncrease() {
     DontPanic.currentDistance++;
     this.distanceReachedText.setText(`Distance: ${DontPanic.currentDistance}`);
-    if (DontPanic.currentDistance % 100 == 0) {
+    if (DontPanic.currentDistance % config[config.currentLevel]['enemyDifficultyIncreaseInterval'] == 0) {
       DontPanic.enemy.increaseEnemySpeed();
     }
   }
