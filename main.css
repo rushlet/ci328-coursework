@@ -72,15 +72,12 @@ canvas {
   }
 }
 
-/* desktop */
-@media (hover: hover) {
-  .mobile {
-    display: none;
-  }
+.mobile {
+  display: none;
+}
 
-  .desktop {
-    display: block;
-  }
+.desktop {
+  display: block;
 }
 
 /* touchscreen */
